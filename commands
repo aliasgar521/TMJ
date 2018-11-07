@@ -1,0 +1,1 @@
+create table Supplier(id INT NOT NULL PRIMARY KEY AUTO_INCREMENT, supplier_name varchar(100), location varchar(100));

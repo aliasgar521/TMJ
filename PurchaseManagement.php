@@ -1,0 +1,311 @@
+<?php
+include "db.php";
+?>
+<!DOCTYPE html>
+<html>
+    <head>
+
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+       
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+        <script src="js/addProduct.js" type="text/javascript"></script>
+
+
+        <title>T.M. Jivaji</title>
+
+        <!-- Bootstrap CSS CDN -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <!-- Our Custom CSS -->
+        <link rel="stylesheet" href="style3.css">
+        <!-- Scrollbar Custom CSS -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css">
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.css" rel="stylesheet" />
+
+        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+        <!-- BELOW THREE LINKS ARE FOR AUTOCOMPLETE FUNCTION. DONT TOUCH -->
+        <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+<!-- COMMENTED BELOW MIN.JS -->
+<!-- <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script> -->
+
+<!-- Isolated Version of Bootstrap, not needed if your site already uses Bootstrap -->
+<link rel="stylesheet" href="https://formden.com/static/cdn/bootstrap-iso.css" />
+
+<!-- Bootstrap Date-Picker Plugin -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css"/>
+        
+<!-- Link for FONT AWESOME Icons -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <script>
+        $(function() {
+            $("#purc_item_name").autocomplete({
+            source: "search.php",
+            });
+        });
+        </script>
+        <style type="text/css">
+
+
+.icon{
+  padding-left: 10px;
+  margin-right: 20px;
+}
+
+            .center_div{
+            margin: 0 auto;
+            width:90% /* value of your choice which suits your alignment */
+            }
+            @media (max-width: @screen-xs) {
+                body{font-size: 10px;}
+            }
+
+            @media (max-width: @screen-sm) {
+                body{font-size: 14px;}
+            }
+            .rcorners3 {
+                border-radius: 25px;
+                background: url(paper.gif);
+                background-position: left top;
+                background-repeat: repeat;
+                padding: 20px;
+                margin-top:20px; 
+               /* width: 200px;
+                height: 150px; */
+
+            }
+
+
+        </style>
+    </head>
+    <body style="background: #F5F5F5">
+
+        <div class="wrapper">
+            <!-- Sidebar Holder -->
+            <nav id="sidebar">
+                <div id="dismiss">
+                    <i class="glyphicon glyphicon-arrow-left"></i>
+                </div>
+
+                <div class="sidebar-header">
+                    <h3>TMJivaji & Sons</h3>
+                </div>
+
+                <ul class="list-unstyled components">
+                    <!--<li class="active">
+                        <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false">Home</a>
+                        <ul class="collapse list-unstyled" id="homeSubmenu">
+                            <li><a href="#">Home 1</a></li>
+                            <li><a href="#">Home 2</a></li>
+                            <li><a href="#">Home 3</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#">About</a>
+                        <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false">Pages</a>
+                        <ul class="collapse list-unstyled" id="pageSubmenu">
+                            <li><a href="#">Page 1</a></li>
+                            <li><a href="#">Page 2</a></li>
+                            <li><a href="#">Page 3</a></li>
+                        </ul>
+                    </li>-->
+                    <li>
+                        <a href="index.php">Inventory Management</a>
+                    </li>
+                    <li>
+                        <a href="DailySales.php">Daily Sales</a>
+                    </li>
+                    <li>
+                        <a href="PurchaseManagement.php">Purchase Management</a>
+                    </li>
+                    <li>
+                        <a href="Report.php">Generate Report</a>
+                    </li>
+                </ul>
+
+                <!--<ul class="list-unstyled CTAs">
+                    <li><a href="https://bootstrapious.com/tutorial/files/sidebar.zip" class="download">Download source</a></li>
+                    <li><a href="https://bootstrapious.com/p/bootstrap-sidebar" class="article">Back to article</a></li>
+                </ul>-->
+            </nav>
+
+            <!-- Page Content Holder -->
+            <div id="content" style="background: #FFF">
+
+                <nav class="navbar navbar-default" style="background: #42A5F5"> <!--#B2EBF2-->
+                    <div class="container-fluid">
+
+                        <div class="navbar-header">
+                            <button type="button" id="sidebarCollapse" class="btn btn-info navbar-btn">
+                                <i class="glyphicon glyphicon-align-left"></i>
+                                <!-- <span>Open Sidebar</span> -->
+                                <span></span>
+                            </button>
+                        </div>
+
+                        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                            <h3 style="text-align: center; color: white">
+                                Tayyebali M. Jivaji & Sons
+                            </h3>
+                            
+                        </div>
+
+                    </div>
+
+                </nav>
+                  <h3 style="text-align: center">
+                    Purchase Management
+                 </h3>
+                
+
+
+                <div class="container center_div rcorners3"  style="background: #E0E0E0; margin-bottom: 5%">
+                    <div class="row">
+                        <!-- <div class="col-md-4 col-md-offset-4"> -->
+                       
+                <form id="PurchaseForm"  action="purchaseform.php" method="post" style="padding: 20px" onsubmit="return validateForm()">
+                    Invoice Number:<br>
+                    <input type="number" name="invoice" id="invoice" min="0" required="required">
+                    <br>
+                    Date of Purchase:<br>
+                    <input type="date"  name="date_of_purchase" id="date_of_purchase" required="required" >
+                    <br>
+                    Purchase made by:<br>
+                    <!-- <input type="text" name="purc_person"  id="purc_person" required="required"> -->
+                    <select type="text" name="purc_person" id="purc_person" >
+                        <option value="Fakhruddin">Fakhruddin</option>
+                        <option value="Tasnim">Tasnim</option>
+                        <option value="Humayun">Humayun</option>
+                        <option value="Dawood">Dawood</option>
+                    </select>
+                    <br>
+                    Supplier: <br>
+                    <select name="supplier" id="supplier" type="text" required="required">
+                    <?php
+                    $connection=connect_db();
+                    $sql = mysqli_query($connection, "SELECT id,supplier_name,location FROM Supplier order by supplier_name ASC");
+                    while ($row = $sql->fetch_assoc()){
+                        echo "<option value=".$row['id']."><column>" . $row['supplier_name'] . "</column> - <column>". $row['location'] ."</column></option>";
+                    } 
+                    ?>
+                    </select><br>
+                    Payment form:<br>
+                    <input type="radio" name="payment" value="cash"/> Cash<br>
+                    <input type="radio" name="payment" value="credit"/> Credit<br>
+                    Total Payable Amount:<br>
+                    <input type="number" name="payable" id="payable" required="required"><br><br>
+                    <div id='theForm'></div>
+                    <br>
+                    
+                    
+                    <!-- <button type="button" class="btn btn-default btn-sm">
+                    <span class="glyphicon glyphicon-plus-sign"></span> Plus
+                    </button> -->
+                    <input type="submit" class = "btn btn-success btn-lg" name="submit" style="width:48%;" value="Submit" id="submit" >  
+
+                    <button id='theButton' class = "btn btn-primary btn-lg" style="width:48%;float:right" type='button' style=''>
+                        <i class="fa fa-plus icon" aria-hidden="true"> Add Product</i>
+                    </button>
+                    <input id='hideme'  name='hideme'  type='hidden'/>
+                    <input id='hideme2'  value='' name='rec' type='hidden'/>
+                    <br>
+                    <!-- Item Name:<br>
+                    <input type="text" name="purc_item_name" id="purc_item_name" style="width:40%">
+                    <br>
+                    Quantity purchase:<br>
+                    <input type="number" name="stock_bought" id="stock_bought">
+                    <br>
+                   
+                    
+                    Cost Price:<br>
+                    <input type="number" name="cost_price" id="cost_price" placeholder="Enter CP of single Pc.">
+                    <br>
+                    Selling Price: <br>
+                    <input type="number" name="sell_price" id="sell_price">
+                    <br>
+                    Description:<br>
+                    <input type="text" name="description" id="description" style="width:40%">
+                    <br>
+                    Cabinet Number:<br>
+                    <input type="number" name="cabinet" id="cabinet" >
+                    <br>
+                   
+                    Tags:<br>
+                    <input type="text" name="tags" id="tags" style="width:40%">
+                    <br>
+                     -->
+                   <br>
+                    <!-- TOTAL PAYABLE AMOUNT FIELD NEEDED? -->
+                    
+                    
+                </form> 
+            </div>
+            <!-- </div> -->
+            </div>
+            </div>
+        </div>
+
+
+
+        <div class="overlay"></div>
+
+
+        <!-- jQuery CDN -->
+        <!-- COMMENTED BEOW MIN.JS -->
+        <!-- <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script> -->
+        <!-- Bootstrap Js CDN -->
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <!-- jQuery Custom Scroller CDN -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>
+
+     <!--    <script type="text/javascript">  
+        $(document).ready(function() {  
+            $("#theButton").on("click", function() {  
+                $("#theForm").append("<div><br><input type='text'/><br></div>");  
+            });  
+        })
+        </script> -->
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $("#sidebar").mCustomScrollbar({
+                    theme: "minimal"
+                });
+
+                $('#dismiss, .overlay').on('click', function () {
+                    $('#sidebar').removeClass('active');
+                    $('.overlay').fadeOut();
+                });
+
+                $('#sidebarCollapse').on('click', function () {
+                    $('#sidebar').addClass('active');
+                    $('.overlay').fadeIn();
+                    $('.collapse.in').toggleClass('in');
+                    $('a[aria-expanded=true]').attr('aria-expanded', 'false');
+                });
+            });
+        </script>
+
+        <!-- Below script does not work since id does not match(probably) -->
+        <script type="text/javascript">
+            function validateForm() {
+            var cp = document.forms["PurchaseForm"]["cost_price"].value;
+            var sp = document.forms["PurchaseForm"]["sell_price"].value;
+
+
+            if (cp > sp) {
+                swal({
+                    title: "Error!",
+                    text: "Cost price is more than Selling Price!",
+                    icon: "error",
+                    button: "Ok!",
+                });
+            
+            return false;
+                }
+            }
+        </script>
+    </body>
+</html>
