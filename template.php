@@ -1,8 +1,3 @@
-<!-- <!DOCTYPE html>
-<html>
-    <h3>You are not allowed to visit this site</h3>
-    <br/>Click here to <a href='Login/login.php'>Login</a></div>;
-</html> -->
 <?php
 session_start();
 include "db.php";
@@ -100,11 +95,6 @@ if((!isset($_SESSION['username']) && $_SESSION['role'] != "admin")){
                     </div>
 
                 </nav>
-
-                <h3>You are not allowed to visit this site</h3>
-    <br/>Click here to <a href='Login/login.php'>Login</a></div>;
-    
-
             </div>
         </div>
 

@@ -1,17 +1,25 @@
-<!-- PLEASE INCLUDE DB.PHP AFTER TESTING -->
-
-
-<!-- <?php
-//include "db.php";
-?> -->
+<?php
+session_start();
+include "db.php";
+// if((!isset($_SESSION["username"]) && !isset($_SESSION["role"]=="admin")))
+if((!isset($_SESSION['username']) && $_SESSION['role'] != "admin")){
+   
+    header("location: Login/login.php");
+}
+else if((isset($_SESSION['username']) && $_SESSION['role'] == "worker"))
+{
+    header("location: test.php");   
+}
+?>
 <!DOCTYPE html>
 <html>
     <head>
+
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-        <title>Collapsible sidebar using Bootstrap 3</title>
+        <title>T.M. Jivaji & Sons</title>
 
         <!-- Bootstrap CSS CDN -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -19,18 +27,34 @@
         <link rel="stylesheet" href="style3.css">
         <!-- Scrollbar Custom CSS -->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css">
+
+        <!-- Used to make the drop down list better looking -->
         <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
-              
+
+
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.css" rel="stylesheet" />
+
+        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+        <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> -->
+
+<!-- <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script> -->
+
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
 
-        <script>
+        <!-- Isolated Version of Bootstrap, not needed if your site already uses Bootstrap -->
+        <link rel="stylesheet" href="https://formden.com/static/cdn/bootstrap-iso.css" />
+
+
+		<script>
+      
         $(function() {
-            $("#skill_input").autocomplete({
+            $("input.product_input").autocomplete({
             source: "search.php",
             });
         });
         </script>
+        
 
         <style type="text/css">
             .center_div{
@@ -46,7 +70,27 @@
             }
 
         </style>
-    </head>
+        <style>
+			table {
+			        font-family: arial, sans-serif;
+			        border-collapse: collapse;
+			        width: 100%;
+			        border-radius:10px;
+			        margin-bottom: 5%;
+
+			}
+			td, th {
+			        /*border: 1px solid #dddddd;*/
+			        text-align: center;
+			        padding: 8px;
+			}
+			tr:nth-child(odd) {
+			        background-color: #dddddd;
+			}
+		</style>
+
+
+</head>
     <body style="background: #F5F5F5">
 
 
@@ -62,7 +106,7 @@
                 </div>
 
                 <ul class="list-unstyled components">
-                    
+                 
                     <li>
                         <a href="index.php">Inventory Management</a>
                     </li>
@@ -70,17 +114,17 @@
                         <a href="DailySales.php">Daily Sales</a>
                     </li>
                     <li>
-                        <a href="PurchaseManagement.html">Purchase Management</a>
+                        <a href="PurchaseManagement.php">Purchase Management</a>
                     </li>
                     <li>
-                        <a href="Report.html">Generate Report</a>
+                        <a href="PurchaseReport.php">Generate Purchase Report</a>
+                    </li>
+                    <li>
+                        <a href="Report.html">Generate General Report</a>
                     </li>
                 </ul>
-
-             
             </nav>
 
-            <!-- Page Content Holder -->
             <div id="content" style="background: #FFF">
 
                 <nav class="navbar navbar-default" style="background: #42A5F5"> <!--#B2EBF2-->
@@ -97,61 +141,79 @@
                         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                             <h3 style="text-align: center; color: white">
                                 Tayyebali M. Jivaji & Sons
+                                <a href="Login/logout.php" style="float:right">Logout</a>
                             </h3>
-                            <!--<ul class="nav navbar-nav navbar-right">
-                                <li><a href="#">Page</a></li>
-                                <li><a href="#">Page</a></li>
-                                <li><a href="#">Page</a></li>
-                                <li><a href="#">Page</a></li>
-                            </ul>-->
-                            
                         </div>
 
                     </div>
 
                 </nav>
-                  <h3 style="text-align: center">
-                    Daily Sales
-                    </h3>
+
+                 <div class="container center_div">
+
+                	<form id="product" method="get" action="#"> 
                 
-                <div class="container center_div" style="background: #E0E0E0">
-                    <div class="row">
+                        Enter Product: 
+                        <input type="text" name="product_input" id="product_input" class="product_input"/>    
+                        <input type="submit" class="btn btn-primary" name="submit" style="margin:20px" value="Generate Specific Product Purchase Report!">
+                        
+                    </form>
+                    <?php 
+                        if(isset($_GET['submit']))
+                        {
+                            $product=htmlentities($_GET['product_input']);
+                            $message = "Success! You entered: ".$product;
+                            display($product);
+                        } 
+                    ?>
+                    <?php 
+
+                        function display(string $product){
+                        $connection=connect_db();
+                        // $sql="SELECT pro_name,quantity,supplier_name,cost_price,purchase_date from invandpro join Invoice on Invoice.id = invandpro.invoice_id join Supplier on Invoice.supplier_id=Supplier.id where pro_name = '$product'";
+                        $sql="SELECT item_name,stock_amt,sell_price from Inventory where item_name = '$product'";
 
 
-                         <div class="auto-widget">
-                         <p>Your Skills: <input type="text" id="skill_input"/></p>
-                        </div>
-                       
-                   </div>
-                </div>
+                        $result = mysqli_query($connection,$sql);
+                        if(mysqli_num_rows($result)){
+                            // echo '<h2>Report of Product <u>';
+                                     // echo $product; 
+                                     // echo'</u></h2>';
+                                     echo '<table>
+                                    <tr  style="background:#428bca;color:white" >
+                                        <th>Product</th>
+                                        <th>Selling Price</th>
+                                        <th>Quantity</th>
+                                        
+                                        
+                                    </tr>';
+                                while($row = $result->fetch_assoc()){
+                                    $time=$row["purchase_date"];
+                                    $time1= date("d-m-Y ", substr("$time", 0, 10));
+
+                                    // echo "<tr><td>".$time1."</td><td>".$row["supplier_name"]."</td><td>".$row["pro_name"]."</td><td>".$row["cost_price"]."</td><td>".$row["quantity"]."</td></tr>";
+                                    echo "<tr><td>".$row["item_name"]."</td><td contenteditable='true'>".$row["sell_price"]."</td><td contenteditable='true'>".$row["stock_amt"]."</td></tr>";
+
+                                }
+                                echo "</table>";
+                            }
+                            else
+                                echo "<br><br><h1>No results found</h1>";
+                        }
+                        ?>
+
+
             </div>
-            </div>
-        
-
-
+        </div>
 
         <div class="overlay"></div>
-
-
-        <!-- jQuery CDN -->
+         <!-- jQuery CDN -->
         <!-- <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script> -->
         <!-- Bootstrap Js CDN -->
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
         <!-- jQuery Custom Scroller CDN -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>
 
-        
-<!-- <script type="text/javascript">
-    $(function() {
-    $("#skill_input").autocomplete({
-        source: "search.php",
-        select: function( event, ui ) {
-            event.preventDefault();
-            $("#skill_input").val(ui.item.id);
-        }
-    });
-});
-</script> -->
         <script type="text/javascript">
             $(document).ready(function () {
                 $("#sidebar").mCustomScrollbar({

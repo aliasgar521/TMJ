@@ -1,5 +1,11 @@
 <?php
+session_start();
 include "db.php";
+// if((!isset($_SESSION["username"]) && !isset($_SESSION["role"]=="admin")))
+if((!isset($_SESSION['username']) && $_SESSION['role'] != "admin")){
+   
+    header("location: Login/login.php");
+}
 ?>
 <!DOCTYPE html>
 <html>
@@ -9,7 +15,7 @@ include "db.php";
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-        <title>T.M. Jivaji</title>
+        <title>T.M. Jivaji & Sons</title>
 
         <!-- Bootstrap CSS CDN -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -88,7 +94,10 @@ include "db.php";
                         <a href="PurchaseManagement.php">Purchase Management</a>
                     </li>
                     <li>
-                        <a href="Report.html">Generate Report</a>
+                        <a href="PurchaseReport.php">Generate Purchase Report</a>
+                    </li>
+                    <li>
+                        <a href="Report.html">Generate General Report</a>
                     </li>
                 </ul>
 
@@ -115,6 +124,7 @@ include "db.php";
                         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                             <h3 style="text-align: center; color: white">
                                 Tayyebali M. Jivaji & Sons
+                                <a href="Login/logout.php" style="float:right">Logout</a>
                             </h3>
                             <!--<ul class="nav navbar-nav navbar-right">
                                 <li><a href="#">Page</a></li>

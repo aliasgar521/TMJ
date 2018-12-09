@@ -1,6 +1,4 @@
-<?php
-include "db.php";
-?>
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -14,7 +12,8 @@ include "db.php";
         <!-- Bootstrap CSS CDN -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
         <!-- Our Custom CSS -->
-        <link rel="stylesheet" href="style3.css">
+        <link rel="stylesheet" href="../style3.css">
+        <link rel="stylesheet" href="register.css">
         <!-- Scrollbar Custom CSS -->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css">
         <link href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.css" rel="stylesheet" />
@@ -23,39 +22,14 @@ include "db.php";
 
 <!-- <link rel="stylesheet" href="bootstrap.min.css">
 <link rel="stylesheet" href="tcss.css"> -->
-
-		<style type="text/javascript">
-			#body-color{ 
-				background-color:#6699CC; 
-			} 
-			#Sign-In{ 
-				margin-top:150px; 
-				margin-bottom:150px; 
-				margin-right:150px; 
-				margin-left:450px; 
-				border:3px solid #a1a1a1; 
-				padding:9px 35px; 
-				background:#E0E0E0; 
-				width:400px; 
-				border-radius:20px; 
-				box-shadow: 7px 7px 6px; 
-			} 
-			#button{ 
-				border-radius:10px; 
-				width:100px; 
-				height:40px; 
-				background:#FF00FF; 
-				font-weight:bold; 
-				font-size:20px 
-			}
-
-
-		</style>
 </head>
 <body style="background: #F5F5F5">
 
+    
 
-        <div class="wrapper">
+
+
+    <div class="wrapper">
             <!-- Sidebar Holder -->
             <nav id="sidebar">
                 <div id="dismiss">
@@ -87,8 +61,6 @@ include "db.php";
                     <li><a href="https://bootstrapious.com/p/bootstrap-sidebar" class="article">Back to article</a></li>
                 </ul>-->
             </nav>
-
-            <!-- Page Content Holder -->
             <div id="content" style="background: #FFF">
 
                 <nav class="navbar navbar-default" style="background: #42A5F5"> <!--#B2EBF2-->
@@ -118,38 +90,88 @@ include "db.php";
                     </div>
 
                 </nav>
-                  <h3 style="text-align: center">
-                    Login
+               <!--    <h3 style="text-align: center">
+                    Registration
                  </h3>
+ -->
+            
+
+
+                <?php
+                    require('db.php');
+                    // If form submitted, insert values into the database.
+                    if (isset($_REQUEST['username'])){
+                    // removes backslashes
+                        $username = stripslashes($_REQUEST['username']);
+                        //escapes special characters in a string
+                        $username = mysqli_real_escape_string($con,$username); 
+                        $email = stripslashes($_REQUEST['email']);
+                        $email = mysqli_real_escape_string($con,$email);
+                        $password = stripslashes($_REQUEST['password']);
+                        $password = mysqli_real_escape_string($con,$password);
+                        $trn_date = date("Y-m-d H:i:s");
+                        $query = "INSERT into `users` (username, password, email, trn_date)
+                        VALUES ('$username', '".md5($password)."', '$email', '$trn_date')";
+                        $result = mysqli_query($con,$query);
+                        if($result){
+                            echo "<div class='form'>
+                            <h3>You are registered successfully.</h3>
+                            <br/><a href='login.php'>Click here to Login</a></div>";
+                        }           
+                    }
+                    else{
+
+                ?>
 
 
 
-		<div class="login-page">
-			<div class="col-lg-4 col-md-12 col-sm-12" >
-  				<div class="form">
+                <!-- <div class="form">
+                    <form name="registration" action="" method="post">
+                        <input type="text" name="username" placeholder="Username" required /><br>
+                        Email not reallly needed -->
+                        <!-- input type="email" name="email" placeholder="Email" required /><br>    
+                        <input type="password" name="password" placeholder="Password" required  /><br>
+                        <input type="submit" name="submit" value="Register" />
+                    </form>
+                </div> -->
+
+                 <!-- main container -->
+<main>
+  <!-- flex item -->
+    <div class="left">
+      <img src="https://images.unsplash.com/photo-1509310257498-b97f8488bf03?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=6faa5ed40dc7e9e828bd358799983c53&auto=format&fit=crop&w=500&q=80">
+      <h1>Sign up</h1>
+      <!-- <p>
+        Email
+      </p>
+      <p>
+        Password
+      </p> -->
+        <div class="form">
+            <form name="registration" action="" method="post">
+                <div class="rounded">
+                    <input type="text" name="username" placeholder="Username" required autocomplete="off" style="padding:6px;border-radius:30px;" /><br><br>
+                    <!-- Email not reallly needed -->
+                    <input type="email" name="email" placeholder="Email" required autocomplete="off" style="padding:6px;border-radius:30px;"/><br>   <br> 
+                    <input type="password" name="password" placeholder="Password" required  autocomplete="off" style="padding:6px;border-radius:30px;"/><br> <br>
+                    <input type="submit" class="btn btn-success btn-block" name="submit" value="Register" style=" margin:0 auto; border-radius:30px;" />
+                </div>
+            </form>
+        </div>
+    </div>
+  <!-- flex item -->
     
-    	<!--  <p id="demo" class= "dangers"></p>-->
-    			<div id="Sign-In">
-    				<fieldset style="width:30%">
-    					<legend>LOG-IN HERE</legend> 
-    					<form method="POST" action="connectivity.php"> User <br>
-    						<input type="text" name="user" size="40"><br> Password <br>
-    						<input type="password" name="pass" size="40"><br> 
-    						<input id="button" type="submit" name="submit" value="Log-In"> 
-    					</form> 
-    				</fieldset>
-    			</div>
+  </main>
 
-	    
 
-  				</div>
-			</div>
-		</div>
-	</div>
-	</div>
 
- <!-- jQuery CDN -->
-        <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
+
+                <?php } ?>
+            </div>
+        </div>
+
+
+         <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
         <!-- Bootstrap Js CDN -->
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
         <!-- jQuery Custom Scroller CDN -->
@@ -176,23 +198,6 @@ include "db.php";
         </script>
      
 
-        <script type="text/javascript">
-            function validateForm() {
-            var cp = document.forms["InventoryForm"]["cost_price"].value;
-            var sp = document.forms["InventoryForm"]["sell_price"].value;
 
-
-            if (cp > sp) {
-                swal({
-                    title: "Error!",
-                    text: "Cost price is more than Selling Price!",
-                    icon: "error",
-                    button: "Ok!",
-                });
-            
-            return false;
-                }
-            }
-        </script>
-</body>
-</HTML>
+    </body>
+</html>

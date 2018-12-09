@@ -1,5 +1,5 @@
 <?php
-include "db.php";
+include "../db.php";
 ?>
 <!DOCTYPE html>
 <html>
@@ -14,7 +14,7 @@ include "db.php";
         <!-- Bootstrap CSS CDN -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
         <!-- Our Custom CSS -->
-        <link rel="stylesheet" href="style3.css">
+        <link rel="stylesheet" href="../style3.css">
         <!-- Scrollbar Custom CSS -->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css">
         <link href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.css" rel="stylesheet" />
@@ -23,34 +23,6 @@ include "db.php";
 
 <!-- <link rel="stylesheet" href="bootstrap.min.css">
 <link rel="stylesheet" href="tcss.css"> -->
-
-		<style type="text/javascript">
-			#body-color{ 
-				background-color:#6699CC; 
-			} 
-			#Sign-In{ 
-				margin-top:150px; 
-				margin-bottom:150px; 
-				margin-right:150px; 
-				margin-left:450px; 
-				border:3px solid #a1a1a1; 
-				padding:9px 35px; 
-				background:#E0E0E0; 
-				width:400px; 
-				border-radius:20px; 
-				box-shadow: 7px 7px 6px; 
-			} 
-			#button{ 
-				border-radius:10px; 
-				width:100px; 
-				height:40px; 
-				background:#FF00FF; 
-				font-weight:bold; 
-				font-size:20px 
-			}
-
-
-		</style>
 </head>
 <body style="background: #F5F5F5">
 
@@ -129,17 +101,25 @@ include "db.php";
   				<div class="form">
     
     	<!--  <p id="demo" class= "dangers"></p>-->
-    			<div id="Sign-In">
-    				<fieldset style="width:30%">
-    					<legend>LOG-IN HERE</legend> 
-    					<form method="POST" action="connectivity.php"> User <br>
-    						<input type="text" name="user" size="40"><br> Password <br>
-    						<input type="password" name="pass" size="40"><br> 
-    						<input id="button" type="submit" name="submit" value="Log-In"> 
-    					</form> 
-    				</fieldset>
-    			</div>
+    	
+    				<div id=mydiv class="alert alert-danger" role="alert">   
+  						Invalid Username/Password
+  					</div>
 
+    				<form class="login-form" action='' method="POST">
+      					<input type="text" placeholder="Username" name="username"/>
+      					<input type="password" placeholder="Password" name="password"/>
+						<input type="submit" value="Sign in" name="submit" class="btn blue"/>	
+						<div>
+							<p class="message">Not registered? <a href="bootme.php">Create an account</a></p>
+						</div>
+						<div>
+							<p class="message" id="para"></p>
+						</div>
+						<div>
+							<input type="checkbox" name="autologin" value="1">Remember Me
+						</div>
+	  				</form>
 	    
 
   				</div>
@@ -196,3 +176,84 @@ include "db.php";
         </script>
 </body>
 </HTML>
+
+<?php
+// Start the session
+session_start();
+//var_dump($_POST)
+?>
+<?php
+
+//THIS IS COOL 
+$connection = mysqli_connect("localhost", "root", "95752468ali", "test1");
+$cookie_name="logmein";
+	// Check if the cookie exists
+if(isSet($_COOKIE[$cookie_name]))
+	{
+	echo "Cookies are enabled.";
+	parse_str($_COOKIE[$cookie_name]);
+
+	// Make a verification input $usr and $hash pass
+	$stmt = $connection->prepare('SELECT pass FROM login where name = ?');
+	$stmt->bind_param("s",$usr);
+	$result =$stmt->execute();
+	$qres=$stmt->get_result();
+	if($qres->num_rows>0){
+	while($data = $qres->fetch_assoc()){
+        if(strcmp($data["pass"],$hash)==0){
+		echo "Its COOKIE a match".'<br>';
+		$_SESSION["name"] =$usr;
+		setcookie ($cookie_name, 'usr='.$usr.'&hash='.$hash, time() + $cookie_time+3600);
+		header("Location: ../customize/index.php");
+		}
+	   }
+	}
+}
+
+
+
+
+
+if(isset($_POST["submit"])){
+//print_r($_POST);
+$unsafepass = $_POST["password"];
+$unsafename = $_POST["username"];
+$post_autologin = $_POST['autologin'];
+	$unsafepass= sha1($unsafepass);
+	//$stmt = $connection->prepare('INSERT INTO login(pass,uname)VALUES (?,?)');
+	$stmt = $connection->prepare('SELECT pass FROM login where name = ?');
+	$stmt->bind_param("s",$unsafename);
+	$result =$stmt->execute();
+	//$stmt->store_result();
+	$qres=$stmt->get_result();
+	//$stmt->bind_result($qres);
+	//echo $unsafepass;
+	//var_dump($qres);
+	$flag=0;
+	if($qres->num_rows>0){
+	while($data = $qres->fetch_assoc()){
+        	echo 'HASH:' .$data["pass"].'<br><br>';
+		echo $unsafepass.'<br>' ;		
+		if(strcmp($data["pass"],$unsafepass)==0){
+		$flag=1;
+		echo "Its a match";
+		$_SESSION["name"] =$unsafename;
+			if($post_autologin == 1)
+			{
+			echo "Cookies set".'<br>';
+			setcookie ($cookie_name, 'usr='.$unsafename.'&hash='.$unsafepass, time() + 3600);
+			}
+		header("Location: ../customize/index.php");
+		}
+	   }
+	}
+	if($flag==0){
+	//unsuccessful attempt
+//echo '<script type="text/javascript">', ' document.getElementById('para').innerHTML = "You pressed button 1";','</script>';
+echo 'before call';
+echo '<script>','jsfunction();','</script>';
+echo 'after call';
+	}
+	$stmt->close();
+}       $connection->close()
+?>

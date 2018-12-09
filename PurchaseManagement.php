@@ -1,5 +1,19 @@
 <?php
+session_start();
 include "db.php";
+// if((!isset($_SESSION["username"]) && !isset($_SESSION["role"]=="admin")))
+if((!isset($_SESSION['username']) && $_SESSION['role'] != "admin")){
+   
+    header("location: Login/login.php");
+}
+else if((isset($_SESSION['username']) && $_SESSION['role'] == "worker"))
+{
+    header("location: test.php");   
+}
+// else
+//     {
+//         header("location: Login/login.php");
+//     }   
 ?>
 <!DOCTYPE html>
 <html>
@@ -10,7 +24,7 @@ include "db.php";
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
        
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-        <script src="js/addProduct.js" type="text/javascript"></script>
+        <!-- <script src="js/addProduct.js" type="text/javascript"></script> -->
 
 
         <title>T.M. Jivaji</title>
@@ -40,9 +54,51 @@ include "db.php";
         
 <!-- Link for FONT AWESOME Icons -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        
+
+
+        <script>
+
+            jQuery(function($) {
+  var i = 0;
+  //var j=new array();
+  $('#theButton').click(addAnotherTextBox);
+  function addAnotherTextBox() {
+    $("#theForm").append("<div class='rcorners3' style='background: #C0C0C0; padding:2%';>\
+                            <b><h3>Product number "+ (i+1) + "</h3></b><br>\
+                            Item Name:<br>\
+                                <input type='text' class='product_name' name='purc_item_name"+ i +"' id='purc_item_name'  style='width:40%' required='required' autocomplete='off'><br>\
+                            Quantity purchase:<br>\
+                                <input type='number' min='0'  name='purchase_quantity"+ i +"' id='stock_bought' style='width:40%' required='required''><br>\
+                            Cost Price (in BD) :<br>\
+                                <input type='number' min='0' style='width:40%' name='cost_price"+ i +"' id='cost_price' placeholder='Enter Cost price of single Pc.' required='required' ><br>\
+                            Selling Price (in BD) : <br>\
+                                <input type='number' min='0' name='sell_price"+ i +"' id='sell_price' style='width:40%' placeholder='Enter Selling price of single Pc.' required='required''><br>\
+                            Description:<br>\
+                                <input type='text' name='description"+ i +"' id='description' style='width:40%'><br>\
+                            Cabinet Number:<br>\
+                                <input type='number' name='cabinet"+ i +"' id='cabinet' style='width:40%'' ><br>\
+                            Tags:<br>\
+                                <input type='text' name='tags"+ i +"' id='tags' style='width:40%'><br>\
+                            \
+                            </div>");
+    i++;
+    $("#hideme").val(i);
+
+   }
+
+   $("#theForm").on("keydown","input.product_name",function(){
+            $(this).autocomplete({
+            source: "search.php",
+            });
+        });
+});
+
+   
+        </script>
         <script>
         $(function() {
-            $("#purc_item_name").autocomplete({
+            $("input.product_name").autocomplete({
             source: "search.php",
             });
         });
@@ -122,7 +178,10 @@ include "db.php";
                         <a href="PurchaseManagement.php">Purchase Management</a>
                     </li>
                     <li>
-                        <a href="Report.php">Generate Report</a>
+                        <a href="PurchaseReport.php">Generate Purchase Report</a>
+                    </li>
+                    <li>
+                        <a href="Report.html">Generate General Report</a>
                     </li>
                 </ul>
 
@@ -149,11 +208,13 @@ include "db.php";
                         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                             <h3 style="text-align: center; color: white">
                                 Tayyebali M. Jivaji & Sons
+                                <a href="Login/logout.php" style="float:right">Logout</a>
                             </h3>
-                            
+
                         </div>
 
                     </div>
+
 
                 </nav>
                   <h3 style="text-align: center">
@@ -197,6 +258,12 @@ include "db.php";
                     <input type="radio" name="payment" value="credit"/> Credit<br>
                     Total Payable Amount:<br>
                     <input type="number" name="payable" id="payable" required="required"><br><br>
+                    
+                    
+
+
+
+
                     <div id='theForm'></div>
                     <br>
                     

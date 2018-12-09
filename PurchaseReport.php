@@ -1,7 +1,15 @@
 <?php
-// include "db.php";
+session_start();
 include "db.php";
-
+// if((!isset($_SESSION["username"]) && !isset($_SESSION["role"]=="admin")))
+if((!isset($_SESSION['username']) && $_SESSION['role'] != "admin")){
+   
+    header("location: Login/login.php");
+}
+else if((isset($_SESSION['username']) && $_SESSION['role'] == "worker"))
+{
+    header("location: test.php");   
+}
 ?>
 <!DOCTYPE html>
 <html>
@@ -9,6 +17,9 @@ include "db.php";
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+        <script src="js/addProduct.js" type="text/javascript"></script>
 
         <title>T.M. Jivaji & Sons</title>
 
@@ -19,41 +30,54 @@ include "db.php";
         <!-- Scrollbar Custom CSS -->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css">
 
+
+
           <!-- BELOW THREE LINKS ARE FOR AUTOCOMPLETE FUNCTION. DONT TOUCH -->
         <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
-        <script>
-        $(function() {
-            $("#product_input").autocomplete({
-            source: "search.php",
-            });
-        });
-        </script>
-        <style>
-        table {
-            font-family: arial, sans-serif;
-            border-collapse: collapse;
-            width: 100%;
-            border-radius:10px;
-            margin-bottom: 5%;
-    
-            }
-            td, th {
-    /*border: 1px solid #dddddd;*/
-    text-align: center;
-    padding: 8px;
+
+
+        <!-- Isolated Version of Bootstrap, not needed if your site already uses Bootstrap -->
+        <link rel="stylesheet" href="https://formden.com/static/cdn/bootstrap-iso.css" />
+
+        <!-- Bootstrap Date-Picker Plugin -->
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css"/>
+                
+        <!-- Link for FONT AWESOME Icons -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<script>
+$(function() {
+    $("input.product_input").autocomplete({
+    source: "search.php",
+    });
+});
+</script>
+<style>
+table {
+        font-family: arial, sans-serif;
+        border-collapse: collapse;
+        width: 100%;
+        border-radius:10px;
+        margin-bottom: 5%;
+
+}
+td, th {
+        /*border: 1px solid #dddddd;*/
+        text-align: center;
+        padding: 8px;
 }
 tr:nth-child(odd) {
-    background-color: #dddddd;
+        background-color: #dddddd;
 }
-        </style>
-        <style type="text/css">
-            .center_div{
-            margin: 0 auto;
-            width:90% /* value of your choice which suits your alignment */
-            }
-            @media (max-width: @screen-xs) {
+</style>
+<style type="text/css">
+.center_div{
+    margin: 0 auto;
+    width:90% /* value of your choice which suits your alignment */
+}
+@media (max-width: @screen-xs) {
     body{font-size: 10px;}
 }
 
@@ -69,7 +93,7 @@ tr:nth-child(odd) {
     top: 50%;
 }
 
-        </style>
+</style>
     </head>
     <body style="background: #F5F5F5">
 
@@ -85,17 +109,35 @@ tr:nth-child(odd) {
                 </div>
 
                 <ul class="list-unstyled components">
-                    <li>
-                        <a href="../TMJ/index.html">Inventory Management</a>
+                    <!-- <li>
+                        <a href="../TMJ/index.php">Inventory Management</a>
                     </li>
                     <li>
-                        <a href="../TMJ/DailySales.html">Daily Sales</a>
+                        <a href="../TMJ/DailySales.php">Daily Sales</a>
                     </li>
                     <li>
-                        <a href="../TMJ/PurchaseManagement.html">Purchase Management</a>
+                        <a href="../TMJ/PurchaseManagement.php">Purchase Management</a>
                     </li>
                     <li>
-                        <a href="../TMJ/Report.html">Generate Report</a>
+                        <a href="../TMJ/PurchaseReport.php">Generate Purchase Report</a>
+                    </li>
+                    <li>
+                        <a href="../TMJ/Report.php">Generate Report</a>
+                    </li> -->
+                    <li>
+                        <a href="index.php">Inventory Management</a>
+                    </li>
+                    <li>
+                        <a href="DailySales.php">Daily Sales</a>
+                    </li>
+                    <li>
+                        <a href="PurchaseManagement.php">Purchase Management</a>
+                    </li>
+                    <li>
+                        <a href="PurchaseReport.php">Generate Purchase Report</a>
+                    </li>
+                    <li>
+                        <a href="Report.html">Generate General Report</a>
                     </li>
                 </ul>
             </nav>
@@ -117,6 +159,7 @@ tr:nth-child(odd) {
                         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                             <h3 style="text-align: center; color: white">
                                 Tayyebali M. Jivaji & Sons
+                                <a href="Login/logout.php" style="float:right">Logout</a>
                             </h3>    
                         </div>
 
@@ -130,11 +173,11 @@ tr:nth-child(odd) {
                 <div class="container center_div">
                     <!-- <div class="row"> -->
                         <!-- <div class="col-md-4 col-md-offset-4"> -->
-                        <form id="date_report" method="get" action="#"> 
+                            <form id="date_report" method="get" action="#"> 
 
-                            <input type="date"  name="single_date" id="single_date" >
-                            <input type="submit" class="btn btn-primary" name="submit_date" style="margin:20px" value="Generate Report!">
-                       </form>
+                                <input type="date"  name="single_date" id="single_date" >
+                                <input type="submit" class="btn btn-primary" name="submit_date" style="margin:20px" value="Generate Report!">
+                            </form>
                             
                             <form id="date_report2" method="get" action="#"> 
                                 From Date:
@@ -150,7 +193,8 @@ tr:nth-child(odd) {
                             <form id="product" method="get" action="#"> 
                                 <?php echo $message; ?>
                                 Enter Product: 
-                                <input type="text" name="product_input" id="product_input"/>
+                                <input type="text" name="product_input" id="product_input" class="product_input"/>
+                               
                                 <input type="submit" class="btn btn-primary" name="submit" style="margin:20px" value="Generate Specific Product Purchase Report!">
                                 
                             </form>
@@ -283,14 +327,15 @@ tr:nth-child(odd) {
                                         else
                                             echo "<br><br><h1>No results Found</h1>";
                                     }
-                                    $connection->close();
+                                    // $connection->close();
                                 ?> 
+                                <?php  $connection->close(); ?>
                                 
                                 
                             </table>
 
                            
-            </div>
+                </div>
             </div>
         </div>
 
