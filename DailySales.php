@@ -152,6 +152,7 @@ else if((isset($_SESSION['username']) && $_SESSION['role'] == "worker"))
                  <div class="container center_div">
 
                 	<form id="product" method="get" action="#"> 
+                       
                 
                         Enter Product: 
                         <input type="text" name="product_input" id="product_input" class="product_input"/>    
