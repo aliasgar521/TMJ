@@ -45,16 +45,95 @@ else if((isset($_SESSION['username']) && $_SESSION['role'] == "worker"))
         <!-- Isolated Version of Bootstrap, not needed if your site already uses Bootstrap -->
         <link rel="stylesheet" href="https://formden.com/static/cdn/bootstrap-iso.css" />
 
+       
 
 		<script>
       
         $(function() {
             $("input.product_input").autocomplete({
-            source: "search.php",
+            source: "search_availability.php",
             });
         });
         </script>
-        
+        <!-- Ajax script for entering values to table -->
+
+        <script type="text/javascript">
+            $(document).ready(function() {
+                var j=0;
+                $("#button_add_product").click(function(e){
+                    e.preventDefault();
+                    
+                        var name=document.getElementById("product_input").value;
+                        var quantity=document.getElementById("product_quant").value;
+                        $.ajax({
+                        url: "test3p.php",
+                        type: "GET",
+                        data: { name: name, quantity: quantity },
+                        success: function (response) {   
+                        var obj=JSON.parse(response);
+                        var row = $('<tr>');
+                            for(var i = 0; i < 4; i++) {
+                                if(i==0){
+                                    row.append($('<td>').html(obj[i]));
+                                }
+                                else if(i==1){
+                                    
+                                    row.append($('<td>').html(obj[i]));
+                                }
+                                else if(i==2){
+                                    row.append($('<td class="sell_price_input" name="pro_sp"'+j+' contenteditable="true">').html(obj[i]));
+                                }
+                                else if(i==3){
+                                    row.append($('<td id="total_price_input" name="total_sp"'+j+ 'contenteditable="true">').html(obj[i]));
+                                }
+                                else{
+                                    row.append($('<td>').html(obj[i]));
+                                }
+                                row.append($('</td>'));
+                            }
+                            
+                            j++;
+                            row.append($('<td><input type="image" class="delete-row" id="delete-button" src="icon-delete.png" name="record"></button></td></tr>'));
+                            // row.append($('<td value = "pro_name"'+j+'></td></tr>'));
+
+                            $('#marked').append(row);
+
+                        }
+
+
+                 // }
+             });
+                        // var namezz = $("#test1230").attr("name");
+                           // alert($('#test0').attr('value'));
+                        $("#hideme").val(j);
+                        document.getElementById("product_input").focus;
+                        console.log("The Value of J is "+ j);
+                         
+                });
+            });
+
+            $(document).ready(function() {
+            $("#marked").on('click','.delete-row', function() {
+                $(this).closest('tr').remove();
+                });
+            });
+
+            $(document).ready(function(){
+                $(".calculate-total").on('click',function(){
+                    var table=document.getElementById("myTable");
+                    var totalCost=document.getElementById("total-value");
+                    var sumVal=0;
+                    for(var i=1; i < table.rows.length; i++){
+                        sumVal = sumVal + parseInt(table.rows[i].cells[3].innerHTML);
+                    }
+                    console.log(sumVal);
+                     // $("total-value").append(sumVal);
+                    totalCost.value = sumVal;
+
+                });
+            });
+        </script>
+       
 
         <style type="text/css">
             .center_div{
@@ -68,7 +147,16 @@ else if((isset($_SESSION['username']) && $_SESSION['role'] == "worker"))
             @media (max-width: @screen-sm) {
                 body{font-size: 14px;}
             }
-
+            .rcorners3 {
+                border-radius: 25px;
+                background: url(paper.gif);
+                background-position: left top;
+                background-repeat: repeat;
+                padding: 20px;
+                margin-top:20px; 
+               /* width: 200px;
+                height: 150px; */
+            }
         </style>
         <style>
 			table {
@@ -84,8 +172,8 @@ else if((isset($_SESSION['username']) && $_SESSION['role'] == "worker"))
 			        text-align: center;
 			        padding: 8px;
 			}
-			tr:nth-child(odd) {
-			        background-color: #dddddd;
+			tr:nth-child(even) {
+			        background-color: #AEB6BF  ;
 			}
 		</style>
 
@@ -149,63 +237,59 @@ else if((isset($_SESSION['username']) && $_SESSION['role'] == "worker"))
 
                 </nav>
 
-                 <div class="container center_div">
+                <div class="container center_div">
 
-                	<form id="product" method="get" action="#"> 
+                	<form id="product" method="get" action=""> 
                        
                 
                         Enter Product: 
-                        <input type="text" name="product_input" id="product_input" class="product_input"/>    
-                        <input type="submit" class="btn btn-primary" name="submit" style="margin:20px" value="Generate Specific Product Purchase Report!">
+                        <input type="text" name="product_input" id="product_input" class="product_input" placeholder="Product Name" />   
+                        <input type="text" name="product_quant" id="product_quant" class="product_quant" placeholder="Quantity Required" />     
+                        <button type="submit" class="btn btn-md btn-primary" value="Add Row" id="button_add_product"  name="submit" >Add Product</button><br><br>
                         
                     </form>
-                    <?php 
-                        if(isset($_GET['submit']))
-                        {
-                            $product=htmlentities($_GET['product_input']);
-                            $message = "Success! You entered: ".$product;
-                            display($product);
-                        } 
-                    ?>
-                    <?php 
 
-                        function display(string $product){
-                        $connection=connect_db();
-                        // $sql="SELECT pro_name,quantity,supplier_name,cost_price,purchase_date from invandpro join Invoice on Invoice.id = invandpro.invoice_id join Supplier on Invoice.supplier_id=Supplier.id where pro_name = '$product'";
-                        $sql="SELECT item_name,stock_amt,sell_price from Inventory where item_name = '$product'";
+                    
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class= "col-lg-8">
+                                <div class="container-fluid rcorners3" style=" margin-right: 1%; background: #E0E0E0";>
+                                    <form action="" method="">
+                                        <table id="myTable">
+                                            <thead>
+                                                <tr style="background:#428bca;color:white" >
+                                                    <th>Product</th>
+                                                    <th>Quantity</th>
+                                                    <th>Selling Price</th>
+                                                    <th>Total Price</th>
+                                                    <th>Delete</th>
+                                                </tr>
+                                            </thead>
+                                      
+                                            <tbody id="marked">
+                                              
+                                            </tbody>
+                                            
+                                        </table>
+                                        <input id='hideme'  name='hideme'  type='hidden'/>
+                                        <input type="submit" class="btn btn-success btn-md btn-block" id="Finalize_sale" value="Finalize Sale" name="submit">
+                                    </form>
+                                </div>
+                            </div>
+                            <div class="col-lg-4 rcorners3" style=" background: #E0E0E0";>
+                                Total:&nbsp;&nbsp;
+                                
+                                <textarea id="total-value" style="height:25px; "></textarea><br><br>
+                                <input type="submit" class="btn btn-md btn-primary calculate-total" id="button" value="Calculate Total" name="submit" >
+                                
 
-
-                        $result = mysqli_query($connection,$sql);
-                        if(mysqli_num_rows($result)){
-                            // echo '<h2>Report of Product <u>';
-                                     // echo $product; 
-                                     // echo'</u></h2>';
-                                     echo '<table>
-                                    <tr  style="background:#428bca;color:white" >
-                                        <th>Product</th>
-                                        <th>Selling Price</th>
-                                        <th>Quantity</th>
-                                        
-                                        
-                                    </tr>';
-                                while($row = $result->fetch_assoc()){
-                                    $time=$row["purchase_date"];
-                                    $time1= date("d-m-Y ", substr("$time", 0, 10));
-
-                                    // echo "<tr><td>".$time1."</td><td>".$row["supplier_name"]."</td><td>".$row["pro_name"]."</td><td>".$row["cost_price"]."</td><td>".$row["quantity"]."</td></tr>";
-                                    echo "<tr><td>".$row["item_name"]."</td><td contenteditable='true'>".$row["sell_price"]."</td><td contenteditable='true'>".$row["stock_amt"]."</td></tr>";
-
-                                }
-                                echo "</table>";
-                            }
-                            else
-                                echo "<br><br><h1>No results found</h1>";
-                        }
-                        ?>
-
-
+                                
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
             </div>
-        </div>
 
         <div class="overlay"></div>
          <!-- jQuery CDN -->
@@ -233,6 +317,54 @@ else if((isset($_SESSION['username']) && $_SESSION['role'] == "worker"))
                     $('a[aria-expanded=true]').attr('aria-expanded', 'false');
                 });
             });
+        </script>
+         <script type="text/javascript">
+            $(document).ready(function() {
+            $("#Finalize_sale").click(function(e){
+                e.preventDefault();
+                    counter= document.getElementById("hideme").value;
+                    // console.log("The Value of J is "+ j);
+                var TableData;
+                TableData = storeTblValues()
+                TableData = JSON.stringify(TableData);
+
+                alert(TableData);
+                $.ajax({
+                    type: "POST",
+                    url: "test5p.php",
+                    data: "pTableData=" + TableData + "&counter_value=" + counter,
+                    success: function(msg){
+                        // return value stored in msg variable
+                        alert(msg);
+                    }
+                });
+                });
+            });
+
+
+            function storeTblValues()
+            {
+                var counter=0;
+                var TableData = new Array();
+
+                $('#myTable tr').each(function(row, tr){
+                    TableData[row]={
+                        "product" : $(tr).find('td:eq(0)').text()
+                        , "quantity" :$(tr).find('td:eq(1)').text()
+                        , "sp" : $(tr).find('td:eq(2)').text()
+                        , "tsp" : $(tr).find('td:eq(3)').text()
+                    }    
+                    
+                    
+                }); 
+
+                TableData.shift();  // first row will be empty - so remove
+                // TableData.shift();  // first row will be empty - so remove
+                
+                return TableData;
+            }
+            
+
         </script>
     </body>
 </html>

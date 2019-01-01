@@ -7,7 +7,7 @@
 		exit;
 	}
 	else
-		echo "Connection established";
+		//echo "Connection established";
 	return $connection;
 }
 ?>

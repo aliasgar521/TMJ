@@ -159,6 +159,7 @@ function addPurchasedProducts($menu){
 $sql = "INSERT INTO `Invoice`(`invoice_number`,`supplier_id`,`purchase_date`,`purchase_person`,`payment`,`payable`) VALUES ('$invoice','$supplier_id','$t','$person','$payment','$payable')";
 	$result = mysqli_query($connection,$sql);
 		
+		//should the argument below be connection or $result    ??????????????????????????????????????/??????????????????????????
 		if(mysqli_affected_rows($connection)){
 			$retsql = "SELECT max(id) as max FROM `Invoice`";
 			$max = mysqli_query($connection,$retsql);
@@ -237,6 +238,69 @@ function display_search(){
 
 	}
 
+// function addSales($menu){
+// 	$connection=connect_db();
+// 	$date=0;
+// 	$sales_person="Fakhruddin";
+// 	$total_amount="998";
+// 	$counter=$menu['hideme'];
+// 	$j=0;
+
+// 	//To insert initial values into Sales Table
+// 	$sql = "INSERT INTO `Sales`(`sales_date`,`total_amount`,`sales_person`) VALUES ('$date','$total_amount','$sales_person')";
+// 	$result = mysqli_query($connection,$sql); 
+// 	$html .='';
+
+// 	if(mysqli_affected_rows($connection)){
+// 		$retsql = "SELECT max(bill_id) as max FROM `Sales`";
+// 		$max = mysqli_query($connection,$retsql);
+// 		if(mysqli_num_rows($max)){
+// 			while($row = mysqli_fetch_assoc($max)){
+// 				$max1=$row['max'];
+// 			}
+// 		}
+
+// 		// include('simple_html_dom.php');
+// 		// $html = str_get_html($string);
+// 		// $tables = $html->find('table[id=myTable]');
+// 		// $rows = $tables->find('tr');
+// 		// foreach ($rows as $row) {
+// 		// 	foreach ($row->children() as $cell) {
+//   //       		// echo $cell->plaintext;
+//   //       		// echo "<script>alert($cell->plaintext)</script>"
+//   //       	}
+//   //       }
+
+
+
+
+// 		for($j=0;$j<$counter;$j++){
+// 			// $pro_name=$menu['pro_name'.$j];
+// 			$quantity=$menu['pro_quant'.$j];
+// 		// 	$sp=$menu['pro_sp'.$j];
+// 			// $tsp=$menu['total_sp'.$j];
+// 		// 	// $html .='<script>alert('$pro_name')</script>';
+// 		// 	$sql1= "SELECT `id`,`cost_price` from `Inventory` where `item_name`='$pro_name'";
+// 		// 	$result1=mysqli_query($connection,$sql1);
+// 		// 	if(mysqli_num_rows($result1)){
+// 		// 		while($row1 = mysqli_fetch_assoc($result1)){
+// 		// 			$product_id = $row1['id'];
+// 		// 			$product_cost=$row1['cost_price'];
+// 		// 		}
+
+// 		// 	}
+// 			// $profit=($tsp-($product_cost * $quantity));
+// 			$sql2 = "INSERT INTO `SalesDetails`(`bill_id`,`product_id`,`quantity`,`sell_price`,`profit`) VALUES ('$max1','4','$quantity','10','15')";
+// 			$result2=mysqli_query($connection,$sql2);
+// 			if(mysqli_affected_rows($connection)){
+// 				return true;
+// 			}
+
+
+// 		}
+// 	}
+// 	// return $html;
+// }
 
 
 ?>
