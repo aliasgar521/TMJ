@@ -1,6 +1,7 @@
 <?php
 session_start();
 include "db.php";
+$user = $_SESSION['username'];
 // if((!isset($_SESSION["username"]) && !isset($_SESSION["role"]=="admin")))
 if((!isset($_SESSION['username']) && $_SESSION['role'] != "admin")){
    
@@ -54,6 +55,23 @@ else if((isset($_SESSION['username']) && $_SESSION['role'] == "worker"))
             source: "search_availability.php",
             });
         });
+//         $('input.product_input').autocomplete(
+//         {
+//         source:'index.php?/Ajax/SearchUsers', 
+//         minLength: 3, 
+//         delay: 300,
+//         open: function() {
+//             $('.ui-autocomplete').width('auto');
+//             $('.ui-widget-content').css('background', '#E1F7DE');
+//             $('.ui-menu-item a').removeClass('ui-corner-all');
+//         }
+
+//     }
+// ).data("ui-autocomplete")._renderItem = function( ul, item ) {
+//     return $( "<li>" )
+//        .append( "<a>" + item.label + "<br>" + item.desc + "</a>" )
+//        .appendTo( ul );
+// };
         </script>
         <!-- Ajax script for entering values to table -->
 
@@ -65,10 +83,11 @@ else if((isset($_SESSION['username']) && $_SESSION['role'] == "worker"))
                     
                         var name=document.getElementById("product_input").value;
                         var quantity=document.getElementById("product_quant").value;
+                        
                         $.ajax({
                         url: "test3p.php",
                         type: "GET",
-                        data: { name: name, quantity: quantity },
+                        data: { name: name, quantity: quantity},
                         success: function (response) {   
                         var obj=JSON.parse(response);
                         var row = $('<tr>');
@@ -78,13 +97,14 @@ else if((isset($_SESSION['username']) && $_SESSION['role'] == "worker"))
                                 }
                                 else if(i==1){
                                     
-                                    row.append($('<td>').html(obj[i]));
+                                    row.append($('<td class="quantity">').html(obj[i]));
                                 }
                                 else if(i==2){
                                     row.append($('<td class="sell_price_input" name="pro_sp"'+j+' contenteditable="true">').html(obj[i]));
                                 }
                                 else if(i==3){
-                                    row.append($('<td id="total_price_input" name="total_sp"'+j+ 'contenteditable="true">').html(obj[i]));
+
+                                    row.append($('<td class="total_price_input" name="total_sp"'+j+' contenteditable="true">').html(obj[i]));
                                 }
                                 else{
                                     row.append($('<td>').html(obj[i]));
@@ -92,8 +112,8 @@ else if((isset($_SESSION['username']) && $_SESSION['role'] == "worker"))
                                 row.append($('</td>'));
                             }
                             
-                            j++;
                             row.append($('<td><input type="image" class="delete-row" id="delete-button" src="icon-delete.png" name="record"></button></td></tr>'));
+                            j++;
                             // row.append($('<td value = "pro_name"'+j+'></td></tr>'));
 
                             $('#marked').append(row);
@@ -103,10 +123,19 @@ else if((isset($_SESSION['username']) && $_SESSION['role'] == "worker"))
 
                  // }
              });
+                        // For the TOTAL part to work
+                        setTimeout(function(){
+                            var total_sum;
+                        total_sum=calculate_values();
+                        $("#total_sum_value").html(total_sum);
+                    },100);
+                        
                         // var namezz = $("#test1230").attr("name");
                            // alert($('#test0').attr('value'));
                         $("#hideme").val(j);
+                        // **************************************check below line *************************************************
                         document.getElementById("product_input").focus;
+                        // *************************************************************************************************
                         console.log("The Value of J is "+ j);
                          
                 });
@@ -115,23 +144,16 @@ else if((isset($_SESSION['username']) && $_SESSION['role'] == "worker"))
             $(document).ready(function() {
             $("#marked").on('click','.delete-row', function() {
                 $(this).closest('tr').remove();
+                // console.log("clicked delete button");
+                // Update total when delete button clicked code below
+                setTimeout(function(){
+                    var total_sum;
+                    total_sum=calculate_values();
+                    $("#total_sum_value").html(total_sum);
+                },100);
                 });
             });
 
-            $(document).ready(function(){
-                $(".calculate-total").on('click',function(){
-                    var table=document.getElementById("myTable");
-                    var totalCost=document.getElementById("total-value");
-                    var sumVal=0;
-                    for(var i=1; i < table.rows.length; i++){
-                        sumVal = sumVal + parseInt(table.rows[i].cells[3].innerHTML);
-                    }
-                    console.log(sumVal);
-                     // $("total-value").append(sumVal);
-                    totalCost.value = sumVal;
-
-                });
-            });
         </script>
        
 
@@ -230,7 +252,9 @@ else if((isset($_SESSION['username']) && $_SESSION['role'] == "worker"))
                             <h3 style="text-align: center; color: white">
                                 Tayyebali M. Jivaji & Sons
                                 <a href="Login/logout.php" style="float:right">Logout</a>
+
                             </h3>
+                            <h4 style="color: white"><div style="float:right">Welcome <?php echo $user ?></div></h4>
                         </div>
 
                     </div>
@@ -268,22 +292,17 @@ else if((isset($_SESSION['username']) && $_SESSION['role'] == "worker"))
                                       
                                             <tbody id="marked">
                                               
-                                            </tbody>
                                             
+                                            </tbody>
+                                            <tr>
+                                                <td colspan="3" ><span><b style="float:right">TOTAL  :</b></span></td>
+                                                <b><td class="total_sale" name="total_sum_value" id="total_sum_value"></td></b>
+                                            </tr>
                                         </table>
                                         <input id='hideme'  name='hideme'  type='hidden'/>
                                         <input type="submit" class="btn btn-success btn-md btn-block" id="Finalize_sale" value="Finalize Sale" name="submit">
                                     </form>
                                 </div>
-                            </div>
-                            <div class="col-lg-4 rcorners3" style=" background: #E0E0E0";>
-                                Total:&nbsp;&nbsp;
-                                
-                                <textarea id="total-value" style="height:25px; "></textarea><br><br>
-                                <input type="submit" class="btn btn-md btn-primary calculate-total" id="button" value="Calculate Total" name="submit" >
-                                
-
-                                
                             </div>
                         </div>
                     </div>
@@ -323,6 +342,9 @@ else if((isset($_SESSION['username']) && $_SESSION['role'] == "worker"))
             $("#Finalize_sale").click(function(e){
                 e.preventDefault();
                     counter= document.getElementById("hideme").value;
+                    var total_sale;
+                    total_sale=document.getElementById("total_sum_value").innerHTML;
+                    alert("The total sale value is "+total_sale);
                     // console.log("The Value of J is "+ j);
                 var TableData;
                 TableData = storeTblValues()
@@ -332,16 +354,31 @@ else if((isset($_SESSION['username']) && $_SESSION['role'] == "worker"))
                 $.ajax({
                     type: "POST",
                     url: "test5p.php",
-                    data: "pTableData=" + TableData + "&counter_value=" + counter,
+                    data: "pTableData=" + TableData + "&counter_value=" + counter + "&total_sale=" + total_sale,
                     success: function(msg){
-                        // return value stored in msg variable
-                        alert(msg);
+                         // return value stored in msg variable
+                         showSwal();
                     }
                 });
                 });
             });
 
 
+                        function showSwal(){
+       
+                              swal({
+                        title: "Success!",
+                        text: "Entry Made!",
+                        icon: "success",
+                        type: "success",
+                        confirmButtonText: "Cool"
+                        }).then(function() {
+                        // Redirect the user
+                        window.location.href = "DailySales.php";
+
+                        });
+
+                     }
             function storeTblValues()
             {
                 var counter=0;
@@ -360,11 +397,111 @@ else if((isset($_SESSION['username']) && $_SESSION['role'] == "worker"))
 
                 TableData.shift();  // first row will be empty - so remove
                 // TableData.shift();  // first row will be empty - so remove
-                
+                TableData.pop();
                 return TableData;
             }
-            
 
+        // $(document).ready(function () {
+        //     $('#button_add_product').click(function(e){
+        //         e.preventDefault();
+        //         var total_sum;
+        //         total_sum=calculate_values();
+        //          $("#total_sum_value").html(total_sum);
+
+
+        //     });
+                // var calculated_total_sum=0;
+                // $("#myTable .total_price_input").each(function(){
+                //     console.log("its cool.");
+                //     var get_textbox_value = $(this).text();
+                //     console.log(get_textbox_value);
+                //     if ($.isNumeric(get_textbox_value)) {
+                //         calculated_total_sum += parseFloat(get_textbox_value);
+                //     }                  
+                // });
+                           // });
+            // console.log("its cool.");
+        // });
+
+        $(document).ready(function(){
+            $('#myTable').on('change input','.total_price_input ', function(){
+                setTimeout(function(){
+                    var total_sum;
+                    total_sum=calculate_values();
+                    $("#total_sum_value").html(total_sum);
+                },100);
+            });
+        });
+        function calculate_values(){
+
+            var calculated_total_sum=0;
+            $("#myTable .total_price_input").each(function(){
+                    // console.log("its cool.");
+                var get_textbox_value = $(this).text();
+                console.log(get_textbox_value);
+                if ($.isNumeric(get_textbox_value)) {
+                    calculated_total_sum += parseFloat(get_textbox_value);
+                }                  
+            });
+            return calculated_total_sum;
+        }
+
+
+
+
+        // ASK MAMU AND DO LATER BELOW CODE
+        // ************************************************************************************************************************************
+        // $(document).ready(function(){
+        //     $('#myTable').on('change input','.sell_price_input', function(){
+        //         setTimeout(function(){
+        //             var total_product_input;
+        //             total_product_input=calculate_product_sum();
+        //             $(this).closest(".total_price_input").html(total_product_input);
+        //         },50);
+        //     });
+        // });
+        // function calculate_product_sum(){
+        //      $("#myTable .sell_price_input").each(function(){
+        //             // console.log("its cool.");
+        //             var get_textbox_value = $(this).text();
+        //             console.log(get_textbox_value);
+        //             // if ($.isNumeric(get_textbox_value)) {
+        //             //     calculated_total_sum += parseFloat(get_textbox_value);
+        //             // }                  
+        //         });
+        //         return 0;
+        // }
+
+
+
+
+
+
+
+
+        //             var sell_value=$(this).text();
+        //             var quant=$(this).closest('.quantity').text();
+        //             console.log(sell_value);
+        //             // if ($.isNumeric(sell_value) && $.isNumeric(quant)) {
+        //             total_sum_input=parseFloat(sell_value)*parseFloat(quant);
+        //             console.log(total_sum_input);
+        //         // }
+        //             // 
+        //         },50);
+        //     });
+        // });
+        // $(document).ready(function(){
+        //     $('#myTable').on('click','.delete-row ', function(){
+        //         // setTimeout(function(){
+        //         //     var total_sum;
+        //         //     total_sum=calculate_values();
+        //         //     $("#total_sum_value").html(total_sum);
+        //         // },50);
+
+        //     });
+        // });
+                
         </script>
+        
     </body>
 </html>
