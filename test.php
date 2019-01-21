@@ -1,8 +1,3 @@
-<!-- <!DOCTYPE html>
-<html>
-    <h3>You are not allowed to visit this site</h3>
-    <br/>Click here to <a href='Login/login.php'>Login</a></div>;
-</html> -->
 <?php
 session_start();
 include "db.php";
@@ -121,12 +116,10 @@ if((!isset($_SESSION['username']) && $_SESSION['role'] != "admin")){
                 $("#sidebar").mCustomScrollbar({
                     theme: "minimal"
                 });
-
                 $('#dismiss, .overlay').on('click', function () {
                     $('#sidebar').removeClass('active');
                     $('.overlay').fadeOut();
                 });
-
                 $('#sidebarCollapse').on('click', function () {
                     $('#sidebar').addClass('active');
                     $('.overlay').fadeIn();

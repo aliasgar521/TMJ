@@ -32,48 +32,13 @@
 
     <div class="wrapper">
             <!-- Sidebar Holder -->
-            <nav id="sidebar">
-                <div id="dismiss">
-                    <i class="glyphicon glyphicon-arrow-left"></i>
-                </div>
-
-                <div class="sidebar-header">
-                    <h3>TMJivaji & Sons</h3>
-                </div>
-
-                <ul class="list-unstyled components">
-                 
-                    <li>
-                        <a href="index.php">Inventory Management</a>
-                    </li>
-                    <li>
-                        <a href="DailySales.php">Daily Sales</a>
-                    </li>
-                    <li>
-                        <a href="PurchaseManagement.php">Purchase Management</a>
-                    </li>
-                    <li>
-                        <a href="Report.html">Generate Report</a>
-                    </li>
-                </ul>
-
-                <!--<ul class="list-unstyled CTAs">
-                    <li><a href="https://bootstrapious.com/tutorial/files/sidebar.zip" class="download">Download source</a></li>
-                    <li><a href="https://bootstrapious.com/p/bootstrap-sidebar" class="article">Back to article</a></li>
-                </ul>-->
-            </nav>
+            
             <div id="content" style="background: #FFF">
 
                 <nav class="navbar navbar-default" style="background: #42A5F5"> <!--#B2EBF2-->
                     <div class="container-fluid">
 
-                        <div class="navbar-header">
-                            <button type="button" id="sidebarCollapse" class="btn btn-info navbar-btn">
-                                <i class="glyphicon glyphicon-align-left"></i>
-                                <!-- <span>Open Sidebar</span> -->
-                                <span></span>
-                            </button>
-                        </div>
+                        
 
                         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                             <h3 style="text-align: center; color: white">

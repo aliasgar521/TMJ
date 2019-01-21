@@ -2,6 +2,7 @@
 session_start();
 include "db.php";
 // if((!isset($_SESSION["username"]) && !isset($_SESSION["role"]=="admin")))
+$user = $_SESSION['username'];
 if((!isset($_SESSION['username']) && $_SESSION['role'] != "admin")){
    
     header("location: Login/login.php");
@@ -151,23 +152,7 @@ else if((isset($_SESSION['username']) && $_SESSION['role'] == "worker"))
                 </div>
 
                 <ul class="list-unstyled components">
-                    <!--<li class="active">
-                        <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false">Home</a>
-                        <ul class="collapse list-unstyled" id="homeSubmenu">
-                            <li><a href="#">Home 1</a></li>
-                            <li><a href="#">Home 2</a></li>
-                            <li><a href="#">Home 3</a></li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a href="#">About</a>
-                        <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false">Pages</a>
-                        <ul class="collapse list-unstyled" id="pageSubmenu">
-                            <li><a href="#">Page 1</a></li>
-                            <li><a href="#">Page 2</a></li>
-                            <li><a href="#">Page 3</a></li>
-                        </ul>
-                    </li>-->
+                  
                     <li>
                         <a href="index.php">Inventory Management</a>
                     </li>
@@ -210,7 +195,7 @@ else if((isset($_SESSION['username']) && $_SESSION['role'] == "worker"))
                                 Tayyebali M. Jivaji & Sons
                                 <a href="Login/logout.php" style="float:right">Logout</a>
                             </h3>
-
+                            <h4 style="color: white"><div style="float:right">Welcome <?php echo $user ?></div></h4>
                         </div>
 
                     </div>

@@ -85,7 +85,7 @@ else if((isset($_SESSION['username']) && $_SESSION['role'] == "worker"))
                         var quantity=document.getElementById("product_quant").value;
                         
                         $.ajax({
-                        url: "test3p.php",
+                        url: "displayTable.php",
                         type: "GET",
                         data: { name: name, quantity: quantity},
                         success: function (response) {   
@@ -128,6 +128,9 @@ else if((isset($_SESSION['username']) && $_SESSION['role'] == "worker"))
                             var total_sum;
                         total_sum=calculate_values();
                         $("#total_sum_value").html(total_sum);
+                        document.getElementById("product_input").value="";
+                        document.getElementById("product_quant").value="";
+
                     },100);
                         
                         // var namezz = $("#test1230").attr("name");
@@ -230,9 +233,10 @@ else if((isset($_SESSION['username']) && $_SESSION['role'] == "worker"))
                         <a href="PurchaseReport.php">Generate Purchase Report</a>
                     </li>
                     <li>
-                        <a href="Report.html">Generate General Report</a>
+                        <a href="Report.php">Generate General Report</a>
                     </li>
                 </ul>
+
             </nav>
 
             <div id="content" style="background: #FFF">
@@ -353,7 +357,7 @@ else if((isset($_SESSION['username']) && $_SESSION['role'] == "worker"))
                 alert(TableData);
                 $.ajax({
                     type: "POST",
-                    url: "test5p.php",
+                    url: "finalizeSale.php",
                     data: "pTableData=" + TableData + "&counter_value=" + counter + "&total_sale=" + total_sale,
                     success: function(msg){
                          // return value stored in msg variable
@@ -364,21 +368,21 @@ else if((isset($_SESSION['username']) && $_SESSION['role'] == "worker"))
             });
 
 
-                        function showSwal(){
-       
-                              swal({
-                        title: "Success!",
-                        text: "Entry Made!",
-                        icon: "success",
-                        type: "success",
-                        confirmButtonText: "Cool"
-                        }).then(function() {
-                        // Redirect the user
-                        window.location.href = "DailySales.php";
+            function showSwal(){
 
-                        });
+                swal({
+                    title: "Success!",
+                    text: "Entry Made!",
+                    icon: "success",
+                    type: "success",
+                    confirmButtonText: "Cool"
+                }).then(function() {
+                // Redirect the user
+                    window.location.href = "DailySales.php";
 
-                     }
+                });
+
+            }
             function storeTblValues()
             {
                 var counter=0;
@@ -401,50 +405,30 @@ else if((isset($_SESSION['username']) && $_SESSION['role'] == "worker"))
                 return TableData;
             }
 
-        // $(document).ready(function () {
-        //     $('#button_add_product').click(function(e){
-        //         e.preventDefault();
-        //         var total_sum;
-        //         total_sum=calculate_values();
-        //          $("#total_sum_value").html(total_sum);
+        
 
-
-        //     });
-                // var calculated_total_sum=0;
-                // $("#myTable .total_price_input").each(function(){
-                //     console.log("its cool.");
-                //     var get_textbox_value = $(this).text();
-                //     console.log(get_textbox_value);
-                //     if ($.isNumeric(get_textbox_value)) {
-                //         calculated_total_sum += parseFloat(get_textbox_value);
-                //     }                  
-                // });
-                           // });
-            // console.log("its cool.");
-        // });
-
-        $(document).ready(function(){
-            $('#myTable').on('change input','.total_price_input ', function(){
-                setTimeout(function(){
-                    var total_sum;
-                    total_sum=calculate_values();
-                    $("#total_sum_value").html(total_sum);
-                },100);
+            $(document).ready(function(){
+                $('#myTable').on('change input','.total_price_input ', function(){
+                    setTimeout(function(){
+                        var total_sum;
+                        total_sum=calculate_values();
+                        $("#total_sum_value").html(total_sum);
+                    },100);
+                });
             });
-        });
-        function calculate_values(){
+            function calculate_values(){
 
-            var calculated_total_sum=0;
-            $("#myTable .total_price_input").each(function(){
-                    // console.log("its cool.");
-                var get_textbox_value = $(this).text();
-                console.log(get_textbox_value);
-                if ($.isNumeric(get_textbox_value)) {
-                    calculated_total_sum += parseFloat(get_textbox_value);
-                }                  
-            });
-            return calculated_total_sum;
-        }
+                var calculated_total_sum=0;
+                $("#myTable .total_price_input").each(function(){
+                        // console.log("its cool.");
+                    var get_textbox_value = $(this).text();
+                    console.log(get_textbox_value);
+                    if ($.isNumeric(get_textbox_value)) {
+                        calculated_total_sum += parseFloat(get_textbox_value);
+                    }                  
+                });
+                return calculated_total_sum;
+            }
 
 
 
@@ -455,21 +439,22 @@ else if((isset($_SESSION['username']) && $_SESSION['role'] == "worker"))
         //     $('#myTable').on('change input','.sell_price_input', function(){
         //         setTimeout(function(){
         //             var total_product_input;
-        //             total_product_input=calculate_product_sum();
-        //             $(this).closest(".total_price_input").html(total_product_input);
-        //         },50);
+        //             total_product_input=0;
+        //             $(this).closest(".total_price_input").value=(total_product_input);
+        //         },100);
         //     });
         // });
         // function calculate_product_sum(){
-        //      $("#myTable .sell_price_input").each(function(){
+        //     var get_textbox_value;
+        //      $("#myTable .sell_price_input").on("change input",function(){
         //             // console.log("its cool.");
-        //             var get_textbox_value = $(this).text();
+        //             get_textbox_value = $(this).text();
         //             console.log(get_textbox_value);
         //             // if ($.isNumeric(get_textbox_value)) {
         //             //     calculated_total_sum += parseFloat(get_textbox_value);
         //             // }                  
         //         });
-        //         return 0;
+        //         return get_textbox_value;
         // }
 
 

@@ -1,7 +1,7 @@
 <?php
 session_start();
 include "db.php";
-// if((!isset($_SESSION["username"]) && !isset($_SESSION["role"]=="admin")))
+$user = $_SESSION['username'];
 if((!isset($_SESSION['username']) && $_SESSION['role'] != "admin")){
    
     header("location: Login/login.php");
@@ -47,57 +47,69 @@ else if((isset($_SESSION['username']) && $_SESSION['role'] == "worker"))
                 
         <!-- Link for FONT AWESOME Icons -->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<script>
-$(function() {
-    $("input.product_input").autocomplete({
-    source: "search.php",
+    <script>
+    $(function() {
+        $("input.product_input").autocomplete({
+        source: "search.php",
+        });
     });
-});
-</script>
-<style>
-table {
-        font-family: arial, sans-serif;
-        border-collapse: collapse;
-        width: 100%;
-        border-radius:10px;
-        margin-bottom: 5%;
+    </script>  
+    <style>
+    table {
+            font-family: arial, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+            border-radius:10px;
+            margin-bottom: 5%;
 
-}
-td, th {
-        /*border: 1px solid #dddddd;*/
+    }
+    td, th {
+            /*border: 1px solid #dddddd;*/
+            text-align: center;
+            padding: 8px;
+    }
+    tr:nth-child(odd) {
+            background-color: #dddddd;
+    }
+    </style>
+    <style type="text/css">
+    .center_div{
+        margin: 0 auto;
+        width:90% /* value of your choice which suits your alignment */
+    }
+    @media (max-width: @screen-xs) {
+        body{font-size: 10px;}
+    }
+
+    @media (max-width: @screen-sm) {
+        body{font-size: 14px;}
+    }
+    .wrapper1 {
         text-align: center;
-        padding: 8px;
-}
-tr:nth-child(odd) {
-        background-color: #dddddd;
-}
-</style>
-<style type="text/css">
-.center_div{
-    margin: 0 auto;
-    width:90% /* value of your choice which suits your alignment */
-}
-@media (max-width: @screen-xs) {
-    body{font-size: 10px;}
-}
+    }
 
-@media (max-width: @screen-sm) {
-    body{font-size: 14px;}
-}
-.wrapper1 {
-    text-align: center;
-}
+    .button1 {
+        position: absolute;
+        top: 50%;
+    }
+    .rcorners3 {
+                    border-radius: 10px;
+                    /*background: url(paper.gif);
+                    background-position: left top;
+                    background-repeat: repeat;*/
+                    padding: 4%;
+                    margin-top:20px; 
+                    background:#E0E0E0;
+                   /* width: 200px;
+                    height: 150px; */
 
-.button1 {
-    position: absolute;
-    top: 50%;
-}
+                }
 
-</style>
+    </style>
     </head>
     <body style="background: #F5F5F5">
 
-        <div class="wrapper">
+        <div class="wrapper" >
             <!-- Sidebar Holder -->
             <nav id="sidebar">
                 <div id="dismiss">
@@ -109,21 +121,7 @@ tr:nth-child(odd) {
                 </div>
 
                 <ul class="list-unstyled components">
-                    <!-- <li>
-                        <a href="../TMJ/index.php">Inventory Management</a>
-                    </li>
-                    <li>
-                        <a href="../TMJ/DailySales.php">Daily Sales</a>
-                    </li>
-                    <li>
-                        <a href="../TMJ/PurchaseManagement.php">Purchase Management</a>
-                    </li>
-                    <li>
-                        <a href="../TMJ/PurchaseReport.php">Generate Purchase Report</a>
-                    </li>
-                    <li>
-                        <a href="../TMJ/Report.php">Generate Report</a>
-                    </li> -->
+                 
                     <li>
                         <a href="index.php">Inventory Management</a>
                     </li>
@@ -137,13 +135,13 @@ tr:nth-child(odd) {
                         <a href="PurchaseReport.php">Generate Purchase Report</a>
                     </li>
                     <li>
-                        <a href="Report.html">Generate General Report</a>
+                        <a href="Report.php">Generate General Report</a>
                     </li>
                 </ul>
             </nav>
 
             <!-- Page Content Holder -->
-            <div id="content" style="background: #FFF">
+            <div id="content" style="background: #FFF; margin-bottom: 10%;">
 
                 <nav class="navbar navbar-default" style="background: #42A5F5"> <!--#B2EBF2-->
                     <div class="container-fluid">
@@ -161,6 +159,7 @@ tr:nth-child(odd) {
                                 Tayyebali M. Jivaji & Sons
                                 <a href="Login/logout.php" style="float:right">Logout</a>
                             </h3>    
+                            <h4 style="color: white"><div style="float:right">Welcome <?php echo $user ?></div></h4>
                         </div>
 
                     </div>
@@ -170,47 +169,44 @@ tr:nth-child(odd) {
                     Generate Purchase Report
                  </h3>
                
-                <div class="container center_div">
-                    <!-- <div class="row"> -->
-                        <!-- <div class="col-md-4 col-md-offset-4"> -->
-                            <form id="date_report" method="get" action="#"> 
-
-                                <input type="date"  name="single_date" id="single_date" >
-                                <input type="submit" class="btn btn-primary" name="submit_date" style="margin:20px" value="Generate Report!">
+                <div class="container-fluid center_div">
+                    <div class="row">
+                        <div class="col-lg-4 col-md-4">
+                            <br><br>
+                            <form id="date_report" method="get" action="#" class="rcorners3"> 
+                                Enter Date:&nbsp;
+                                <input type="date"  name="single_date" id="single_date" ><br><br>
+                                <input type="submit" class="btn btn-primary btn-block" name="submit_date"  value="Generate Report!">
                             </form>
                             
-                            <form id="date_report2" method="get" action="#"> 
-                                From Date:
-                                <input type="date"  name="double_date1" id="double_date1" ><t><t>
-                                To Date:
-                                <input type="date"  name="double_date2" id="double_date2" >
-
-                                <input type="submit" class="btn btn-primary" name="submit_double_date" style="margin:20px" value="Generate Report!">
+                            <form id="date_report2" method="get" action="#" class="rcorners3"> 
+                                From Date:&nbsp;
+                                <input type="date"  name="double_date1" id="double_date1"><br><br>
+                                To Date: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                <input type="date"  name="double_date2" id="double_date2"><br><br>
+                                <input type="submit" class="btn btn-primary btn-block" name="submit_double_date" value="Generate Report!">
                             </form>
-                            <!-- <button type="button" class="btn btn-primary" style="margin:20px">Generate Report according to dates!</button><br> -->
-
                             
-                            <form id="product" method="get" action="#"> 
-                                <?php echo $message; ?>
+                            <form id="product" method="get" action="#" class="rcorners3"> 
                                 Enter Product: 
-                                <input type="text" name="product_input" id="product_input" class="product_input"/>
+                                <input type="text" name="product_input" id="product_input" class="product_input" style="width:67%"/><br><br>
                                
-                                <input type="submit" class="btn btn-primary" name="submit" style="margin:20px" value="Generate Specific Product Purchase Report!">
+                                <input type="submit" class="btn btn-primary btn-block" name="submit"  value="Generate Specific Product Purchase Report!">
                                 
                             </form>
+                        </div>
+                        <div class="col-lg-8 col-md-8">
                             
-                            <br><br>
-                            
-                                <?php 
+                            <br>
+                            <br>
+                             <?php 
                                     if(isset($_GET['submit']))
                                     {
                                         $product=htmlentities($_GET['product_input']);
                                         $message = "Success! You entered: ".$product;
                                         display($product);
                                     } 
-                                ?>
-                                <?php 
-                                    if(isset($_GET['submit_double_date']))
+                                    else if(isset($_GET['submit_double_date']))
                                     {
                                         $ddate1=htmlentities($_GET['double_date1']);
                                         $ddate2=htmlentities($_GET['double_date2']);
@@ -219,9 +215,7 @@ tr:nth-child(odd) {
                                         $message = "Success! You entered: ".$product;
                                         display_ddate($ddate1,$ddate2);
                                     } 
-                                ?>
-                                <?php 
-                                    if(isset($_GET['submit_date']))
+                                    else if(isset($_GET['submit_date']))
                                     {
                                         $date=htmlentities($_GET['single_date']);
                                         $message = "Success! You entered: ".$date;
@@ -238,31 +232,28 @@ tr:nth-child(odd) {
                                     $result = mysqli_query($connection,$sql);
                                     if(mysqli_num_rows($result)){
                                         echo '<h2>Report of Product <u>';
-                                                 echo $product; echo'</u></h2><table>
-                                                <tr  style="background:#428bca;color:white" >
-                                                    <th text-align:center>Date</th>
-                                                    <th>Supplier</th>
-                                                    <th>Product</th>
-                                                    <th>Cost Price</th>
-                                                    <th>Quantity</th>
-                                                    
-                                                    
-                                                    
-                                                </tr>';
-                                            while($row = $result->fetch_assoc()){
-                                                $time=$row["purchase_date"];
-                                                $time1= date("d-m-Y ", substr("$time", 0, 10));
+                                        echo $product; 
+                                        echo'</u></h2><table>
+                                        <tr  style="background:#428bca;color:white" >
+                                            <th text-align:center>Date</th>
+                                            <th>Supplier</th>
+                                            <th>Product</th>
+                                            <th>Cost Price</th>
+                                            <th>Quantity</th>   
+                                        </tr>';
+                                        while($row = $result->fetch_assoc()){
+                                            $time=$row["purchase_date"];
+                                            $time1= date("d-m-Y ", substr("$time", 0, 10));
 
-                                                echo "<tr><td>".$time1."</td><td>".$row["supplier_name"]."</td><td>".$row["pro_name"]."</td><td>".$row["cost_price"]."</td><td>".$row["quantity"]."</td></tr>";
-                                            }
-                                            echo "</table>";
+                                            echo "<tr><td>".$time1."</td><td>".$row["supplier_name"]."</td><td>".$row["pro_name"]."</td><td>".$row["cost_price"]."</td><td>".$row["quantity"]."</td></tr>";
                                         }
-                                        else
-                                            echo "<br><br><h1>No results found</h1>";
+                                        echo "</table>";
                                     }
-                                    
-
-                                    function display_date(string $date,string $date1){
+                                    else
+                                        echo "<br><br><h1>No results found</h1>";
+                                     $connection->close();
+                                    }
+                                     function display_date(string $date,string $date1){
                                     $connection=connect_db();
                                         //$product = $menu['product_input'];
                                         // $sql="SELECT pro_name,quantity,cost_price from invandpro where pro_name = '$product';";
@@ -292,6 +283,7 @@ tr:nth-child(odd) {
                                         }
                                         else
                                             echo "<br><br><h1>No results Found</h1>";
+                                         $connection->close();
                                     }
                                     function display_ddate(string $ddate1,string $ddate2){
                                     $connection=connect_db();
@@ -305,47 +297,51 @@ tr:nth-child(odd) {
                                     $result = mysqli_query($connection,$sql);
                                     if(mysqli_num_rows($result)){
                                         echo '<h2>Purchase report since <u>';
-                                                 echo $ddate1; echo ' to '; echo $ddate2; echo '</u></h2><table>
-                                                <tr  style="background:#42A5F5;color:white" >
-                                                    <th>Date</th>
-                                                    <th>Supplier</th>
-                                                    <th>Purchased By</th>
-                                                    <th>Invoice</th>
-                                                    <th>Product</th>
-                                                    <th>Cost Price</th>
-                                                    <th>Quantity</th>
-                                                    
-                                                </tr>';
-                                            while($row = $result->fetch_assoc()){
-                                                $time=$row["purchase_date"];
-                                                $time1= date("d-m-Y ", substr("$time", 0, 10));
+                                        echo $ddate1; 
+                                        echo ' to '; 
+                                        echo $ddate2; 
+                                        echo 
+                                        '</u></h2>
+                                        <table>
+                                            <tr style="background:#42A5F5;color:white" >
+                                                <th>Date</th>
+                                                <th>Supplier</th>
+                                                <th>Purchased By</th>
+                                                <th>Invoice</th>
+                                                <th>Product</th>
+                                                <th>Cost Price</th>
+                                                <th>Quantity</th>
+                                            </tr>';
+                                        while($row = $result->fetch_assoc()){
+                                            $time=$row["purchase_date"];
+                                            $time1= date("d-m-Y ", substr("$time", 0, 10));
 
-                                                echo "<tr><td>".$time1."</td><td>".$row["supplier_name"]."</td><td>".$row["purchase_person"]."</td><td>".$row["invoice_number"]."</td><td>".$row["pro_name"]."</td><td>".$row["cost_price"]."</td><td>".$row["quantity"]."</td></tr>";
-                                            }
-                                            echo "</table>";
+                                            echo "<tr><td>".$time1."</td><td>".$row["supplier_name"]."</td><td>".$row["purchase_person"]."</td><td>".$row["invoice_number"]."</td><td>".$row["pro_name"]."</td><td>".$row["cost_price"]."</td><td>".$row["quantity"]."</td></tr>";
                                         }
-                                        else
-                                            echo "<br><br><h1>No results Found</h1>";
+                                        echo "</table>";
                                     }
-                                    // $connection->close();
-                                ?> 
-                                <?php  $connection->close(); ?>
+                                    else
+                                        echo "<br><br><h1>No results Found</h1>";
+                                         $connection->close();
+                                    }
+                                    ?>
+                                    
                                 
                                 
-                            </table>
+                            <!-- </table> -->
+                        </div>
 
                            
+                    </div>
+                    <!-- Above is row wala div -->
                 </div>
-            </div>
-        </div>
-
-
-
-        <div class="overlay"></div>
+                <!-- Above is container wala div -->
+            </div>    <!--content div -->
+        </div>   <!--wrapper div -->
 
 
         <!-- jQuery CDN -->
-        <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
+        <!-- <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script> -->
         <!-- Bootstrap Js CDN -->
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
         <!-- jQuery Custom Scroller CDN -->

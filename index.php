@@ -2,6 +2,7 @@
 session_start();
 include "db.php";
 // if((!isset($_SESSION["username"]) && !isset($_SESSION["role"]=="admin")))
+$user = $_SESSION['username'];
 if((!isset($_SESSION['username']) && $_SESSION['role'] != "admin")){
    
     header("location: Login/login.php");
@@ -97,14 +98,9 @@ if((!isset($_SESSION['username']) && $_SESSION['role'] != "admin")){
                         <a href="PurchaseReport.php">Generate Purchase Report</a>
                     </li>
                     <li>
-                        <a href="Report.html">Generate General Report</a>
+                        <a href="Report.php">Generate General Report</a>
                     </li>
                 </ul>
-
-                <!--<ul class="list-unstyled CTAs">
-                    <li><a href="https://bootstrapious.com/tutorial/files/sidebar.zip" class="download">Download source</a></li>
-                    <li><a href="https://bootstrapious.com/p/bootstrap-sidebar" class="article">Back to article</a></li>
-                </ul>-->
             </nav>
 
             <!-- Page Content Holder -->
@@ -126,13 +122,8 @@ if((!isset($_SESSION['username']) && $_SESSION['role'] != "admin")){
                                 Tayyebali M. Jivaji & Sons
                                 <a href="Login/logout.php" style="float:right">Logout</a>
                             </h3>
-                            <!--<ul class="nav navbar-nav navbar-right">
-                                <li><a href="#">Page</a></li>
-                                <li><a href="#">Page</a></li>
-                                <li><a href="#">Page</a></li>
-                                <li><a href="#">Page</a></li>
-                            </ul>-->
-                            
+                            <h4 style="color: white"><div style="float:right">Welcome <?php echo $user ?></div></h4>
+                           
                         </div>
 
                     </div>
