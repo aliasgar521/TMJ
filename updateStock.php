@@ -8,7 +8,7 @@
        
       swal({
 title: "Success!",
-text: "Stock has been Added!",
+text: "Stock has been Updated!",
 icon: "success",
 button: "Cool"
 }).then(function() {
@@ -41,7 +41,7 @@ window.location.href = "index.php";
 <?php
 	if(isset($_POST["submit"])){
 		include "db.php";
-		$created = add_stock($_POST);
+		$created = update_stock($_POST);
 		if($created){
 				echo '<script>','showSwal();','</script>';
 		}

@@ -62,6 +62,38 @@
 	}
 
 
+	function update_stock($menu){
+		$connection=connect_db();
+	
+		 $pro_id= $menu['pro_id'];
+		 $item_name= $menu['item_name'];
+		 $desc= $menu['description'];
+		 $stock_amt= $menu['stock_amt'];
+		//$supplier_id=$menu['supplier'];
+		$cp=$menu['cost_price'];
+		$sp=$menu['sell_price'];
+		$cabinet=$menu['cabinet'];
+		$tags = $menu['tags'];
+		// $purchase_date=$menu['purchase_date'];
+		// $t=strtotime($menu['purchase_date']);
+		$sql1 = '';
+		//QUERY WITH SUPPLIER ID IN IT
+		// $sql1 = "INSERT INTO `Inventory`(`item_name`,`description`,`stock_amt`,`supplier_id`,`cost_price`,`sell_price`,`cabinet`,`tag`,`purchase_date`) VALUES ('$item_name','$desc','$stock_amt','$supplier_id','$cp','$sp','$cabinet','$tags','$t')";
+
+		//QUERY WITHOUT SUPPLIER ID
+		$sql1 = "UPDATE `Inventory` set `item_name`= '$item_name',`description`='$desc',`stock_amt`='$stock_amt',`cost_price`='$cp',`sell_price`='$sp',`cabinet`='$cabinet',`tag`='$tags' where id='$pro_id'";
+
+		$result = mysqli_query($connection,$sql1);
+		if(mysqli_affected_rows($connection)){
+			return true;
+			
+
+		}
+		return false;
+	}
+
+
+
  function search_testing(){
  	$html ='';
  	$html .= '<h1>Hello world</h1>';

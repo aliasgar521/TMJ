@@ -348,13 +348,13 @@ else if((isset($_SESSION['username']) && $_SESSION['role'] == "worker"))
                     counter= document.getElementById("hideme").value;
                     var total_sale;
                     total_sale=document.getElementById("total_sum_value").innerHTML;
-                    alert("The total sale value is "+total_sale);
+                    // alert("The total sale value is "+total_sale);
                     // console.log("The Value of J is "+ j);
                 var TableData;
                 TableData = storeTblValues()
                 TableData = JSON.stringify(TableData);
 
-                alert(TableData);
+                // alert(TableData);
                 $.ajax({
                     type: "POST",
                     url: "finalizeSale.php",
@@ -372,7 +372,7 @@ else if((isset($_SESSION['username']) && $_SESSION['role'] == "worker"))
 
                 swal({
                     title: "Success!",
-                    text: "Entry Made!",
+                    text: "Sale Finalized!",
                     icon: "success",
                     type: "success",
                     confirmButtonText: "Cool"
@@ -422,7 +422,7 @@ else if((isset($_SESSION['username']) && $_SESSION['role'] == "worker"))
                 $("#myTable .total_price_input").each(function(){
                         // console.log("its cool.");
                     var get_textbox_value = $(this).text();
-                    console.log(get_textbox_value);
+                    // console.log(get_textbox_value);
                     if ($.isNumeric(get_textbox_value)) {
                         calculated_total_sum += parseFloat(get_textbox_value);
                     }                  

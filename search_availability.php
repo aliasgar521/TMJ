@@ -21,7 +21,7 @@ if($query->num_rows > 0){
     while($row = $query->fetch_assoc()){
         $data['id'] = $row['id'];
         $data['value'] = $row['item_name'];
-        $data['label'] = $row['item_name']." (Availability ".$row['stock_amt'].")";
+        $data['label'] = $row['item_name']." (Availability ".$row['stock_amt'].") (Cabinet ".$row['cabinet'].")";
         // $data['value'] =$row['stock_amt'];
         array_push($inventoryData, $data);
     }

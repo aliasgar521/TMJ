@@ -66,15 +66,16 @@ else if((isset($_SESSION['username']) && $_SESSION['role'] == "worker"))
   $('#theButton').click(addAnotherTextBox);
   function addAnotherTextBox() {
     $("#theForm").append("<div class='rcorners3' style='background: #C0C0C0; padding:2%';>\
+                            <input type='image' src='cross.png' class='delete-row' name='record' style='float:right;height:2%;width:2%'>\
                             <b><h3>Product number "+ (i+1) + "</h3></b><br>\
                             Item Name:<br>\
                                 <input type='text' class='product_name' name='purc_item_name"+ i +"' id='purc_item_name'  style='width:40%' required='required' autocomplete='off'><br>\
                             Quantity purchase:<br>\
                                 <input type='number' min='0'  name='purchase_quantity"+ i +"' id='stock_bought' style='width:40%' required='required''><br>\
                             Cost Price (in BD) :<br>\
-                                <input type='number' min='0' style='width:40%' name='cost_price"+ i +"' id='cost_price' placeholder='Enter Cost price of single Pc.' required='required' ><br>\
+                                <input type='number' min='0' step='0.01' style='width:40%' name='cost_price"+ i +"' id='cost_price' placeholder='Enter Cost price of single Pc.' required='required' ><br>\
                             Selling Price (in BD) : <br>\
-                                <input type='number' min='0' name='sell_price"+ i +"' id='sell_price' style='width:40%' placeholder='Enter Selling price of single Pc.' required='required''><br>\
+                                <input type='number' step='0.01' min='0' name='sell_price"+ i +"' id='sell_price' style='width:40%' placeholder='Enter Selling price of single Pc.' required='required''><br>\
                             Description:<br>\
                                 <input type='text' name='description"+ i +"' id='description' style='width:40%'><br>\
                             Cabinet Number:<br>\
@@ -88,6 +89,17 @@ else if((isset($_SESSION['username']) && $_SESSION['role'] == "worker"))
 
    }
 
+        //code to make the delete button work
+        $(document).ready(function() {
+            $("#theForm").on('click','.delete-row', function() {
+                $(this).closest('div').remove();
+                // console.log("clicked delete button");
+                // Update total when delete button clicked code below
+                
+            });
+        });
+
+        //code for auto complete of the textbox
    $("#theForm").on("keydown","input.product_name",function(){
             $(this).autocomplete({
             source: "search.php",
@@ -97,20 +109,13 @@ else if((isset($_SESSION['username']) && $_SESSION['role'] == "worker"))
 
    
         </script>
-        <script>
-        $(function() {
-            $("input.product_name").autocomplete({
-            source: "search.php",
-            });
-        });
-        </script>
         <style type="text/css">
 
 
-.icon{
-  padding-left: 10px;
-  margin-right: 20px;
-}
+        .icon{
+          padding-left: 10px;
+          margin-right: 20px;
+        }
 
             .center_div{
             margin: 0 auto;
@@ -222,10 +227,13 @@ else if((isset($_SESSION['username']) && $_SESSION['role'] == "worker"))
                     Purchase made by:<br>
                     <!-- <input type="text" name="purc_person"  id="purc_person" required="required"> -->
                     <select type="text" name="purc_person" id="purc_person" >
-                        <option value="Fakhruddin">Fakhruddin</option>
-                        <option value="Tasnim">Tasnim</option>
-                        <option value="Humayun">Humayun</option>
-                        <option value="Dawood">Dawood</option>
+                    <?php
+                    $connection=connect_db();
+                    $sql = mysqli_query($connection, "SELECT username from users order by username ASC");
+                    while ($row = $sql->fetch_assoc()){
+                        echo "<option value=".$row['username']."><column>".$row['username']."</column> </option>";
+                    } 
+                    ?>
                     </select>
                     <br>
                     Supplier: <br>
@@ -234,7 +242,7 @@ else if((isset($_SESSION['username']) && $_SESSION['role'] == "worker"))
                     $connection=connect_db();
                     $sql = mysqli_query($connection, "SELECT id,supplier_name,location FROM Supplier order by supplier_name ASC");
                     while ($row = $sql->fetch_assoc()){
-                        echo "<option value=".$row['id']."><column>" . $row['supplier_name'] . "</column> - <column>". $row['location'] ."</column></option>";
+                        echo "<option value=".$row['username']."><column>" . $row['supplier_name'] . "</column> - <column>". $row['location'] ."</column></option>";
                     } 
                     ?>
                     </select><br>
@@ -358,6 +366,7 @@ else if((isset($_SESSION['username']) && $_SESSION['role'] == "worker"))
             return false;
                 }
             }
+            
         </script>
     </body>
 </html>
