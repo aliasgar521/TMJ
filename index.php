@@ -223,7 +223,7 @@ else if((isset($_SESSION['username']) && $_SESSION['role'] == "worker"))
                                     </tr>';
                                  while($row = $result->fetch_assoc()){
                                     $time=$row["purchase_date"];
-                                    $time1= date("d-m-Y ", substr("$time", 0, 10));
+                                    $time1= date("d-m-Y ", (int)"$time");
 
                                     echo "<tr>
                                             <td>".$row["item_name"]."</td><td>".$row["description"]."</td><td>".$row["stock_amt"]."</td><td>".$row["cost_price"]."</td><td>".$row["sell_price"]."</td><td>".$row["cabinet"]."</td><td>".$row["tag"]."</td><td>".$time1."</td><td><input type='image' class='edit_data' id=".$row["id"]." src='edit.png' name='record' style='height:20px;width:18px'><input type='image' class='delete_data' id=".$row["id"]." src='icon-delete.png' name='record_delete'></td>
@@ -267,7 +267,7 @@ else if((isset($_SESSION['username']) && $_SESSION['role'] == "worker"))
                                     </tr>';
                                  while($row = $result->fetch_assoc()){
                                     $time=$row["purchase_date"];
-                                    $time1= date("d-m-Y ", substr("$time", 0, 10));
+                                    $time1= date("d-m-Y ", (int)"$time");
 
                                     echo "<tr id='pro_table'>
                                             <td id='pro_name' class='pro_name'>".$row["item_name"]."</td>
