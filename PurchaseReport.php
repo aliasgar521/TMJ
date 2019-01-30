@@ -212,7 +212,7 @@ else if((isset($_SESSION['username']) && $_SESSION['role'] == "worker"))
                                         $ddate2=htmlentities($_GET['double_date2']);
                                         
 
-                                        $message = "Success! You entered: ".$product;
+                                      
                                         display_ddate($ddate1,$ddate2);
                                     } 
                                     else if(isset($_GET['submit_date']))
