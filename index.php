@@ -238,13 +238,13 @@ else if((isset($_SESSION['username']) && $_SESSION['role'] == "worker"))
                             <?php 
                             function display_product(string $product){
                                 $connection=connect_db();
-                                echo "<script> 
-                                    $('#search_button').click(function(e){
-                                        e.preventDefault();
-                                        $('#product_table').hide();
+//                                 echo "<script> 
+//                                     $('#search_button').click(function(e){
+//                                         e.preventDefault();
+//                                         $('#product_table').hide();
                                         
-                                    });
-                                </script>";
+//                                     });
+//                                 </script>";
                                 $sql="select * from Inventory where item_name='$product' order by item_name ASC";
 
                                 $result = mysqli_query($connection,$sql);
