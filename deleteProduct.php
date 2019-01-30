@@ -1,9 +1,4 @@
-<?php  
-
- 
-
-
- //fetch.php  
+<?php    
 include "db.php";
 $connect= connect_db();
 if(isset($_POST["id"]))  

@@ -10,7 +10,7 @@
 title: "Success!",
 text: "Stock has been Updated!",
 icon: "success",
-button: "Cool"
+button: "Okay"
 }).then(function() {
 // Redirect the user
 window.location.href = "index.php";
@@ -39,7 +39,7 @@ window.location.href = "index.php";
 </body>
 </html>
 <?php
-	if(isset($_POST["submit"])){
+	if(isset($_POST["submit_update"])){
 		include "db.php";
 		$created = update_stock($_POST);
 		if($created){

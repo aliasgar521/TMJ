@@ -73,17 +73,12 @@ else if((isset($_SESSION['username']) && $_SESSION['role'] == "worker"))
                 background-position: left top;
                 background-repeat: repeat;
                 padding: 20px;
-                margin-top:20px; 
+                /*margin-top:20px; */
                /* width: 200px;
                 height: 150px; */
             }
-            .search_div{
-              display:flex;
-              align-items:flex-start;
-              flex-direction:row;
-              flex-wrap:wrap;
-
-             }
+            
+            
         </style>
         <style>
             table {
@@ -101,6 +96,10 @@ else if((isset($_SESSION['username']) && $_SESSION['role'] == "worker"))
             }
             tr:nth-child(odd) {
                     background-color: #dddddd  ;
+            }
+            ul.list li{
+              width: auto;
+              float: right;
             }
         </style>
 
@@ -168,22 +167,27 @@ else if((isset($_SESSION['username']) && $_SESSION['role'] == "worker"))
                 </nav>
 
                 <div class="container center_div">
-                    
-                    <input class="btn btn-primary" name="add_product" id="add_product" style="margin:2%; float:left;" value="Add Product">
-                    <div>
-                    <form id="product" method="get" action="" > 
-                        
-                                <div >
-                                    <input type="text" name="product_input" id="product_input" class="product_input" placeholder="Search Product"  />
-                                    <img src="search.png" style="height:2%;width:2%;">
-                                    <input type="submit" class="btn btn-primary" name="submit_product"  style="margin:2%;" value="Enter" >
-                                </div>
-                        
-                    </form>
+                    <div class="row ">
+                        <div class="col-lg-4 col-md-4 col-sm-12">
+                            <input class="btn btn-primary" name="add_product" id="add_product" style="margin:2%; float:left;" value="Add Product">
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-12">
+                            <input class="btn btn-primary" name="add_supplier" id="add_supplier" style="margin:2%;" value="Add Supplier">
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-12">
+                            
+                            <form id="product" method="get" action="" style="float:right" > 
+                                <input type="text" name="product_input" id="product_input" class="product_input" placeholder="Search Product"  />
+                                <img  src="search.png" style="height:5%;width:5%;" >
+                                <input type="submit" class="btn btn-primary" name="submit_product"  style="" value="Enter" id="search_button" >
+                            </form>
+                        </div>
+                            
                     </div>
-                    <br>
+                    
 
-                   
+                    <br><br><br>
+
                    
                     <?php 
                         if(isset($_GET['submit_product'])){
@@ -202,7 +206,8 @@ else if((isset($_SESSION['username']) && $_SESSION['role'] == "worker"))
                         $result = mysqli_query($connection,$sql);
                         if(mysqli_num_rows($result)){
                             // echo '<h2>Report of Today </h2>';
-                            echo'<table>
+                            echo'<div id="product_table">
+                                <table>
                                     <tr  style="background:#428bca;color:white" >
                     
                                         <th>Product</th>
@@ -224,20 +229,29 @@ else if((isset($_SESSION['username']) && $_SESSION['role'] == "worker"))
                                             <td>".$row["item_name"]."</td><td>".$row["description"]."</td><td>".$row["stock_amt"]."</td><td>".$row["cost_price"]."</td><td>".$row["sell_price"]."</td><td>".$row["cabinet"]."</td><td>".$row["tag"]."</td><td>".$time1."</td><td><input type='image' class='edit_data' id=".$row["id"]." src='edit.png' name='record' style='height:20px;width:18px'><input type='image' class='delete_data' id=".$row["id"]." src='icon-delete.png' name='record_delete'></td>
                                             </tr>";
                                 }
-                                echo "</table>";
+                                echo "</table></div>";
                             }
                             else
                                 echo "<br><br><h1>No results found</h1>";
 
-
+                            ?>
+                            <?php 
                             function display_product(string $product){
                                 $connection=connect_db();
+                                echo "<script> 
+                                    $('#search_button').click(function(e){
+                                        e.preventDefault();
+                                        $('#product_table').hide();
+                                        
+                                    });
+                                </script>";
                                 $sql="select * from Inventory where item_name='$product' order by item_name ASC";
 
                                 $result = mysqli_query($connection,$sql);
                         if(mysqli_num_rows($result)){
                             // echo '<h2>Report of Today </h2>';
-                            echo'<table>
+                            echo'<div style="background:#E0E0E0;margin-bottom:2%" class="rcorners3">
+                                    <table style="margin-bottom:0%">
                                     <tr  style="background:#428bca;color:white" >
                     
                                         <th>Product</th>
@@ -256,10 +270,21 @@ else if((isset($_SESSION['username']) && $_SESSION['role'] == "worker"))
                                     $time1= date("d-m-Y ", substr("$time", 0, 10));
 
                                     echo "<tr id='pro_table'>
-                                            <td id='pro_name' class='pro_name'>".$row["item_name"]."</td><td>".$row["description"]."</td><td>".$row["stock_amt"]."</td><td>".$row["cost_price"]."</td><td>".$row["sell_price"]."</td><td>".$row["cabinet"]."</td><td>".$row["tag"]."</td><td>".$time1."</td><td><input type='image' class='edit_data' id=".$row["id"]." src='edit.png' name='record' style='height:20px;width:18px'><input type='image' class='delete_data' id=".$row["id"]." src='icon-delete.png' name='record_delete'></td>
+                                            <td id='pro_name' class='pro_name'>".$row["item_name"]."</td>
+                                            <td>".$row["description"]."</td>
+                                            <td>".$row["stock_amt"]."</td>
+                                            <td>".$row["cost_price"]."</td>
+                                            <td>".$row["sell_price"]."</td>
+                                            <td>".$row["cabinet"]."</td>
+                                            <td>".$row["tag"]."</td>
+                                            <td>".$time1."</td>
+                                            <td>
+                                                <input type='image' class='edit_data' id=".$row["id"]." src='edit.png' name='record' style='height:20px;width:18px'>
+                                                <input type='image' class='delete_data' id=".$row["id"]." src='icon-delete.png' name='record_delete'>
+                                            </td>
                                             </tr>";
                                 }
-                                echo "</table>";
+                                echo "</table></div>";
                             }
                             else
                                 echo "<br><br><h1>No results found</h1>";
@@ -283,22 +308,22 @@ else if((isset($_SESSION['username']) && $_SESSION['role'] == "worker"))
                 <div class="modal-body">  
                      <form id="InventoryForm" name="InventoryForm" action="addStock.php" method="post" style="padding: 20px" onsubmit="return validateForm()">
                     Item Name:<br>
-                    <input type="text" name="item_name" id="item_name" class="item_name" >
+                    <input type="text" name="item_name" id="item_name" class="item_name" required="required" >
                      <br>
                     Description:<br>
                     <input type="text" name="description" id="description" >
                     <br>
                     Quantity Present:<br>
-                    <input type="number" name="stock_amt" id="stock_amt" min="0">
+                    <input type="number" name="stock_amt" id="stock_amt" min="0" required="required">
                     <br>
                     Date of Purchase:<br>
-                    <input type="date" name="purchase_date" id="purchase_date">
+                    <input type="date" name="purchase_date" id="purchase_date" required="required">
                     <br>
                     Cost Price (in BD) :<br>
-                    <input type="number" name="cost_price" id="cost_price" min="0" step="0.01">
+                    <input type="number" name="cost_price" id="cost_price" min="0" step="0.01" required="required">
                      <br>
                     Selling Price (in BD) :<br>
-                    <input type="number" name="sell_price" id="sell_price" min="0" step="0.01">
+                    <input type="number" name="sell_price" id="sell_price" min="0" step="0.01" required="required">
                     <br>
                     Cabinet Number:<br>
                     <input type="number" name="cabinet" id="cabinet" min="0" >
@@ -313,7 +338,7 @@ else if((isset($_SESSION['username']) && $_SESSION['role'] == "worker"))
                 </form> 
                 </div>   
                 <div class="modal-footer">  
-                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>  
+                     <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>  
                 </div>  
            </div>  
       </div>  
@@ -327,7 +352,7 @@ else if((isset($_SESSION['username']) && $_SESSION['role'] == "worker"))
                      <h4 class="modal-title">Update Product</h4>  
                 </div>  
                 <div class="modal-body">  
-                     <form id="UpdateForm" name="UpdateForm" action="updateStock.php" method="post" style="padding: 20px" onsubmit="return validateForm()">
+                     <form id="UpdateForm" name="UpdateForm" action="updateStock.php" method="post" style="padding: 20px" onsubmit="">
                     Item Name:<br>
                     <input type="text" name="item_name" id="item_name_u" class="item_name" >
                      <br>
@@ -347,7 +372,7 @@ else if((isset($_SESSION['username']) && $_SESSION['role'] == "worker"))
                     <input type="number" name="sell_price" id="sell_price_u" min="0" step="0.01">
                     <br>
                     Cabinet Number:<br>
-                    <input type="number" name="cabinet" id="cabinet_u" min="0" >
+                    <input type="number" name="cabinet" id="cabinet_u" >
                     <br>
                     Tags:<br>
                     <input type="text" name="tags" id="tags_u" >
@@ -356,15 +381,40 @@ else if((isset($_SESSION['username']) && $_SESSION['role'] == "worker"))
                     <br>
                                         
                     <br><br>
-                    <input type="submit" name="submit" value="Submit" class="btn btn-primary btn-lg btn-block" style="width:40%" >
+                    <input type="submit" name="submit_update" value="Submit" class="btn btn-primary btn-lg btn-block" style="width:40%" >
                 </form>  
                 </div>   
                 <div class="modal-footer">  
-                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>  
+                     <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>  
                 </div>  
            </div>  
       </div>  
  </div>  
+
+    <div id="add_supplier_data_Modal" class="modal fade">  
+        <div class="modal-dialog">  
+            <div class="modal-content">  
+                <div class="modal-header">  
+                     <button type="button" class="close" data-dismiss="modal">&times;</button>  
+                     <h4 class="modal-title">Add Supplier</h4>  
+                </div>  
+                <div class="modal-body">  
+                    <form id="SupplierForm" action="addSupplier.php" method="post" style="padding: 20px" required>
+                        Supplier:<br>
+                        <input type="text" name="supplier_name" id="location" >
+                         <br>
+                        Location:<br>
+                        <input type="text" name="location" id="location" >
+                        <br><br><br>
+                        <input type="submit" class = "btn btn-primary btn-lg btn-block" name="submit_supplier" value="Submit" id="submit"  style="width:40%">
+                    </form>
+                </div>   
+                <div class="modal-footer">  
+                     <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>  
+                </div>  
+            </div>  
+        </div>  
+    </div>  
 
              <!-- jQuery CDN -->
             <!-- <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script> -->
@@ -428,6 +478,11 @@ else if((isset($_SESSION['username']) && $_SESSION['role'] == "worker"))
                     $('#add_data_Modal').modal('show'); 
                    });
 
+                    $("#add_supplier").click(function(e){
+                    e.preventDefault();
+                    $('#add_supplier_data_Modal').modal('show'); 
+                   });
+
 
                     $(".delete_data").click(function(e){
                     e.preventDefault();
@@ -446,13 +501,20 @@ else if((isset($_SESSION['username']) && $_SESSION['role'] == "worker"))
                             }  
                        });  
                   });  
+                    // $("#search_button").click(function(e){
+                    // e.preventDefault();
+
+                    //     $("#product_table").hide();
+                    //     return;
+                    // });
                 });
             </script>
             <script type="text/javascript">
             function validateForm() {
             var cp = document.forms["InventoryForm"]["cost_price"].value;
             var sp = document.forms["InventoryForm"]["sell_price"].value;
-
+            cp = parseInt(cp);
+            sp = parseInt(sp);
 
             if (cp > sp) {
                 swal({
@@ -475,105 +537,5 @@ else if((isset($_SESSION['username']) && $_SESSION['role'] == "worker"))
             }
         </script>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<!-- 
-            <script type="text/javascript">
-                $(document).ready(function() {
-                    $("#pro_table").on('click','.update-row', function() {
-                        var pro_name= $(this).closest('tr').find('.pro_name').html();
-
-
-
-                        <?php 
-                        //     $connection=connect_db();
-                        //     echo "console.log('hello')";
-                               if(isset($_GET['submit_product'])){
-                                $product=htmlentities($_GET['product_input']);
-
-                                 // echo load_list($product);
-
-                               
-                            }
-
-                            
-                            
-
-                        ?>
-                        
-                        $('#myModal').modal('show'); 
-
-                    });
-                });
-
-            </script> -->
-                        <!-- ?php 
-                            function load_list(string $product){
-                                
-                                    $connection=connect_db();
-                                    // echo "console.log('helloWorld')";
-                                    $sql="select * from Inventory where item_name='$product' order by item_name ASC";   
-                                    $result = mysqli_query($connection,$sql);
-                                    $html='';
-                                        if(mysqli_num_rows($result)){
-                                            while($row1 = mysqli_fetch_assoc($result)){
-                                                 // $html.='<div class="modal fade" id="myModal" role="dialog">
-                                                 //            <div class="modal-dialog">
-                                                 //                <div class="modal-content">
-                                                 //                    <div class="modal-header">
-                                                 //                      <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                                 //                      <h4 class="modal-title">Modal Header</h4>
-                                                 //                    </div>
-                                                 //                    <div class="modal-body">
-                                                                        
-                                                 //                    </div>
-                                                 //                    <div class="modal-footer">
-                                                 //                      <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                                 //                    </div>
-                                                 //                </div>
-                                                                  
-                                                 //            </div>
-                                                 //        </div>' ;
-                                                $html.="Hello World!!";
-                                               
-                                            }
-                                        }
-                                return $html;
-                            }
-
-                            function ll(){
-                                $html='';
-                                $html.="$('#myModal').modal('show'); ";
-                                return $html;
-                            }
-                          
-                        ?> -->
     </body>
 </html>

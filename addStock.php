@@ -10,7 +10,7 @@
 title: "Success!",
 text: "Stock has been Added!",
 icon: "success",
-button: "Cool"
+button: "Okay"
 }).then(function() {
 // Redirect the user
 window.location.href = "index.php";

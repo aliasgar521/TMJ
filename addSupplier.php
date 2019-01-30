@@ -8,7 +8,7 @@
        
       swal({
 title: "Success!",
-text: "Entry Made!",
+text: "Supplier Added",
 icon: "success",
 type: "success",
 confirmButtonText: "Cool"
@@ -40,7 +40,7 @@ window.location.href = "index.php";
 </body>
 </html>
 <?php
-	if(isset($_POST["submit"])){
+	if(isset($_POST["submit_supplier"])){
 		include "db.php";
 		$created = add_supplier($_POST);
 		if($created){
