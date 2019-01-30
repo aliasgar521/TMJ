@@ -84,7 +84,7 @@
                                 $role =$data['role'];
                             }
                             
-                            console.log($role);
+                           // console.log($role);
 					            // Redirect user to index.php
 
                                     if(isset($_SESSION['role']))
