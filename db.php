@@ -8,7 +8,7 @@
 	}
 
 	function add_supplier($menu){
-		console.log("in add suplier function");
+		//console.log("in add suplier function");
 		$connection=connect_db();
 
 		$supplier_name= $menu['supplier_name'];
