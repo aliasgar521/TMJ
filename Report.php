@@ -224,7 +224,7 @@ else if((isset($_SESSION['username']) && $_SESSION['role'] == "worker"))
                             $result = mysqli_query($connection,$sql);
                             if(mysqli_num_rows($result)){
                                 echo '<h2>Report of Today </h2>';
-                                echo $product; echo'</u></h2><table>
+                                 echo'</u></h2><table>
                                         <tr  style="background:#428bca;color:white" >
                                             
 
