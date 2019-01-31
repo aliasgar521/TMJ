@@ -1,0 +1,72 @@
+1) First run the "vc_redist.x64" file.
+	Install the setup in the suggested directory.
+
+2) Run the "wampserver3.1.7_x64" file which will install wamp server for you
+	It should install a file named wamp64 in your C drive where all your wamp files will be stored.
+	When asked to choose default browser, select chrome
+  
+  
+  *****In case you encounter any errors saying MSVCR120.dll missing, do the following :-
+  Copy the below mentioned files
+  MSVCR120.dll,MSVCP120.dll and MSVCR110.dll
+  and paste them in C:/Windows/System32
+  Once you have done that, go back to C:/wamp64 folder and run the file named unins000.
+  Now follow the steps from step 2
+  
+  
+3) Copy the provided "TMJ" folder and paste it in the following location
+	C:\wamp64\www\	
+	You can paste the file here.
+  Now click on windows start button and find WampServer64 in the menu and click on it to begin service.
+
+4) Now start your normal chrome browser and type "localhost"
+	you should be able to see the welcome page of apache.
+
+5) In order to connect the database to the website, do the following.
+	1.go to the following location in your file system
+	  C:/wamp64/bin/mysql/mysql5.7.24/bin
+
+	2.Open terminal in above mentioned location
+
+	3.Run the following commands
+	--> mysql -u root -p
+
+	4.You will be prompted to enter a password. Simply click on enter as there is no initial password
+
+	5.Run the following commands then
+	--> create database test1;
+	--> exit;
+	
+	6. Now run the following command
+	--> mysql -u root -p test1 < C:\wamp64\www\TMJ\test1.sql
+
+	7. When prompted for password, simply click enter again.
+
+6) In order to access the website, go to the following url
+	localhost/TMJ/
+	You will be redirected to a login page wherein you need to click on the Register button to create your new account. 
+  Create your new account with unique username and password and then do the next step before going to login page.
+
+7) For admin priveleges do the following.
+	1.go to the following location
+	C:/wamp64/bin/mysql/mysql5.7.24/bin
+	
+	2.Open terminal in the above mentioned location
+	
+	3.Run the following command
+	--> mysql -u root -p
+
+	4.You will be prompted to enter a password. Simply click on enter as there is no initial password
+
+	5.Run the following commands then
+	  
+	--> use tmj_database;
+	
+	--> update users set role="admin" where username="<<your_username_here>>";
+		it should say Query OK, 1 row affected
+	--> exit;
+	
+	You should now have access to the entire website and full admin privileges.
+  
+  8) Now go to the website localhost/TMJ/ and you will see a login page. 
+  Enter your new credentials there and you can now use the website as admin
