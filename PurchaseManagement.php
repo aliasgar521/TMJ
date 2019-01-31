@@ -66,7 +66,7 @@ else if((isset($_SESSION['username']) && $_SESSION['role'] == "worker"))
   $('#theButton').click(addAnotherTextBox);
   function addAnotherTextBox() {
     $("#theForm").append("<div class='rcorners3' style='background: #C0C0C0; padding:2%';>\
-                            <input type='image' src='cross.png' class='delete-row' name='record' style='float:right;height:2%;width:2%'>\
+                            <input type='image' src='images/cross.png' class='delete-row' name='record' style='float:right;height:2%;width:2%'>\
                             <b><h3>Product number "+ (i+1) + "</h3></b><br>\
                             Item Name:<br>\
                                 <input type='text' class='product_name' name='purc_item_name"+ i +"' id='purc_item_name'  style='width:40%' required='required' autocomplete='off'><br>\

@@ -178,7 +178,7 @@ else if((isset($_SESSION['username']) && $_SESSION['role'] == "worker"))
                             
                             <form id="product" method="get" action="" style="float:right" > 
                                 <input type="text" name="product_input" id="product_input" class="product_input" placeholder="Search Product"  />
-                                <img  src="search.png" style="height:5%;width:5%;" >
+                                <img  src="images/search.png" style="height:5%;width:5%;" >
                                 <input type="submit" class="btn btn-primary" name="submit_product"  style="" value="Enter" id="search_button" >
                             </form>
                         </div>
@@ -226,7 +226,7 @@ else if((isset($_SESSION['username']) && $_SESSION['role'] == "worker"))
                                     $time1= date("d-m-Y ", (int)"$time");
 
                                     echo "<tr>
-                                            <td>".$row["item_name"]."</td><td>".$row["description"]."</td><td>".$row["stock_amt"]."</td><td>".$row["cost_price"]."</td><td>".$row["sell_price"]."</td><td>".$row["cabinet"]."</td><td>".$row["tag"]."</td><td>".$time1."</td><td><input type='image' class='edit_data' id=".$row["id"]." src='edit.png' name='record' style='height:20px;width:18px'><input type='image' class='delete_data' id=".$row["id"]." src='icon-delete.png' name='record_delete'></td>
+                                            <td>".$row["item_name"]."</td><td>".$row["description"]."</td><td>".$row["stock_amt"]."</td><td>".$row["cost_price"]."</td><td>".$row["sell_price"]."</td><td>".$row["cabinet"]."</td><td>".$row["tag"]."</td><td>".$time1."</td><td><input type='image' class='edit_data' id=".$row["id"]." src='images/edit.png' name='record' style='height:20px;width:18px'><input type='image' class='delete_data' id=".$row["id"]." src='images/icon-delete.png' name='record_delete'></td>
                                             </tr>";
                                 }
                                 echo "</table></div>";
@@ -279,8 +279,8 @@ else if((isset($_SESSION['username']) && $_SESSION['role'] == "worker"))
                                             <td>".$row["tag"]."</td>
                                             <td>".$time1."</td>
                                             <td>
-                                                <input type='image' class='edit_data' id=".$row["id"]." src='edit.png' name='record' style='height:20px;width:18px'>
-                                                <input type='image' class='delete_data' id=".$row["id"]." src='icon-delete.png' name='record_delete'>
+                                                <input type='image' class='edit_data' id=".$row["id"]." src='images/edit.png' name='record' style='height:20px;width:18px'>
+                                                <input type='image' class='delete_data' id=".$row["id"]." src='images/icon-delete.png' name='record_delete'>
                                             </td>
                                             </tr>";
                                 }
