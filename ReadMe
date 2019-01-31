@@ -7,7 +7,7 @@
   
   
   *****In case you encounter any errors saying MSVCR120.dll missing, do the following :-
-  Copy the below mentioned files
+  Copy the below mentioned files located inside the TMJ folder
   MSVCR120.dll,MSVCP120.dll and MSVCR110.dll
   and paste them in C:/Windows/System32
   Once you have done that, go back to C:/wamp64 folder and run the file named unins000.
