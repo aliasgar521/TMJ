@@ -1,33 +1,16 @@
 <?php
-session_start();
 include "db.php";
-// if((!isset($_SESSION["username"]) && !isset($_SESSION["role"]=="admin")))
-$user = $_SESSION['username'];
-if((!isset($_SESSION['username']) && $_SESSION['role'] != "admin")){
-   
-    header("location: Login/login.php");
-}
-else if((isset($_SESSION['username']) && $_SESSION['role'] == "worker"))
-{
-    header("location: test.php");   
-}
-// else
-//     {
-//         header("location: Login/login.php");
-//     }   
 ?>
 <!DOCTYPE html>
 <html>
     <head>
 
         <meta charset="utf-8">
-        <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-       
+
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-         <!-- <script src="js/addProduct.js" type="text/javascript"></script> -->
-        <!-- <script src="js/addProduct.js" type="text/javascript"></script> -->
+        
 
 
         <title>T.M. Jivaji</title>
@@ -54,10 +37,9 @@ else if((isset($_SESSION['username']) && $_SESSION['role'] == "worker"))
 <!-- Bootstrap Date-Picker Plugin -->
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css"/>
-        
+
 <!-- Link for FONT AWESOME Icons -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-        
 
         <script>
         $(function() {
@@ -157,7 +139,23 @@ else if((isset($_SESSION['username']) && $_SESSION['role'] == "worker"))
                 </div>
 
                 <ul class="list-unstyled components">
-                  
+                    <!--<li class="active">
+                        <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false">Home</a>
+                        <ul class="collapse list-unstyled" id="homeSubmenu">
+                            <li><a href="#">Home 1</a></li>
+                            <li><a href="#">Home 2</a></li>
+                            <li><a href="#">Home 3</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#">About</a>
+                        <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false">Pages</a>
+                        <ul class="collapse list-unstyled" id="pageSubmenu">
+                            <li><a href="#">Page 1</a></li>
+                            <li><a href="#">Page 2</a></li>
+                            <li><a href="#">Page 3</a></li>
+                        </ul>
+                    </li>-->
                     <li>
                         <a href="index.php">Inventory Management</a>
                     </li>
@@ -168,10 +166,7 @@ else if((isset($_SESSION['username']) && $_SESSION['role'] == "worker"))
                         <a href="PurchaseManagement.php">Purchase Management</a>
                     </li>
                     <li>
-                        <a href="PurchaseReport.php">Generate Purchase Report</a>
-                    </li>
-                    <li>
-                        <a href="Report.html">Generate General Report</a>
+                        <a href="Report.php">Generate Report</a>
                     </li>
                 </ul>
 
@@ -182,7 +177,7 @@ else if((isset($_SESSION['username']) && $_SESSION['role'] == "worker"))
             </nav>
 
             <!-- Page Content Holder -->
-           <div id="content" style="background: #FFF">
+            <div id="content" style="background: #FFF">
 
                 <nav class="navbar navbar-default" style="background: #42A5F5"> <!--#B2EBF2-->
                     <div class="container-fluid">
@@ -198,13 +193,11 @@ else if((isset($_SESSION['username']) && $_SESSION['role'] == "worker"))
                         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                             <h3 style="text-align: center; color: white">
                                 Tayyebali M. Jivaji & Sons
-                                <a href="Login/logout.php" style="float:right">Logout</a>
                             </h3>
-                            <h4 style="color: white"><div style="float:right">Welcome <?php echo $user ?></div></h4>
+
                         </div>
 
                     </div>
-
 
                 </nav>
                   <h3 style="text-align: center">
@@ -227,13 +220,10 @@ else if((isset($_SESSION['username']) && $_SESSION['role'] == "worker"))
                     Purchase made by:<br>
                     <!-- <input type="text" name="purc_person"  id="purc_person" required="required"> -->
                     <select type="text" name="purc_person" id="purc_person" >
-                    <?php
-                    $connection=connect_db();
-                    $sql = mysqli_query($connection, "SELECT username from users order by username ASC");
-                    while ($row = $sql->fetch_assoc()){
-                        echo "<option value=".$row['username']."><column>".$row['username']."</column> </option>";
-                    } 
-                    ?>
+                        <option value="Fakhruddin">Fakhruddin</option>
+                        <option value="Tasnim">Tasnim</option>
+                        <option value="Humayun">Humayun</option>
+                        <option value="Dawood">Dawood</option>
                     </select>
                     <br>
                     Supplier: <br>
@@ -251,9 +241,6 @@ else if((isset($_SESSION['username']) && $_SESSION['role'] == "worker"))
                     <input type="radio" name="payment" value="credit"/> Credit<br>
                     Total Payable Amount:<br>
                     <input type="number" name="payable" id="payable" required="required"><br><br>
-
-
-
                     <div id='theForm'></div>
                     <br>
 
@@ -350,9 +337,6 @@ else if((isset($_SESSION['username']) && $_SESSION['role'] == "worker"))
             function validateForm() {
             var cp = document.forms["PurchaseForm"]["cost_price"].value;
             var sp = document.forms["PurchaseForm"]["sell_price"].value;
-            cp = parseInt(cp);
-            sp = parseInt(sp);
-
             if (cp > sp) {
                 swal({
                     title: "Error!",

@@ -1,24 +1,26 @@
 <?php
 
 // Database configuration
-$dbHost     = 'localhost';
-$dbUsername = 'root';
-$dbPassword = '95752468ali';
-$dbName     = 'test1';
+// $dbHost     = 'localhost';
+// $dbUsername = 'root';
+// $dbPassword = '95752468ali';
+// $dbName     = 'test1';
 
-// Connect with the database
-$db = new mysqli($dbHost, $dbUsername, $dbPassword, $dbName);
-
+// // Connect with the database
+// $db = new mysqli($dbHost, $dbUsername, $dbPassword, $dbName);
+include "connect.php";
+$connection=connect_db();
 // Get search term
 $searchTerm = $_GET['term'];
 
 // Get matched data from Inventory table
-$query = $db->query("SELECT * FROM `Inventory` WHERE `item_name` LIKE '%".$searchTerm."%' ORDER BY item_name ASC");
+$sql = "SELECT * FROM `Inventory` WHERE `item_name` LIKE '%".$searchTerm."%' AND `deleted` <> 1 ORDER BY item_name ASC";
 
 // Generate Inventory data array
 $inventoryData = array();
-if($query->num_rows > 0){
-    while($row = $query->fetch_assoc()){
+$result = mysqli_query($connection,$sql);
+if($result->num_rows > 0){
+    while($row = $result->fetch_assoc()){
         $data['id'] = $row['id'];
         $data['value'] = $row['item_name'];
         $data['label'] = $row['item_name']." (Availability ".$row['stock_amt'].") (Cabinet ".$row['cabinet'].")";

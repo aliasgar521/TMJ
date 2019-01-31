@@ -257,7 +257,8 @@ else if((isset($_SESSION['username']) && $_SESSION['role'] == "worker"))
                                     $connection=connect_db();
                                         //$product = $menu['product_input'];
                                         // $sql="SELECT pro_name,quantity,cost_price from invandpro where pro_name = '$product';";
-                                    $sql="SELECT purchase_date,purchase_person,invoice_number,pro_name,quantity,cost_price,supplier_name from Invoice join invandpro on Invoice.id=invandpro.invoice_id join Supplier on Invoice.supplier_id=Supplier.id where purchase_date = '$date1'";
+                                    $t1=strtotime($date);
+                                    $sql="SELECT purchase_date,purchase_person,invoice_number,pro_name,quantity,cost_price,supplier_name from Invoice join invandpro on Invoice.id=invandpro.invoice_id join Supplier on Invoice.supplier_id=Supplier.id where purchase_date = '$t1'";
 
                                     $result = mysqli_query($connection,$sql);
                                     if(mysqli_num_rows($result)){

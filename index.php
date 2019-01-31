@@ -337,9 +337,7 @@ else if((isset($_SESSION['username']) && $_SESSION['role'] == "worker"))
                     <input type="submit" name="submit" value="Submit" class="btn btn-primary btn-lg btn-block" style="width:40%" >
                 </form> 
                 </div>   
-                <div class="modal-footer">  
-                     <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>  
-                </div>  
+                
            </div>  
       </div>  
  </div>  
@@ -384,9 +382,9 @@ else if((isset($_SESSION['username']) && $_SESSION['role'] == "worker"))
                     <input type="submit" name="submit_update" value="Submit" class="btn btn-primary btn-lg btn-block" style="width:40%" >
                 </form>  
                 </div>   
-                <div class="modal-footer">  
+                <!-- <div class="modal-footer">  
                      <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>  
-                </div>  
+                </div>  --> 
            </div>  
       </div>  
  </div>  
@@ -409,9 +407,9 @@ else if((isset($_SESSION['username']) && $_SESSION['role'] == "worker"))
                         <input type="submit" class = "btn btn-primary btn-lg btn-block" name="submit_supplier" value="Submit" id="submit"  style="width:40%">
                     </form>
                 </div>   
-                <div class="modal-footer">  
+                <!-- <div class="modal-footer">  
                      <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>  
-                </div>  
+                </div>  --> 
             </div>  
         </div>  
     </div>  
