@@ -52,7 +52,7 @@
 		}
 		if(empty($cabinet))
 		{
-			$cabinet="";
+			$cabinet="0";
 		}
 		if(empty($tags))
 		{
@@ -86,6 +86,18 @@
 		$sp=$menu['sell_price'];
 		$cabinet=$menu['cabinet'];
 		$tags = $menu['tags'];
+		if(empty($desc))
+		{
+			$desc="";
+		}
+		if(empty($cabinet))
+		{
+			$cabinet="0";
+		}
+		if(empty($tags))
+		{
+			$tags="";
+		}
 		// $purchase_date=$menu['purchase_date'];
 		// $t=strtotime($menu['purchase_date']);
 		$sql1 = '';
@@ -195,6 +207,18 @@ $sql = "INSERT INTO `Invoice`(`invoice_number`,`supplier_id`,`purchase_date`,`pu
 				$desc=$menu['description'.$j];
 				$cabinet=$menu['cabinet'.$j];
 				$tags=$menu['tags'.$j];
+				if(empty($desc))
+				{
+					$desc="";
+				}
+				if(empty($cabinet))
+				{
+					$cabinet="0";
+				}
+				if(empty($tags))
+				{
+					$tags="";
+				}
 				
 				$sql1 = "INSERT INTO `Inventory`(`item_name`,`description`,`stock_amt`,`cost_price`,`sell_price`,`cabinet`,`tag`,`purchase_date`,`deleted`) VALUES ('$pro_name','$desc','$quantity','$cp','$sp','$cabinet','$tags','$t','0') ON DUPLICATE KEY UPDATE `cost_price` = ((`cost_price` * `stock_amt`)+('$quantity' * '$cp'))/(`stock_amt` + '$quantity'), `sell_price` = ((`sell_price` * `stock_amt`)+('$quantity' * '$sp'))/(`stock_amt` + '$quantity') ,`stock_amt` = `stock_amt` +'$quantity'";
 
@@ -215,44 +239,44 @@ $sql = "INSERT INTO `Invoice`(`invoice_number`,`supplier_id`,`purchase_date`,`pu
 
 
 
-function display_search(){
-		$connection=connect_db();
-		$menu = '';
-		$sql = "SELECT * FROM `Inventory`";
+// function display_search(){
+// 		$connection=connect_db();
+// 		$menu = '';
+// 		$sql = "SELECT * FROM `Inventory`";
 
-		$result = mysqli_query($connection,$sql);
-		if(mysqli_num_rows($result)){
+// 		$result = mysqli_query($connection,$sql);
+// 		if(mysqli_num_rows($result)){
 
 			
-			while($row = mysqli_fetch_assoc($result)){
+// 			while($row = mysqli_fetch_assoc($result)){
 
-				$menu .= '<option id="att'.$row['id'].'" value = "'.$row['title'].'">';
-			}
-		}
-			$sql1 = "SELECT * FROM `products`";
+// 				$menu .= '<option id="att'.$row['id'].'" value = "'.$row['title'].'">';
+// 			}
+// 		}
+// 			$sql1 = "SELECT * FROM `products`";
 
-		$result1 = mysqli_query($connection,$sql1);
-		if(mysqli_num_rows($result1)){
-			while($row1 = mysqli_fetch_assoc($result1)){
+// 		$result1 = mysqli_query($connection,$sql1);
+// 		if(mysqli_num_rows($result1)){
+// 			while($row1 = mysqli_fetch_assoc($result1)){
 
-				$menu .= '<option id="pro'.$row1['id'].'" value = "'.$row1['name'].'"><a href="www.google.com"></a></option>';
-			}
-		}
-			$sql2 = "SELECT * FROM `category`";
+// 				$menu .= '<option id="pro'.$row1['id'].'" value = "'.$row1['name'].'"><a href="www.google.com"></a></option>';
+// 			}
+// 		}
+// 			$sql2 = "SELECT * FROM `category`";
 
-			$result2 = mysqli_query($connection,$sql2);
-			if(mysqli_num_rows($result2)){
-			while($row2 = mysqli_fetch_assoc($result2)){
+// 			$result2 = mysqli_query($connection,$sql2);
+// 			if(mysqli_num_rows($result2)){
+// 			while($row2 = mysqli_fetch_assoc($result2)){
 
-				$menu .= '<option id="cat'.$row2['id'].'" value = "'.$row2['name'].'">';
-			}
-		}
-			return $menu;
+// 				$menu .= '<option id="cat'.$row2['id'].'" value = "'.$row2['name'].'">';
+// 			}
+// 		}
+// 			return $menu;
 
 
 		
 
-	}
+// 	}
 
 
 

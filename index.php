@@ -134,7 +134,7 @@ else if((isset($_SESSION['username']) && $_SESSION['role'] == "worker"))
                         <a href="PurchaseReport.php">Generate Purchase Report</a>
                     </li>
                     <li>
-                        <a href="Report.php">Generate General Report</a>
+                        <a href="Report.php">Generate Sales Report</a>
                     </li>
                 </ul>
 
@@ -172,7 +172,7 @@ else if((isset($_SESSION['username']) && $_SESSION['role'] == "worker"))
                             <input class="btn btn-primary" name="add_product" id="add_product" style="margin:2%; float:left;" value="Add Product">
                         </div>
                         <div class="col-lg-4 col-md-4 col-sm-12">
-                            <input class="btn btn-primary" name="add_supplier" id="add_supplier" style="margin:2%;" value="Add Supplier">
+                            <!-- <input class="btn btn-primary" name="add_supplier" id="add_supplier" style="margin:2%;" value="Add Supplier"> -->
                         </div>
                         <div class="col-lg-4 col-md-4 col-sm-12">
                             
@@ -226,8 +226,19 @@ else if((isset($_SESSION['username']) && $_SESSION['role'] == "worker"))
                                     $time1= date("d-m-Y ", (int)"$time");
 
                                     echo "<tr>
-                                            <td>".$row["item_name"]."</td><td>".$row["description"]."</td><td>".$row["stock_amt"]."</td><td>".$row["cost_price"]."</td><td>".$row["sell_price"]."</td><td>".$row["cabinet"]."</td><td>".$row["tag"]."</td><td>".$time1."</td><td><input type='image' class='edit_data' id=".$row["id"]." src='images/edit.png' name='record' style='height:20px;width:18px'><input type='image' class='delete_data' id=".$row["id"]." src='images/icon-delete.png' name='record_delete'></td>
-                                            </tr>";
+                                            <td>".$row["item_name"]."</td>
+                                            <td>".$row["description"]."</td>
+                                            <td>".$row["stock_amt"]."</td>
+                                            <td>".$row["cost_price"]."</td>
+                                            <td>".$row["sell_price"]."</td>
+                                            <td>".$row["cabinet"]."</td>
+                                            <td>".$row["tag"]."</td>
+                                            <td>".$time1."</td>
+                                            <td>
+                                            	<input type='image' class='edit_data' id=".$row["id"]." src='images/edit.png' name='record' style='height:20px;width:18px'>
+                                            	<input type='image' class='delete_data' id=".$row["id"]." src='images/icon-delete.png' name='record_delete'>
+                                            </td>
+                                           </tr>";
                                 }
                                 echo "</table></div>";
                             }
@@ -326,7 +337,7 @@ else if((isset($_SESSION['username']) && $_SESSION['role'] == "worker"))
                     <input type="number" name="sell_price" id="sell_price" min="0" step="0.01" required="required">
                     <br>
                     Cabinet Number:<br>
-                    <input type="number" name="cabinet" id="cabinet" min="0" >
+                    <input type="number" name="cabinet" id="cabinet" value=""  >
                     <br>
                     Tags:<br>
                     <input type="text" name="tags" id="tags" >

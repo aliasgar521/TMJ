@@ -171,7 +171,7 @@ else if((isset($_SESSION['username']) && $_SESSION['role'] == "worker"))
                         <a href="PurchaseReport.php">Generate Purchase Report</a>
                     </li>
                     <li>
-                        <a href="Report.html">Generate General Report</a>
+                        <a href="Report.html">Generate Sales Report</a>
                     </li>
                 </ul>
 
@@ -239,13 +239,15 @@ else if((isset($_SESSION['username']) && $_SESSION['role'] == "worker"))
                     Supplier: <br>
                     <select name="supplier" id="supplier" type="text" required="required">
                     <?php
-                    $connection=connect_db();
-                    $sql = mysqli_query($connection, "SELECT id,supplier_name,location FROM Supplier order by supplier_name ASC");
-                    while ($row = $sql->fetch_assoc()){
-                        echo "<option value=".$row['id']."><column>" . $row['supplier_name'] . "</column> - <column>". $row['location'] ."</column></option>";
-                    } 
+                        $connection=connect_db();
+                        $sql = mysqli_query($connection, "SELECT id,supplier_name,location FROM Supplier order by supplier_name ASC");
+                        while ($row = $sql->fetch_assoc()){
+                            echo "<option value=".$row['id']."><column>" . $row['supplier_name'] . "</column> - <column>". $row['location'] ."</column></option>";
+                        } 
                     ?>
-                    </select><br>
+                    </select>
+                    <input class="btn btn-primary" name="add_supplier" id="add_supplier" style="margin-left: 2%" value="Add Supplier">
+                    <br>
                     Payment form:<br>
                     <input type="radio" name="payment" value="cash"/> Cash<br>
                     <input type="radio" name="payment" value="credit"/> Credit<br>
@@ -305,7 +307,30 @@ else if((isset($_SESSION['username']) && $_SESSION['role'] == "worker"))
             </div>
         </div>
 
-
+<div id="add_supplier_data_Modal" class="modal fade">  
+        <div class="modal-dialog">  
+            <div class="modal-content">  
+                <div class="modal-header">  
+                     <button type="button" class="close" data-dismiss="modal">&times;</button>  
+                     <h4 class="modal-title">Add Supplier</h4>  
+                </div>  
+                <div class="modal-body">  
+                    <form id="SupplierForm" action="addSupplier.php" method="post" style="padding: 20px" required>
+                        Supplier:<br>
+                        <input type="text" name="supplier_name" id="location" >
+                         <br>
+                        Location:<br>
+                        <input type="text" name="location" id="location" >
+                        <br><br><br>
+                        <input type="submit" class = "btn btn-primary btn-lg btn-block" name="submit_supplier" value="Submit" id="submit"  style="width:40%">
+                    </form>
+                </div>   
+                <!-- <div class="modal-footer">  
+                     <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>  
+                </div>  --> 
+            </div>  
+        </div>  
+    </div>  
 
         <div class="overlay"></div>
 
@@ -342,6 +367,12 @@ else if((isset($_SESSION['username']) && $_SESSION['role'] == "worker"))
                     $('.collapse.in').toggleClass('in');
                     $('a[aria-expanded=true]').attr('aria-expanded', 'false');
                 });
+            });
+            $(document).ready(function(){  
+                $("#add_supplier").click(function(e){
+                        e.preventDefault();
+                        $('#add_supplier_data_Modal').modal('show'); 
+                       });
             });
         </script>
 

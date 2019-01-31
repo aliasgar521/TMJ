@@ -14,7 +14,7 @@ type: "success",
 confirmButtonText: "Cool"
 }).then(function() {
 // Redirect the user
-window.location.href = "index.php";
+window.location.href = "PurchaseManagement.php";
 
 });
 
@@ -27,7 +27,7 @@ window.location.href = "index.php";
        	 type: "success"
 }).then(function() {
 // Redirect the user
-window.location.href = "index.php";
+window.location.href = "PurchaseManagement.php";
 
 });
       }
@@ -53,6 +53,6 @@ window.location.href = "index.php";
 		}
 	}
 	else{
-		header("Location: index.php");
+		header("Location: PurchaseManagement.php");
 	}
 ?>

@@ -135,7 +135,7 @@ else if((isset($_SESSION['username']) && $_SESSION['role'] == "worker"))
                         <a href="PurchaseReport.php">Generate Purchase Report</a>
                     </li>
                     <li>
-                        <a href="Report.php">Generate General Report</a>
+                        <a href="Report.php">Generate Sales Report</a>
                     </li>
                 </ul>
             </nav>
