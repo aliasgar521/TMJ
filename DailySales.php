@@ -112,7 +112,7 @@ else if((isset($_SESSION['username']) && $_SESSION['role'] == "worker"))
                                 row.append($('</td>'));
                             }
                             
-                            row.append($('<td><input type="image" class="delete-row" id="delete-button" src="icon-delete.png" name="record"></button></td></tr>'));
+                            row.append($('<td><input type="image" class="delete-row" id="delete-button" src="images/icon-delete.png" name="record"></button></td></tr>'));
                             j++;
                             // row.append($('<td value = "pro_name"'+j+'></td></tr>'));
 
