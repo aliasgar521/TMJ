@@ -1,3 +1,4 @@
+0) Extract the installable file first
 1) First run the "vc_redist.x64" file.
 	Install the setup in the suggested directory.
 
@@ -60,7 +61,7 @@
 
 	5.Run the following commands then
 	  
-	--> use tmj_database;
+	--> use test1;
 	
 	--> update users set role="admin" where username="<<your_username_here>>";
 		it should say Query OK, 1 row affected
