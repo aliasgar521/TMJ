@@ -14,7 +14,8 @@ $total = $_POST['total_sale'];
 $tableData = json_decode($tableData,TRUE);
 
 // now $tableData can be accessed like a PHP array
-date_default_timezone_set('Asia/Bahrain');
+// date_default_timezone_set('Asia/Bahrain');
+
 $date = date('m/d/Y h:i:s a', time());
 $t=strtotime($date);
 echo $date;

@@ -214,7 +214,7 @@ else if((isset($_SESSION['username']) && $_SESSION['role'] == "worker"))
 
                         function display(){
                             $connection=connect_db();
-                            date_default_timezone_set('Asia/Bahrain');
+                            // date_default_timezone_set('Asia/Bahrain');
                             $date = date('d-m-Y 00:00:00', time());
                             $t=strtotime($date);
                             $t2=($t)+86400;
