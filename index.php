@@ -20,7 +20,7 @@ else if((isset($_SESSION['username']) && $_SESSION['role'] == "worker"))
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-        <title>T.M. Jivaji & Sons</title>
+        <title>T.M. Jiwaji & Sons</title>
 
         <!-- Bootstrap CSS CDN -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -116,7 +116,7 @@ else if((isset($_SESSION['username']) && $_SESSION['role'] == "worker"))
                 </div>
 
                 <div class="sidebar-header">
-                    <h3>TMJivaji & Sons</h3>
+                    <h3>T.M. Jiwaji & Sons</h3>
                 </div>
 
                 <ul class="list-unstyled components">
@@ -155,7 +155,7 @@ else if((isset($_SESSION['username']) && $_SESSION['role'] == "worker"))
 
                         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                             <h3 style="text-align: center; color: white">
-                                Tayyebali M. Jivaji & Sons
+                                Taiyebali M. Jiwaji & Sons
                                 <a href="Login/logout.php" style="float:right">Logout</a>
 
                             </h3>

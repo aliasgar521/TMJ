@@ -42,7 +42,7 @@
 
                         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                             <h3 style="text-align: center; color: white">
-                                Tayyebali M. Jivaji & Sons
+                                Taiyebali M. Jiwaji & Sons
                             </h3>
                             <!--<ul class="nav navbar-nav navbar-right">
                                 <li><a href="#">Page</a></li>

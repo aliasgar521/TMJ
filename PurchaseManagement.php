@@ -30,7 +30,7 @@ else if((isset($_SESSION['username']) && $_SESSION['role'] == "worker"))
         <!-- <script src="js/addProduct.js" type="text/javascript"></script> -->
 
 
-        <title>T.M. Jivaji</title>
+        <title>T.M. Jiwaji</title>
 
         <!-- Bootstrap CSS CDN -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -101,6 +101,8 @@ else if((isset($_SESSION['username']) && $_SESSION['role'] == "worker"))
         $(document).ready(function() {
             $("#theForm").on('click','.delete-row', function() {
                 $(this).closest('div').remove();
+                i--;
+                $("#hideme").val(i);
                 // console.log("clicked delete button");
                 // Update total when delete button clicked code below
                 
@@ -153,7 +155,7 @@ else if((isset($_SESSION['username']) && $_SESSION['role'] == "worker"))
                 </div>
 
                 <div class="sidebar-header">
-                    <h3>TMJivaji & Sons</h3>
+                    <h3>T.M. Jiwaji & Sons</h3>
                 </div>
 
                 <ul class="list-unstyled components">
@@ -197,7 +199,7 @@ else if((isset($_SESSION['username']) && $_SESSION['role'] == "worker"))
 
                         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                             <h3 style="text-align: center; color: white">
-                                Tayyebali M. Jivaji & Sons
+                                Taiyebali M. Jiwaji & Sons
                                 <a href="Login/logout.php" style="float:right">Logout</a>
                             </h3>
                             <h4 style="color: white"><div style="float:right">Welcome <?php echo $user ?></div></h4>
@@ -252,7 +254,7 @@ else if((isset($_SESSION['username']) && $_SESSION['role'] == "worker"))
                     <input type="radio" name="payment" value="cash"/> Cash<br>
                     <input type="radio" name="payment" value="credit"/> Credit<br>
                     Total Payable Amount:<br>
-                    <input type="number" name="payable" id="payable" required="required"><br><br>
+                    <input type="number" name="payable" id="payable" required="required" min="0" step="0.01"><br><br>
 
 
 

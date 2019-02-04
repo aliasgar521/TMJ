@@ -20,7 +20,7 @@ else if((isset($_SESSION['username']) && $_SESSION['role'] == "worker"))
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-        <title>T.M. Jivaji & Sons</title>
+        <title>T.M. Jiwaji & Sons</title>
 
         <!-- Bootstrap CSS CDN -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -124,14 +124,14 @@ else if((isset($_SESSION['username']) && $_SESSION['role'] == "worker"))
                  // }
              });
                         // For the TOTAL part to work
-                        setTimeout(function(){
-                            var total_sum;
-                        total_sum=calculate_values();
-                        $("#total_sum_value").html(total_sum);
-                        document.getElementById("product_input").value="";
-                        document.getElementById("product_quant").value="";
+                    //     setTimeout(function(){
+                    //         var total_sum;
+                    //     total_sum=calculate_values();
+                    //     $("#total_sum_value").html(total_sum);
+                    //     document.getElementById("product_input").value="";
+                    //     document.getElementById("product_quant").value="";
 
-                    },100);
+                    // },100);
                         
                         // var namezz = $("#test1230").attr("name");
                            // alert($('#test0').attr('value'));
@@ -144,18 +144,18 @@ else if((isset($_SESSION['username']) && $_SESSION['role'] == "worker"))
                 });
             });
 
-            $(document).ready(function() {
-            $("#marked").on('click','.delete-row', function() {
-                $(this).closest('tr').remove();
-                // console.log("clicked delete button");
-                // Update total when delete button clicked code below
-                setTimeout(function(){
-                    var total_sum;
-                    total_sum=calculate_values();
-                    $("#total_sum_value").html(total_sum);
-                },100);
-                });
-            });
+            // $(document).ready(function() {
+            // $("#marked").on('click','.delete-row', function() {
+            //     $(this).closest('tr').remove();
+            //     // console.log("clicked delete button");
+            //     // Update total when delete button clicked code below
+            //     setTimeout(function(){
+            //         var total_sum;
+            //         total_sum=calculate_values();
+            //         $("#total_sum_value").html(total_sum);
+            //     },100);
+            //     });
+            // });
 
         </script>
        
@@ -215,7 +215,7 @@ else if((isset($_SESSION['username']) && $_SESSION['role'] == "worker"))
                 </div>
 
                 <div class="sidebar-header">
-                    <h3>TMJivaji & Sons</h3>
+                    <h3>T.M. Jiwaji & Sons</h3>
                 </div>
 
                 <ul class="list-unstyled components">
@@ -254,7 +254,7 @@ else if((isset($_SESSION['username']) && $_SESSION['role'] == "worker"))
 
                         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                             <h3 style="text-align: center; color: white">
-                                Tayyebali M. Jivaji & Sons
+                                Taiyebali M. Jiwaji & Sons
                                 <a href="Login/logout.php" style="float:right">Logout</a>
 
                             </h3>
@@ -407,55 +407,85 @@ else if((isset($_SESSION['username']) && $_SESSION['role'] == "worker"))
 
         
 
+                // ASK MAMU AND DO LATER BELOW CODE
+            // ************************************************************************************************************************************
             $(document).ready(function(){
-                $('#myTable').on('change input','.total_price_input ', function(){
+                $('#myTable').on('change input','.sell_price_input', function(){
                     setTimeout(function(){
                         var total_sum;
-                        total_sum=calculate_values();
+                        total_sum=calculate_values_from_sp();
                         $("#total_sum_value").html(total_sum);
+                        var tr=$(this).closest("tr");
+                            // console.log($(this).closest('.total_price_input').val());
+                        // console.log(tr.find(".total_price_input").getText());
+                        console.log(document.getElementsByClassName('total_price_input').value);
+                        
+                        
+                        
                     },100);
                 });
             });
-            function calculate_values(){
+            function calculate_values_from_sp(){
 
                 var calculated_total_sum=0;
-                $("#myTable .total_price_input").each(function(){
+                $("#myTable .sell_price_input").each(function(){
+                    var sell_price=parseFloat($(this).text());
+                    $("#myTable .quantity").each(function(){
                         // console.log("its cool.");
-                    var get_textbox_value = $(this).text();
+                        var get_quantity = $(this).text();
                     // console.log(get_textbox_value);
-                    if ($.isNumeric(get_textbox_value)) {
-                        calculated_total_sum += parseFloat(get_textbox_value);
-                    }                  
+                        if ($.isNumeric(get_quantity)) {
+                            calculated_total_sum += (parseFloat(get_quantity)*sell_price);
+                        } 
+                    });                 
                 });
                 return calculated_total_sum;
             }
+            // function calculate_product_sum(){
+            //     var get_textbox_value;
+            //      $("#myTable .sell_price_input").on("change input",function(){
+            //             // console.log("its cool.");
+            //             get_textbox_value = $(this).text();
+            //             console.log(get_textbox_value);
+            //             // if ($.isNumeric(get_textbox_value)) {
+            //             //     calculated_total_sum += parseFloat(get_textbox_value);
+            //             // }                  
+            //         });
+            //         return get_textbox_value;
+            // }    
 
 
 
 
-        // ASK MAMU AND DO LATER BELOW CODE
-        // ************************************************************************************************************************************
-        // $(document).ready(function(){
-        //     $('#myTable').on('change input','.sell_price_input', function(){
-        //         setTimeout(function(){
-        //             var total_product_input;
-        //             total_product_input=0;
-        //             $(this).closest(".total_price_input").value=(total_product_input);
-        //         },100);
-        //     });
-        // });
-        // function calculate_product_sum(){
-        //     var get_textbox_value;
-        //      $("#myTable .sell_price_input").on("change input",function(){
-        //             // console.log("its cool.");
-        //             get_textbox_value = $(this).text();
-        //             console.log(get_textbox_value);
-        //             // if ($.isNumeric(get_textbox_value)) {
-        //             //     calculated_total_sum += parseFloat(get_textbox_value);
-        //             // }                  
-        //         });
-        //         return get_textbox_value;
-        // }
+
+            //code to make the Total selling price and Total dynamic
+            // $(document).ready(function(){
+            //     $('#myTable').on('change input','.total_price_input ', function(){
+            //         setTimeout(function(){
+            //             var total_sum;
+            //             total_sum=calculate_values();
+            //             $("#total_sum_value").html(total_sum);
+            //         },100);
+            //     });
+            // });
+            // function calculate_values(){
+
+            //     var calculated_total_sum=0;
+            //     $("#myTable .total_price_input").each(function(){
+            //             // console.log("its cool.");
+            //         var get_textbox_value = $(this).text();
+            //         // console.log(get_textbox_value);
+            //         if ($.isNumeric(get_textbox_value)) {
+            //             calculated_total_sum += parseFloat(get_textbox_value);
+            //         }                  
+            //     });
+            //     return calculated_total_sum;
+            // }
+
+
+
+
+
 
 
 

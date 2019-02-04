@@ -21,7 +21,7 @@ else if((isset($_SESSION['username']) && $_SESSION['role'] == "worker"))
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
         <script src="js/addProduct.js" type="text/javascript"></script>
 
-        <title>T.M. Jivaji & Sons</title>
+        <title>T.M. Jiwaji & Sons</title>
 
         <!-- Bootstrap CSS CDN -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -117,7 +117,7 @@ else if((isset($_SESSION['username']) && $_SESSION['role'] == "worker"))
                 </div>
 
                 <div class="sidebar-header">
-                    <h3>TMJivaji & Sons</h3>
+                    <h3>T.M. Jiwaji & Sons</h3>
                 </div>
 
                 <ul class="list-unstyled components">
@@ -156,7 +156,7 @@ else if((isset($_SESSION['username']) && $_SESSION['role'] == "worker"))
 
                         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                             <h3 style="text-align: center; color: white">
-                                Tayyebali M. Jivaji & Sons
+                                Taiyebali M. Jiwaji & Sons
                                 <a href="Login/logout.php" style="float:right">Logout</a>
                             </h3>    
                             <h4 style="color: white"><div style="float:right">Welcome <?php echo $user ?></div></h4>
@@ -245,7 +245,13 @@ else if((isset($_SESSION['username']) && $_SESSION['role'] == "worker"))
                                             $time=$row["purchase_date"];
                                             $time1= date("d-m-Y ", substr("$time", 0, 10));
 
-                                            echo "<tr><td>".$time1."</td><td>".$row["supplier_name"]."</td><td>".$row["pro_name"]."</td><td>".$row["cost_price"]."</td><td>".$row["quantity"]."</td></tr>";
+                                            echo "<tr>
+                                                    <td>".$time1."</td>
+                                                    <td>".$row["supplier_name"]."</td>
+                                                    <td>".$row["pro_name"]."</td>
+                                                    <td>".$row["cost_price"]."</td>
+                                                    <td>".$row["quantity"]."</td>
+                                                    </tr>";
                                         }
                                         echo "</table>";
                                     }
@@ -278,7 +284,15 @@ else if((isset($_SESSION['username']) && $_SESSION['role'] == "worker"))
                                                 $time=$row["purchase_date"];
                                                 $time1= date("d-m-Y ", substr("$time", 0, 10));
 
-                                                echo "<tr><td>".$time1."</td><td>".$row["supplier_name"]."</td><td>".$row["purchase_person"]."</td><td>".$row["invoice_number"]."</td><td>".$row["pro_name"]."</td><td>".$row["cost_price"]."</td><td>".$row["quantity"]."</td></tr>";
+                                                echo "<tr>
+                                                        <td>".$time1."</td>
+                                                        <td>".$row["supplier_name"]."</td>
+                                                        <td>".$row["purchase_person"]."</td>
+                                                        <td>".$row["invoice_number"]."</td>
+                                                        <td>".$row["pro_name"]."</td>
+                                                        <td>".$row["cost_price"]."</td>
+                                                        <td>".$row["quantity"]."</td>
+                                                    </tr>";
                                             }
                                             echo "</table>";
                                         }
@@ -317,7 +331,15 @@ else if((isset($_SESSION['username']) && $_SESSION['role'] == "worker"))
                                             $time=$row["purchase_date"];
                                             $time1= date("d-m-Y ", substr("$time", 0, 10));
 
-                                            echo "<tr><td>".$time1."</td><td>".$row["supplier_name"]."</td><td>".$row["purchase_person"]."</td><td>".$row["invoice_number"]."</td><td>".$row["pro_name"]."</td><td>".$row["cost_price"]."</td><td>".$row["quantity"]."</td></tr>";
+                                            echo "<tr>
+                                                    <td>".$time1."</td>
+                                                    <td>".$row["supplier_name"]."</td>
+                                                    <td>".$row["purchase_person"]."</td>
+                                                    <td>".$row["invoice_number"]."</td>
+                                                    <td>".$row["pro_name"]."</td>
+                                                    <td>".$row["cost_price"]."</td>
+                                                    <td>".$row["quantity"]."</td>
+                                                </tr>";
                                         }
                                         echo "</table>";
                                     }

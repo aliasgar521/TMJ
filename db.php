@@ -203,6 +203,7 @@ $sql = "INSERT INTO `Invoice`(`invoice_number`,`supplier_id`,`purchase_date`,`pu
 				$pro_name=$menu['purc_item_name'.$j];
 				$quantity=$menu['purchase_quantity'.$j];
 				$cp=$menu['cost_price'.$j];
+				$cp1=$menu['cost_price'.$j];
 				$sp=$menu['sell_price'.$j];
 				$desc=$menu['description'.$j];
 				$cabinet=$menu['cabinet'.$j];
@@ -222,7 +223,7 @@ $sql = "INSERT INTO `Invoice`(`invoice_number`,`supplier_id`,`purchase_date`,`pu
 				
 				$sql1 = "INSERT INTO `Inventory`(`item_name`,`description`,`stock_amt`,`cost_price`,`sell_price`,`cabinet`,`tag`,`purchase_date`,`deleted`) VALUES ('$pro_name','$desc','$quantity','$cp','$sp','$cabinet','$tags','$t','0') ON DUPLICATE KEY UPDATE `cost_price` = ((`cost_price` * `stock_amt`)+('$quantity' * '$cp'))/(`stock_amt` + '$quantity'), `sell_price` = ((`sell_price` * `stock_amt`)+('$quantity' * '$sp'))/(`stock_amt` + '$quantity') ,`stock_amt` = `stock_amt` +'$quantity'";
 
-				$sql2 = "INSERT INTO `invandpro`(`invoice_id`,`pro_name`,`quantity`,`cost_price`) VALUES ('$max1','$pro_name','$quantity','$cp')";
+				$sql2 = "INSERT INTO `invandpro`(`invoice_id`,`pro_name`,`quantity`,`cost_price`) VALUES ('$max1','$pro_name','$quantity','$cp1')";
 				$result1 = mysqli_query($connection,$sql1);
 				$result2 = mysqli_query($connection,$sql2);
 			}	
