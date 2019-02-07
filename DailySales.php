@@ -93,18 +93,18 @@ else if((isset($_SESSION['username']) && $_SESSION['role'] == "worker"))
                         var row = $('<tr>');
                             for(var i = 0; i < 4; i++) {
                                 if(i==0){
-                                    row.append($('<td>').html(obj[i]));
+                                    row.append($('<td class="pro_name">').html(obj[i]));
                                 }
                                 else if(i==1){
                                     
-                                    row.append($('<td class="quantity">').html(obj[i]));
+                                    row.append($('<td class="quantity" id=quant'+j+' >').html(obj[i]));
                                 }
                                 else if(i==2){
-                                    row.append($('<td class="sell_price_input" name="pro_sp"'+j+' contenteditable="true">').html(obj[i]));
+                                    row.append($('<td class="sell_price_input" id='+j+' name="pro_sp"'+j+' contenteditable="true">').html(obj[i]));
                                 }
                                 else if(i==3){
 
-                                    row.append($('<td class="total_price_input" name="total_sp"'+j+' contenteditable="true">').html(obj[i]));
+                                    row.append($('<td class="total_price_input" id=total_sp'+j+' name="total_sp"'+j+' contenteditable="true">').html(obj[i]));
                                 }
                                 else{
                                     row.append($('<td>').html(obj[i]));
@@ -407,65 +407,49 @@ else if((isset($_SESSION['username']) && $_SESSION['role'] == "worker"))
 
         
 
-                // ASK MAMU AND DO LATER BELOW CODE
+                // Code to make SP and TSP Dynamic
             // ************************************************************************************************************************************
-            // $(document).ready(function(){
-            //     $('#myTable').on('change input','.sell_price_input', function(){
-            //         setTimeout(function(){
-            //             var total_sum;
-            //             total_sum=calculate_values_from_sp();
-            //             $("#total_sum_value").html(total_sum);
-            //             var tr=$(this).closest("tr");
-            //                 // console.log($(this).closest('.total_price_input').val());
-            //             // console.log(tr.find(".total_price_input").getText());
-            //             console.log(document.getElementsByClassName('total_price_input').value);
-                        
-                        
-                        
-            //         },100);
-            //     });
-            // });
-            // function calculate_values_from_sp(){
+            //code to make sp,tsp and total dynamic according to sp
+            $(document).ready(function(){
+                $('#myTable').on('change input','.sell_price_input', function(){
 
-            //     var calculated_total_sum=0;
-            //     $("#myTable .sell_price_input").each(function(){
-            //         var sell_price=parseFloat($(this).text());
-            //         $("#myTable .quantity").each(function(){
-            //             // console.log("its cool.");
-            //             var get_quantity = $(this).text();
-            //         // console.log(get_textbox_value);
-            //             if ($.isNumeric(get_quantity)) {
-            //                 calculated_total_sum += (parseFloat(get_quantity)*sell_price);
-            //             } 
-            //         });                 
-            //     });
-            //     return calculated_total_sum;
-            // }
-            // function calculate_product_sum(){
-            //     var get_textbox_value;
-            //      $("#myTable .sell_price_input").on("change input",function(){
-            //             // console.log("its cool.");
-            //             get_textbox_value = $(this).text();
-            //             console.log(get_textbox_value);
-            //             // if ($.isNumeric(get_textbox_value)) {
-            //             //     calculated_total_sum += parseFloat(get_textbox_value);
-            //             // }                  
-            //         });
-            //         return get_textbox_value;
-            // }    
+                        var total_sum;
+                        var j=$(this).attr('id');
+
+                        var id1=$(this).parent();
+                        total_sum=calculate_values_from_sp(j);
+                        id1.find(".total_price_input").html(total_sum);
+                        var total_sum1;
+                        total_sum1=calculate_values();
+                        $("#total_sum_value").html(total_sum1);
+                });
+            });
+            
+            function calculate_values_from_sp(j){
+                var calculated_total_sum=0;
+                    var sp=$("#"+j).text();
+                    var quant=$("#quant"+j).text();
+                    if ($.isNumeric(quant) && $.isNumeric(sp)) {
+                        calculated_total_sum += (parseFloat(quant)*parseFloat(sp));
+                    } 
+                return calculated_total_sum;
+            }
 
 
-
-
-
-            //code to make the Total selling price and Total dynamic
+            //code to make the Total selling price,sp and Total dynamic according to tsp
             $(document).ready(function(){
                 $('#myTable').on('change input','.total_price_input ', function(){
-                    setTimeout(function(){
+                    // setTimeout(function(){
                         var total_sum;
+                        var j=$(this).attr('id');
+                        // console.log(j);
+                        var id0 = j[j.length -1];
+                        var id1=$(this).parent();
+                        var sell_price_pp = calculate_sell_price_pp(id0);
+                        id1.find(".sell_price_input").html(sell_price_pp);
                         total_sum=calculate_values();
                         $("#total_sum_value").html(total_sum);
-                    },100);
+                    // },100);
                 });
             });
             function calculate_values(){
@@ -482,6 +466,15 @@ else if((isset($_SESSION['username']) && $_SESSION['role'] == "worker"))
                 return calculated_total_sum;
             }
 
+            function calculate_sell_price_pp(id0){
+                var calculated_pp=0;
+                var total_sp=$("#total_sp"+id0).text();
+                var quant=$("#quant"+id0).text();
+                if ($.isNumeric(quant) && $.isNumeric(total_sp)) {
+                    calculated_pp += (parseFloat(total_sp)/parseFloat(quant));
+                } 
+                return calculated_pp;
+            }
 
 
 
