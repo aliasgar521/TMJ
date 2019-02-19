@@ -20,31 +20,42 @@ else if((isset($_SESSION['username']) && $_SESSION['role'] == "worker"))
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
+        <?php include 'includes.php';?>
         <title>T.M. Jiwaji & Sons</title>
 
+        <!-- <script src="jquery/jquery.js"></script> -->
         <!-- Bootstrap CSS CDN -->
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"> -->
+        <!-- <link rel="stylesheet" href="css/bootstrap.css">
+        <link rel="stylesheet" href="css/bootstrap-grid.css">
+        <link rel="stylesheet" href="css/bootstrap-reboot.css">-->
+ 
+        <!-- Wrote this link at the bottom -->
+        <!-- <script src="js/bootstrap.min.js"></script> -->
+        
+
+
         <!-- Our Custom CSS -->
-        <link rel="stylesheet" href="style3.css">
+        <!-- <link rel="stylesheet" href="style3.css"> -->
         <!-- Scrollbar Custom CSS -->
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css">
+        <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css"> -->
 
         <!-- Used to make the drop down list better looking -->
-        <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+        <!-- <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css"> -->
 
 
-        <link href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.css" rel="stylesheet" />
+        <!-- <link href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.css" rel="stylesheet" /> -->
 
-        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+        <!-- <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script> -->
         <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> -->
 
 <!-- <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script> -->
-
+<!-- 
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-        <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script> -->
 
         <!-- Isolated Version of Bootstrap, not needed if your site already uses Bootstrap -->
-        <link rel="stylesheet" href="https://formden.com/static/cdn/bootstrap-iso.css" />
+        <!-- <link rel="stylesheet" href="https://formden.com/static/cdn/bootstrap-iso.css" /> -->
 
        
 
@@ -211,7 +222,7 @@ else if((isset($_SESSION['username']) && $_SESSION['role'] == "worker"))
             <!-- Sidebar Holder -->
             <nav id="sidebar">
                 <div id="dismiss">
-                    <i class="glyphicon glyphicon-arrow-left"></i>
+                    <i class="fa fa-arrow-left"></i>
                 </div>
 
                 <div class="sidebar-header">
@@ -246,13 +257,13 @@ else if((isset($_SESSION['username']) && $_SESSION['role'] == "worker"))
 
                         <div class="navbar-header">
                             <button type="button" id="sidebarCollapse" class="btn btn-info navbar-btn">
-                                <i class="glyphicon glyphicon-align-left"></i>
+                                <i class="fa fa-arrow-right"></i>
                                 <!-- <span>Open Sidebar</span> -->
                                 <span></span>
                             </button>
                         </div>
 
-                        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                        <div class="navbar-collapse" id="bs-example-navbar-collapse-1">
                             <h3 style="text-align: center; color: white">
                                 Taiyebali M. Jiwaji & Sons
                                 <a href="Login/logout.php" style="float:right">Logout</a>
@@ -317,10 +328,13 @@ else if((isset($_SESSION['username']) && $_SESSION['role'] == "worker"))
         <div class="overlay"></div>
          <!-- jQuery CDN -->
         <!-- <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script> -->
+
         <!-- Bootstrap Js CDN -->
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> -->
+        <script src="vendor/js/bootstrap.min.js"></script>
+        
         <!-- jQuery Custom Scroller CDN -->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>
+        <script src="vendor/mcustomscrollbar.concat.min.js"></script>
 
         <script type="text/javascript">
             $(document).ready(function () {
