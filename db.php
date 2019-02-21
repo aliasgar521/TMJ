@@ -7,7 +7,8 @@
 		echo "</pre>";
 	}
 // load data infile '/var/lib/mysql-files/st.csv' into table Inventory fields terminated by ',' lines terminated by '\n' (item_name,description,stock_amt,cost_price,sell_price,cabinet,tag) set deleted = 0;
-
+// alter table Inventory add column wholesale_price float after sell_price;
+// alter table Inventory alter column wholesale_price set default 0;
 	function add_supplier($menu){
 		//console.log("in add suplier function");
 		$connection=connect_db();

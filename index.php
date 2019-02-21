@@ -317,8 +317,9 @@ else if((isset($_SESSION['username']) && $_SESSION['role'] == "worker"))
       <div class="modal-dialog">  
            <div class="modal-content">  
                 <div class="modal-header">  
-                     <button type="button" class="close" data-dismiss="modal">&times;</button>  
+                     
                      <h4 class="modal-title">Add Product</h4>  
+                     <button type="button" class="close" data-dismiss="modal">&times;</button>  
                 </div>  
                 <div class="modal-body">  
                      <form id="InventoryForm" name="InventoryForm" action="addStock.php" method="post" style="padding: 20px" onsubmit="return validateForm()">
@@ -361,8 +362,9 @@ else if((isset($_SESSION['username']) && $_SESSION['role'] == "worker"))
       <div class="modal-dialog">  
            <div class="modal-content">  
                 <div class="modal-header">  
-                     <button type="button" class="close" data-dismiss="modal">&times;</button>  
-                     <h4 class="modal-title">Update Product</h4>  
+                    <h4 class="modal-title">Update Product</h4>  
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>  
+                     
                 </div>  
                 <div class="modal-body">  
                      <form id="UpdateForm" name="UpdateForm" action="updateStock.php" method="post" style="padding: 20px" onsubmit="">
@@ -375,9 +377,9 @@ else if((isset($_SESSION['username']) && $_SESSION['role'] == "worker"))
                     Quantity Present:<br>
                     <input type="number" name="stock_amt" id="stock_amt_u" min="0">
                     <br>
-                   <!--  Date of Purchase:<br>
+                    Date of Purchase:<br>
                     <input type="date" name="purchase_date" id="purchase_date">
-                    <br> -->
+                    <br>
                     Cost Price (in BD) :<br>
                     <input type="number" name="cost_price" id="cost_price_u" min="0" step="0.01">
                      <br>
@@ -481,10 +483,19 @@ else if((isset($_SESSION['username']) && $_SESSION['role'] == "worker"))
                                  $('#cabinet_u').val(data.cabinet);  
                                  $('#tags_u').val(data.tag);  
                                  $('#pro_id_u').val(data.id); 
-                                 // var date= new Date(parseInt(data.purchase_date)*1000).format('dd/mm/yyyy');
-                                 // $('#purchase_date').val(date);
 
-                                
+                                 var d = new Date(parseInt(data.purchase_date)*1000);
+                                 // console.log(d);
+                                 var day = ("0" + d.getDate()).slice(-2);
+                                 var month = ("0" + (d.getMonth() + 1)).slice(-2);
+
+                                var today = d.getFullYear()+"-"+(month)+"-"+(day) ;
+                                // var today1 = (day)+"/"+(month)+"/"+d.getFullYear() ;
+
+                                // console.log(today1);
+                                 $('#purchase_date').val(today);
+
+                        
                                  $('#update_data_Modal').modal('show'); 
                             }  
                        });  

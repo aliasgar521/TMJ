@@ -8,18 +8,19 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
+        <!-- <?php #include '../includes.php';?> -->
         <title>T.M. Jivaji</title>
 
         <!-- Bootstrap CSS CDN -->
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <link rel="stylesheet" href="../vendor/bootstrap/css/bootstrap.min.css">
         <!-- Our Custom CSS -->
         <link rel="stylesheet" href="../style3.css">
         <link rel="stylesheet" href="register.css">
         <!-- Scrollbar Custom CSS -->
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css">
-        <link href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.css" rel="stylesheet" />
+        <link rel="stylesheet" href="../vendor/mcustomscrollbar.min.css">
+        <link href="../vendor/sweetalert/sweetalert.css" rel="stylesheet" />
 
-        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+        <script src="../vendor/sweetalert/sweetalert.min.js"></script>
 
 <!-- <link rel="stylesheet" href="bootstrap.min.css">
 <link rel="stylesheet" href="tcss.css"> -->
@@ -40,7 +41,7 @@
 
                         
 
-                        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                        <div class="navbar-collapse" id="bs-example-navbar-collapse-1">
                             <h3 style="text-align: center; color: white">
                                 Taiyebali M. Jiwaji & Sons
                             </h3>
@@ -109,7 +110,7 @@
 <main>
   <!-- flex item -->
     <div class="left">
-      <img src="https://images.unsplash.com/photo-1509310257498-b97f8488bf03?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=6faa5ed40dc7e9e828bd358799983c53&auto=format&fit=crop&w=500&q=80">
+      <img src="../images/leaves.jpeg">
       <h1>Log in</h1>
 
      	<div class="form">
@@ -135,11 +136,11 @@
         </div>
 
 
-         <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
+         <script src="../vendor/jquery/jquery.min.js"></script>
         <!-- Bootstrap Js CDN -->
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <script src="../vendor/bootstrap/js/bootstrap.min.js"></script>
         <!-- jQuery Custom Scroller CDN -->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>
+        <script src="../vendor/mcustomscrollbar.concat.min.js"></script>
 
         <script type="text/javascript">
             $(document).ready(function () {
