@@ -180,13 +180,13 @@ else if((isset($_SESSION['username']) && $_SESSION['role'] == "worker"))
                                 <input type="submit" class="btn btn-primary btn-block" name="submit" value="Generate Todays Report!">
                             </form>
                             <form id="date_report" method="get" action="#"  class="rcorners3"> 
-                                <input type="date"  name="single_date" id="single_date" style="margin-left: 2%">
-                                <input type="submit" class="btn btn-primary" name="submit_date" style="margin-left:2%" value="Generate Report!">
+                                <input type="date"  name="single_date" id="single_date" style="margin:2%; width:98%" >
+                                <input type="submit" class="btn btn-primary btn-block" name="submit_date"  value="Generate Report!">
                             </form>
                              <form id="product" method="get" action="#"  class="rcorners3"> 
                                 Enter Product: 
                                 <input type="text" name="product_input" id="product_input" class="product_input" style="width:67%"/>
-                                <input type="submit" class="btn btn-primary" name="submit_product"  style="margin:2%" value="Generate Specific Product Purchase Report!">
+                                <input type="submit" class="btn btn-primary btn-block" name="submit_product"  style="margin-top:2%" value="Generate Product Purchase Report!">
  
                             </form>
                         </div>

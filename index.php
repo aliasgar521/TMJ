@@ -173,10 +173,10 @@ else if((isset($_SESSION['username']) && $_SESSION['role'] == "worker"))
                         <div class="col-lg-4 col-md-4 col-sm-12">
                             <input class="btn btn-primary" name="add_product" id="add_product" style="margin:2%; float:left;" value="Add Product">
                         </div>
-                        <div class="col-lg-4 col-md-4 col-sm-12">
+                        <div class="col-lg-3 col-md-3 col-sm-12">
                             <!-- <input class="btn btn-primary" name="add_supplier" id="add_supplier" style="margin:2%;" value="Add Supplier"> -->
                         </div>
-                        <div class="col-lg-4 col-md-4 col-sm-12">
+                        <div class="col-lg-5 col-md-5 col-sm-12">
                             
                             <form id="product" method="get" action="" style="float:right" > 
                                 <input type="text" name="product_input" id="product_input" class="product_input" placeholder="Search Product"  />
@@ -188,7 +188,7 @@ else if((isset($_SESSION['username']) && $_SESSION['role'] == "worker"))
                     </div>
                     
 
-                    <br><br><br>
+                    <br>
 
                    
                     <?php 
@@ -350,7 +350,7 @@ else if((isset($_SESSION['username']) && $_SESSION['role'] == "worker"))
                     
                     
                     <br><br>
-                    <input type="submit" name="submit" value="Submit" class="btn btn-primary btn-lg btn-block" style="width:40%" >
+                    <input type="submit" name="submit" value="Submit" class="btn btn-primary btn-lg btn-block"  >
                 </form> 
                 </div>   
                 
@@ -396,7 +396,7 @@ else if((isset($_SESSION['username']) && $_SESSION['role'] == "worker"))
                     <br>
                                         
                     <br><br>
-                    <input type="submit" name="submit_update" value="Submit" class="btn btn-primary btn-lg btn-block" style="width:40%" >
+                    <input type="submit" name="submit_update" value="Submit" class="btn btn-primary btn-lg btn-block"  >
                 </form>  
                 </div>   
                 <!-- <div class="modal-footer">  
@@ -406,7 +406,7 @@ else if((isset($_SESSION['username']) && $_SESSION['role'] == "worker"))
       </div>  
  </div>  
 
-    <div id="add_supplier_data_Modal" class="modal fade">  
+    <!-- <div id="add_supplier_data_Modal" class="modal fade">  
         <div class="modal-dialog">  
             <div class="modal-content">  
                 <div class="modal-header">  
@@ -424,12 +424,10 @@ else if((isset($_SESSION['username']) && $_SESSION['role'] == "worker"))
                         <input type="submit" class = "btn btn-primary btn-lg btn-block" name="submit_supplier" value="Submit" id="submit"  style="width:40%">
                     </form>
                 </div>   
-                <!-- <div class="modal-footer">  
-                     <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>  
-                </div>  --> 
+                
             </div>  
         </div>  
-    </div>  
+    </div>   -->
 
              <!-- jQuery CDN -->
             <!-- <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script> -->

@@ -219,7 +219,7 @@ else if((isset($_SESSION['username']) && $_SESSION['role'] == "worker"))
 
 
                 <div class="container center_div rcorners3"  style="background: #E0E0E0; margin-bottom: 5%">
-                    <div class="row">
+                    <!-- <div class="row"> -->
                         <!-- <div class="col-md-4 col-md-offset-4"> -->
 
                 <form id="PurchaseForm"  action="purchaseform.php" method="post" style="padding: 20px" onsubmit="return validateForm()">
@@ -251,7 +251,7 @@ else if((isset($_SESSION['username']) && $_SESSION['role'] == "worker"))
                         } 
                     ?>
                     </select>
-                    <input class="btn btn-primary" name="add_supplier" id="add_supplier" style="margin-left: 2%" value="Add Supplier">
+                    <input class="btn btn-primary" name="add_supplier" id="add_supplier"  value="Add Supplier">
                     <br>
                     Payment form:<br>
                     <input type="radio" name="payment" value="cash"/> Cash<br>
@@ -268,9 +268,9 @@ else if((isset($_SESSION['username']) && $_SESSION['role'] == "worker"))
                     <!-- <button type="button" class="btn btn-default btn-sm">
                     <span class="glyphicon glyphicon-plus-sign"></span> Plus
                     </button> -->
-                    <input type="submit" class = "btn btn-success btn-lg" name="submit" style="width:48%;" value="Submit" id="submit" >  
+                    <input type="submit" class = "btn btn-success btn-lg " name="submit" style="width:48%"  value="Submit" id="submit" >  
 
-                    <button id='theButton' class = "btn btn-primary btn-lg" style="width:48%;float:right" type='button' style=''>
+                    <button id='theButton' class = "btn btn-primary btn-lg " style="width:48%;float:right" type='button' style=''>
                         <i class="fa fa-plus icon" aria-hidden="true"> Add Product</i>
                     </button>
                     <input id='hideme'  name='hideme'  type='hidden'/>
@@ -306,7 +306,7 @@ else if((isset($_SESSION['username']) && $_SESSION['role'] == "worker"))
 
 
                 </form> 
-            </div>
+            <!-- </div> -->
             <!-- </div> -->
             </div>
             </div>

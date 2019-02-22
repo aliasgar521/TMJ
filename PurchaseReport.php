@@ -192,7 +192,7 @@ else if((isset($_SESSION['username']) && $_SESSION['role'] == "worker"))
                                 Enter Product: 
                                 <input type="text" name="product_input" id="product_input" class="product_input" style="width:67%"/><br><br>
                                
-                                <input type="submit" class="btn btn-primary btn-block" name="submit"  value="Generate Specific Product Purchase Report!">
+                                <input type="submit" class="btn btn-primary btn-block" name="submit"  value="Generate Product Purchase Report!">
                                 
                             </form>
                         </div>
