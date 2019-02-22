@@ -6,7 +6,7 @@
 		print_r($arg);
 		echo "</pre>";
 	}
-// load data infile '/var/lib/mysql-files/st.csv' into table Inventory fields terminated by ',' lines terminated by '\n' (item_name,description,stock_amt,cost_price,sell_price,cabinet,tag) set deleted = 0;
+// load data infile '/var/lib/mysql-files/st.csv' into table Inventory fields terminated by ',' lines terminated by '\n' (item_name,description,stock_amt,cost_price,sell_price,cabinet,tag) set deleted = 0,wholesale_price=0;
 // alter table Inventory add column wholesale_price float after sell_price;
 // alter table Inventory alter column wholesale_price set default 0;
 	function add_supplier($menu){
@@ -43,6 +43,8 @@
 		//$supplier_id=$menu['supplier'];
 		$cp=$menu['cost_price'];
 		$sp=$menu['sell_price'];
+		$wp=$menu['wholesale_price'];
+
 		$cabinet=$menu['cabinet'];
 		$tags = $menu['tags'];
 		$purchase_date=$menu['purchase_date'];
@@ -64,7 +66,7 @@
 		// $sql1 = "INSERT INTO `Inventory`(`item_name`,`description`,`stock_amt`,`supplier_id`,`cost_price`,`sell_price`,`cabinet`,`tag`,`purchase_date`) VALUES ('$item_name','$desc','$stock_amt','$supplier_id','$cp','$sp','$cabinet','$tags','$t')";
 
 		//QUERY WITHOUT SUPPLIER ID
-		$sql1 = "INSERT INTO `Inventory`(`item_name`,`description`,`stock_amt`,`cost_price`,`sell_price`,`cabinet`,`tag`,`purchase_date`,`deleted`) VALUES ('$item_name','$desc','$stock_amt','$cp','$sp','$cabinet','$tags','$t','0')";
+		$sql1 = "INSERT INTO `Inventory`(`item_name`,`description`,`stock_amt`,`cost_price`,`sell_price`,`wholesale_price,`cabinet`,`tag`,`purchase_date`,`deleted`) VALUES ('$item_name','$desc','$stock_amt','$cp','$sp','$wp','$cabinet','$tags','$t','0')";
 
 		$result = mysqli_query($connection,$sql1);
 		if(mysqli_affected_rows($connection)){
@@ -86,6 +88,8 @@
 		//$supplier_id=$menu['supplier'];
 		$cp=$menu['cost_price'];
 		$sp=$menu['sell_price'];
+		$wp=$menu['wholesale_price'];
+
 		$cabinet=$menu['cabinet'];
 		$tags = $menu['tags'];
 		if(empty($desc))
@@ -107,7 +111,7 @@
 		// $sql1 = "INSERT INTO `Inventory`(`item_name`,`description`,`stock_amt`,`supplier_id`,`cost_price`,`sell_price`,`cabinet`,`tag`,`purchase_date`) VALUES ('$item_name','$desc','$stock_amt','$supplier_id','$cp','$sp','$cabinet','$tags','$t')";
 
 		//QUERY WITHOUT SUPPLIER ID
-		$sql1 = "UPDATE `Inventory` set `item_name`= '$item_name',`description`='$desc',`stock_amt`='$stock_amt',`cost_price`='$cp',`sell_price`='$sp',`cabinet`='$cabinet',`tag`='$tags' where `id`='$pro_id'";
+		$sql1 = "UPDATE `Inventory` set `item_name`= '$item_name',`description`='$desc',`stock_amt`='$stock_amt',`cost_price`='$cp',`sell_price`='$sp',`wholesale_price`='$wp',`cabinet`='$cabinet',`tag`='$tags' where `id`='$pro_id'";
 
 		$result = mysqli_query($connection,$sql1);
 		if(mysqli_affected_rows($connection)){
@@ -207,6 +211,7 @@ $sql = "INSERT INTO `Invoice`(`invoice_number`,`supplier_id`,`purchase_date`,`pu
 				$cp=$menu['cost_price'.$j];
 				$cp1=$menu['cost_price'.$j];
 				$sp=$menu['sell_price'.$j];
+				$wp=$menu['wholesale_price'.$j];
 				$desc=$menu['description'.$j];
 				$cabinet=$menu['cabinet'.$j];
 				$tags=$menu['tags'.$j];
@@ -222,8 +227,12 @@ $sql = "INSERT INTO `Invoice`(`invoice_number`,`supplier_id`,`purchase_date`,`pu
 				{
 					$tags="";
 				}
+				if(empty($wp))
+				{
+					$wp="0";
+				}
 				
-				$sql1 = "INSERT INTO `Inventory`(`item_name`,`description`,`stock_amt`,`cost_price`,`sell_price`,`cabinet`,`tag`,`purchase_date`,`deleted`) VALUES ('$pro_name','$desc','$quantity','$cp','$sp','$cabinet','$tags','$t','0') ON DUPLICATE KEY UPDATE `cost_price` = ((`cost_price` * `stock_amt`)+('$quantity' * '$cp'))/(`stock_amt` + '$quantity'), `sell_price` = ((`sell_price` * `stock_amt`)+('$quantity' * '$sp'))/(`stock_amt` + '$quantity') ,`stock_amt` = `stock_amt` +'$quantity'";
+				$sql1 = "INSERT INTO `Inventory`(`item_name`,`description`,`stock_amt`,`cost_price`,`sell_price`,`wholesale_price`,`cabinet`,`tag`,`purchase_date`,`deleted`) VALUES ('$pro_name','$desc','$quantity','$cp','$sp','$wp','$cabinet','$tags','$t','0') ON DUPLICATE KEY UPDATE `cost_price` = ((`cost_price` * `stock_amt`)+('$quantity' * '$cp'))/(`stock_amt` + '$quantity'), `sell_price` = ((`sell_price` * `stock_amt`)+('$quantity' * '$sp'))/(`stock_amt` + '$quantity') ,`wholesale_price` = ((`wholesale_price` * `stock_amt`)+('$quantity' * '$wp'))/(`stock_amt` + '$quantity'),`stock_amt` = `stock_amt` +'$quantity'";
 
 				$sql2 = "INSERT INTO `invandpro`(`invoice_id`,`pro_name`,`quantity`,`cost_price`) VALUES ('$max1','$pro_name','$quantity','$cp1')";
 				$result1 = mysqli_query($connection,$sql1);

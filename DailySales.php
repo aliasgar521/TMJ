@@ -106,10 +106,14 @@ else if((isset($_SESSION['username']) && $_SESSION['role'] == "worker"))
                                 if(i==0){
                                     row.append($('<td class="pro_name">').html(obj[i]));
                                 }
+                                // else if(i==1){
+                                //     row.append($('<td class="wholesale_price"  name="pro_wp"'+j+' >').html(obj[i]));
+                                // }
                                 else if(i==1){
                                     
                                     row.append($('<td class="quantity" id=quant'+j+' >').html(obj[i]));
                                 }
+                                
                                 else if(i==2){
                                     row.append($('<td class="sell_price_input" id='+j+' name="pro_sp"'+j+' contenteditable="true">').html(obj[i]));
                                 }
@@ -298,7 +302,9 @@ else if((isset($_SESSION['username']) && $_SESSION['role'] == "worker"))
                                             <thead>
                                                 <tr style="background:#428bca;color:white" >
                                                     <th>Product</th>
+                                                    <!-- <th>WholeSale Price</th> -->
                                                     <th>Quantity</th>
+                                                    
                                                     <th>Selling Price</th>
                                                     <th>Total Price</th>
                                                     <th>Delete</th>

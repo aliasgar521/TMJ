@@ -52,16 +52,16 @@ function addSales($table,$counter,$total,$date){
 
 		for($j=0;$j<$counter+1;$j++){
 			$pro_name=$table[$j]['product'];
-			$quantity=$table[$j]['quantity'];
-			$sp=$table[$j]['sp'];
-			$tsp=$table[$j]['tsp'];
+			$quantity=(int)$table[$j]['quantity'];
+			$sp=(float)$table[$j]['sp'];
+			$tsp=(float)$table[$j]['tsp'];
 			// $html .='<script>alert('$pro_name')</script>';
 			$sql1= "SELECT `id`,`cost_price` from `Inventory` where `item_name`='$pro_name'";
 			$result1=mysqli_query($connection,$sql1);
 			if(mysqli_num_rows($result1)){
 				while($row1 = mysqli_fetch_assoc($result1)){
 					$product_id = $row1['id'];
-					$product_cost=$row1['cost_price'];
+					$product_cost=(float)$row1['cost_price'];
 				}
 			}
 			$profit=($tsp-($product_cost * $quantity));

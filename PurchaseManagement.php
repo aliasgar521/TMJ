@@ -87,6 +87,8 @@ else if((isset($_SESSION['username']) && $_SESSION['role'] == "worker"))
                                 <input type='number' min='0' step='0.01' style='width:40%' name='cost_price"+ i +"' id='cost_price' placeholder='Enter Cost price of single Pc.' required='required' ><br>\
                             Selling Price (in BD) : <br>\
                                 <input type='number' step='0.01' min='0' name='sell_price"+ i +"' id='sell_price' style='width:40%' placeholder='Enter Selling price of single Pc.' required='required''><br>\
+                            Whole Sale Price (in BD) : <br>\
+                            <input type='number' step='0.01' min='0' name='wholesale_price"+ i +"' id='wholesale_price' style='width:40%' placeholder='Enter Whole Sale price of single Pc.' '><br>\
                             Description:<br>\
                                 <input type='text' name='description"+ i +"' id='description' style='width:40%'><br>\
                             Cabinet Number:<br>\

@@ -217,6 +217,7 @@ else if((isset($_SESSION['username']) && $_SESSION['role'] == "worker"))
                                         <th>Quantity</th>
                                         <th>Cost Price</th>
                                         <th>Sell Price</th>
+                                        <th>Whole Sale Price</th>
                                         <th>Cabinet</th>
                                         <th>Tags</th>
                                         <th>Purchase Date</th>
@@ -233,6 +234,7 @@ else if((isset($_SESSION['username']) && $_SESSION['role'] == "worker"))
                                             <td>".$row["stock_amt"]."</td>
                                             <td>".$row["cost_price"]."</td>
                                             <td>".$row["sell_price"]."</td>
+                                            <td>".$row["wholesale_price"]."</td>
                                             <td>".$row["cabinet"]."</td>
                                             <td>".$row["tag"]."</td>
                                             <td>".$time1."</td>
@@ -272,6 +274,7 @@ else if((isset($_SESSION['username']) && $_SESSION['role'] == "worker"))
                                         <th>Quantity</th>
                                         <th>Cost Price</th>
                                         <th>Sell Price</th>
+                                        <th>Whole Sale Price</th>
                                         <th>Cabinet</th>
                                         <th>Tags</th>
                                         <th>Purchase Date</th>
@@ -288,6 +291,8 @@ else if((isset($_SESSION['username']) && $_SESSION['role'] == "worker"))
                                             <td>".$row["stock_amt"]."</td>
                                             <td>".$row["cost_price"]."</td>
                                             <td>".$row["sell_price"]."</td>
+                                            <td>".$row["wholesale_price"]."</td>
+
                                             <td>".$row["cabinet"]."</td>
                                             <td>".$row["tag"]."</td>
                                             <td>".$time1."</td>
@@ -341,6 +346,9 @@ else if((isset($_SESSION['username']) && $_SESSION['role'] == "worker"))
                     Selling Price (in BD) :<br>
                     <input type="number" name="sell_price" id="sell_price" min="0" step="0.01" required="required">
                     <br>
+                    Wholesale Price (in BD) :<br>
+                    <input type="number" name="wholesale_price" id="wholesale_price" min="0" step="0.01" required="required">
+                    <br>
                     Cabinet Number:<br>
                     <input type="number" name="cabinet" id="cabinet" value=""  >
                     <br>
@@ -385,6 +393,9 @@ else if((isset($_SESSION['username']) && $_SESSION['role'] == "worker"))
                      <br>
                     Selling Price (in BD) :<br>
                     <input type="number" name="sell_price" id="sell_price_u" min="0" step="0.01">
+                    <br>
+                    Wholesale Price (in BD) :<br>
+                    <input type="number" name="wholesale_price" id="wholesale_price_u" min="0" step="0.01">
                     <br>
                     Cabinet Number:<br>
                     <input type="number" name="cabinet" id="cabinet_u" >
@@ -478,6 +489,8 @@ else if((isset($_SESSION['username']) && $_SESSION['role'] == "worker"))
                                  $('#stock_amt_u').val(data.stock_amt);  
                                  $('#cost_price_u').val(data.cost_price);  
                                  $('#sell_price_u').val(data.sell_price);  
+                                 $('#wholesale_price_u').val(data.wholesale_price);  
+
                                  $('#cabinet_u').val(data.cabinet);  
                                  $('#tags_u').val(data.tag);  
                                  $('#pro_id_u').val(data.id); 
