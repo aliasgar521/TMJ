@@ -84,11 +84,11 @@ else if((isset($_SESSION['username']) && $_SESSION['role'] == "worker"))
                             Quantity purchase:<br>\
                                 <input type='number' min='0'  name='purchase_quantity"+ i +"' id='stock_bought' style='width:40%' required='required''><br>\
                             Cost Price (in BD) :<br>\
-                                <input type='number' min='0' step='0.01' style='width:40%' name='cost_price"+ i +"' id='cost_price' placeholder='Enter Cost price of single Pc.' required='required' ><br>\
+                                <input type='number' min='0' step='0.001' style='width:40%' name='cost_price"+ i +"' id='cost_price' placeholder='Enter Cost price of single Pc.' required='required' ><br>\
                             Selling Price (in BD) : <br>\
-                                <input type='number' step='0.01' min='0' name='sell_price"+ i +"' id='sell_price' style='width:40%' placeholder='Enter Selling price of single Pc.' required='required''><br>\
+                                <input type='number' step='0.001' min='0' name='sell_price"+ i +"' id='sell_price' style='width:40%' placeholder='Enter Selling price of single Pc.' required='required''><br>\
                             Whole Sale Price (in BD) : <br>\
-                            <input type='number' step='0.01' min='0' name='wholesale_price"+ i +"' id='wholesale_price' style='width:40%' placeholder='Enter Whole Sale price of single Pc.' '><br>\
+                            <input type='number' step='0.001' min='0' name='wholesale_price"+ i +"' id='wholesale_price' style='width:40%' placeholder='Enter Whole Sale price of single Pc.' '><br>\
                             Description:<br>\
                                 <input type='text' name='description"+ i +"' id='description' style='width:40%'><br>\
                             Cabinet Number:<br>\
@@ -124,10 +124,10 @@ else if((isset($_SESSION['username']) && $_SESSION['role'] == "worker"))
 
         </script>
         <style type="text/css">
-.icon{
-  padding-left: 10px;
-  margin-right: 20px;
-}
+		.icon{
+		  padding-left: 10px;
+		  margin-right: 20px;
+		}
             .center_div{
             margin: 0 auto;
             width:90% /* value of your choice which suits your alignment */
@@ -148,6 +148,16 @@ else if((isset($_SESSION['username']) && $_SESSION['role'] == "worker"))
                /* width: 200px;
                 height: 150px; */
             }
+        </style>
+        <style>
+            .ui-autocomplete {
+                max-height: 200px;
+                overflow-y: auto;
+                /* prevent horizontal scrollbar */
+                overflow-x: hidden;
+                /* add padding to account for vertical scrollbar */
+                padding-right: 20px;
+            } 
         </style>
     </head>
     <body style="background: #F5F5F5">

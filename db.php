@@ -47,7 +47,7 @@
 
 		$cabinet=$menu['cabinet'];
 		$tags = $menu['tags'];
-		$purchase_date=$menu['purchase_date'];
+		// $purchase_date=$menu['purchase_date'];
 		$t=strtotime($menu['purchase_date']);
 		
 		if(empty($desc))
@@ -62,17 +62,19 @@
 		{
 			$tags="";
 		}
+		if(empty($wp))
+				{
+					$wp="0";
+				}
 		//QUERY WITH SUPPLIER ID IN IT
 		// $sql1 = "INSERT INTO `Inventory`(`item_name`,`description`,`stock_amt`,`supplier_id`,`cost_price`,`sell_price`,`cabinet`,`tag`,`purchase_date`) VALUES ('$item_name','$desc','$stock_amt','$supplier_id','$cp','$sp','$cabinet','$tags','$t')";
 
 		//QUERY WITHOUT SUPPLIER ID
-		$sql1 = "INSERT INTO `Inventory`(`item_name`,`description`,`stock_amt`,`cost_price`,`sell_price`,`wholesale_price,`cabinet`,`tag`,`purchase_date`,`deleted`) VALUES ('$item_name','$desc','$stock_amt','$cp','$sp','$wp','$cabinet','$tags','$t','0')";
+		$sql1 = "INSERT INTO `Inventory`(`item_name`,`description`,`stock_amt`,`cost_price`,`sell_price`,`wholesale_price`,`cabinet`,`tag`,`purchase_date`,`deleted`) VALUES ('$item_name','$desc','$stock_amt','$cp','$sp','$wp','$cabinet','$tags','$t','0')";
 
 		$result = mysqli_query($connection,$sql1);
 		if(mysqli_affected_rows($connection)){
 			return true;
-			
-
 		}
 		return false;
 	}
@@ -104,6 +106,10 @@
 		{
 			$tags="";
 		}
+		if(empty($wp))
+				{
+					$wp="0";
+				}
 		// $purchase_date=$menu['purchase_date'];
 		// $t=strtotime($menu['purchase_date']);
 		$sql1 = '';

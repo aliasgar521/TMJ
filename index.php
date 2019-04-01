@@ -57,10 +57,10 @@ else if((isset($_SESSION['username']) && $_SESSION['role'] == "worker"))
         });
         
         </script>
-		<style type="text/css">
+        <style type="text/css">
             .center_div{
             margin: 0 auto;
-            width:90% /* value of your choice which suits your alignment */
+            width:97% /* value of your choice which suits your alignment */
             }
             @media (max-width: @screen-xs) {
                 body{font-size: 10px;}
@@ -79,8 +79,21 @@ else if((isset($_SESSION['username']) && $_SESSION['role'] == "worker"))
                /* width: 200px;
                 height: 150px; */
             }
-            
-            
+            .container{
+                padding-left: 0%;
+                padding-right: 0%;
+                max-width: 1250px;
+            }
+        </style>
+        <style>
+            .ui-autocomplete {
+                max-height: 200px;
+                overflow-y: auto;
+                /* prevent horizontal scrollbar */
+                overflow-x: hidden;
+                /* add padding to account for vertical scrollbar */
+                padding-right: 20px;
+            } 
         </style>
         <style>
             table {
@@ -171,12 +184,12 @@ else if((isset($_SESSION['username']) && $_SESSION['role'] == "worker"))
                 <div class="container center_div">
                     <div class="row ">
                         <div class="col-lg-4 col-md-4 col-sm-12">
-                            <input class="btn btn-primary" name="add_product" id="add_product" style="margin:2%; float:left;" value="Add Product">
+                            <button class="btn btn-primary" name="add_product" id="add_product" style="margin:2%; float:left;">Add Product</button>
                         </div>
-                        <div class="col-lg-3 col-md-3 col-sm-12">
+                        <div class="col-lg-4 col-md-4 col-sm-12">
                             <!-- <input class="btn btn-primary" name="add_supplier" id="add_supplier" style="margin:2%;" value="Add Supplier"> -->
                         </div>
-                        <div class="col-lg-5 col-md-5 col-sm-12">
+                        <div class="col-lg-4 col-md-4 col-sm-12">
                             
                             <form id="product" method="get" action="" style="float:right" > 
                                 <input type="text" name="product_input" id="product_input" class="product_input" placeholder="Search Product"  />
@@ -239,8 +252,8 @@ else if((isset($_SESSION['username']) && $_SESSION['role'] == "worker"))
                                             <td>".$row["tag"]."</td>
                                             <td>".$time1."</td>
                                             <td>
-                                            	<input type='image' class='edit_data' id=".$row["id"]." src='images/edit.png' name='record' style='height:20px;width:18px'>
-                                            	<input type='image' class='delete_data' id=".$row["id"]." src='images/icon-delete.png' name='record_delete'>
+                                                <input type='image' class='edit_data' id=".$row["id"]." src='images/edit.png' name='record' style='height:20px;width:18px'>
+                                                <input type='image' class='delete_data' id=".$row["id"]." src='images/icon-delete.png' name='record_delete'>
                                             </td>
                                            </tr>";
                                 }
@@ -341,13 +354,13 @@ else if((isset($_SESSION['username']) && $_SESSION['role'] == "worker"))
                     <input type="date" name="purchase_date" id="purchase_date" required="required">
                     <br>
                     Cost Price (in BD) :<br>
-                    <input type="number" name="cost_price" id="cost_price" min="0" step="0.01" required="required">
+                    <input type="number" name="cost_price" id="cost_price" min="0" step="0.001" required="required">
                      <br>
                     Selling Price (in BD) :<br>
-                    <input type="number" name="sell_price" id="sell_price" min="0" step="0.01" required="required">
+                    <input type="number" name="sell_price" id="sell_price" min="0" step="0.001" required="required">
                     <br>
                     Wholesale Price (in BD) :<br>
-                    <input type="number" name="wholesale_price" id="wholesale_price" min="0" step="0.01" required="required">
+                    <input type="number" name="wholesale_price" id="wholesale_price" min="0" step="0.001" required="required">
                     <br>
                     Cabinet Number:<br>
                     <input type="number" name="cabinet" id="cabinet" value=""  >
@@ -389,13 +402,13 @@ else if((isset($_SESSION['username']) && $_SESSION['role'] == "worker"))
                     <input type="date" name="purchase_date" id="purchase_date">
                     <br>
                     Cost Price (in BD) :<br>
-                    <input type="number" name="cost_price" id="cost_price_u" min="0" step="0.01">
+                    <input type="number" name="cost_price" id="cost_price_u" min="0" step="0.001">
                      <br>
                     Selling Price (in BD) :<br>
-                    <input type="number" name="sell_price" id="sell_price_u" min="0" step="0.01">
+                    <input type="number" name="sell_price" id="sell_price_u" min="0" step="0.001">
                     <br>
                     Wholesale Price (in BD) :<br>
-                    <input type="number" name="wholesale_price" id="wholesale_price_u" min="0" step="0.01">
+                    <input type="number" name="wholesale_price" id="wholesale_price_u" min="0" step="0.001">
                     <br>
                     Cabinet Number:<br>
                     <input type="number" name="cabinet" id="cabinet_u" >
@@ -516,6 +529,9 @@ else if((isset($_SESSION['username']) && $_SESSION['role'] == "worker"))
                     e.preventDefault();
                     $('#add_data_Modal').modal('show'); 
                    });
+                   $('#add_data_Modal').on('shown.bs.modal', function () {
+                    $('#item_name').focus();
+                    }); 
 
                     $("#add_supplier").click(function(e){
                     e.preventDefault();

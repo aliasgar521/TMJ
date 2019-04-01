@@ -2,7 +2,7 @@
 <html>
 <head>
 	<title></title>
-	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+	<script src="vendor/sweetalert/sweetalert.min.js"></script>
  	<script type="text/javascript">
       function showSwal(){
        

@@ -146,7 +146,7 @@ else if((isset($_SESSION['username']) && $_SESSION['role'] == "worker"))
                         document.getElementById("product_input").value="";
                         document.getElementById("product_quant").value="";
 
-                    },100);
+                    },500);
                         
                         // var namezz = $("#test1230").attr("name");
                            // alert($('#test0').attr('value'));
@@ -168,8 +168,8 @@ else if((isset($_SESSION['username']) && $_SESSION['role'] == "worker"))
                     var total_sum;
                     total_sum=calculate_values();
                     $("#total_sum_value").html(total_sum);
-                },100);
-                });
+                },500);
+                })
             });
 
         </script>
@@ -197,6 +197,16 @@ else if((isset($_SESSION['username']) && $_SESSION['role'] == "worker"))
                /* width: 200px;
                 height: 150px; */
             }
+        </style>
+        <style>
+            .ui-autocomplete {
+                max-height: 200px;
+                overflow-y: auto;
+                /* prevent horizontal scrollbar */
+                overflow-x: hidden;
+                /* add padding to account for vertical scrollbar */
+                padding-right: 20px;
+            } 
         </style>
         <style>
 			table {

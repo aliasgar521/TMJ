@@ -23,7 +23,7 @@ if($result->num_rows > 0){
     while($row = $result->fetch_assoc()){
         $data['id'] = $row['id'];
         $data['value'] = $row['item_name'];
-        $data['label'] = $row['item_name']." (Availability ".$row['stock_amt'].") (Cabinet ".$row['cabinet'].")";
+        $data['label'] = $row['item_name']." (Availability ".$row['stock_amt'].") (Price ".$row['sell_price'].") (Cabinet ".$row['cabinet'].")";
         // $data['value'] =$row['stock_amt'];
         array_push($inventoryData, $data);
     }
