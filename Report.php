@@ -183,6 +183,13 @@ else if((isset($_SESSION['username']) && $_SESSION['role'] == "worker"))
                                 <input type="date"  name="single_date" id="single_date" style="margin:2%; width:98%" >
                                 <input type="submit" class="btn btn-primary btn-block" name="submit_date"  value="Generate Report!">
                             </form>
+                            <form id="date_report2" method="get" action="#" class="rcorners3"> 
+                                From Date:&nbsp;
+                                <input type="date"  name="double_date1" id="double_date1"><br><br>
+                                To Date: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                <input type="date"  name="double_date2" id="double_date2"><br><br>
+                                <input type="submit" class="btn btn-primary btn-block" name="submit_double_date" value="Generate Report!">
+                            </form>
                              <form id="product" method="get" action="#"  class="rcorners3"> 
                                 Enter Product: 
                                 <input type="text" name="product_input" id="product_input" class="product_input" style="width:67%"/>
@@ -203,8 +210,13 @@ else if((isset($_SESSION['username']) && $_SESSION['role'] == "worker"))
                             $date1=strtotime($date);
                             echo "<script>console.log($date1)</script>";
                             display_date($date,$date1);
-
                         }
+                        else if(isset($_GET['submit_double_date']))
+                        {
+                            $ddate1=htmlentities($_GET['double_date1']);
+                            $ddate2=htmlentities($_GET['double_date2']);
+                            display_ddate($ddate1,$ddate2);
+                        } 
                         else if(isset($_GET['submit_product'])){
                             $product=htmlentities($_GET['product_input']);
                             display_product($product);
@@ -280,7 +292,49 @@ else if((isset($_SESSION['username']) && $_SESSION['role'] == "worker"))
                             else
                                 echo "<br><br><h1>No results Found</h1>";
                         }
+                        function display_ddate(string $ddate1,string $ddate2){
+                            $connection=connect_db();
+                                //$product = $menu['product_input'];
+                                // $sql="SELECT pro_name,quantity,cost_price from invandpro where pro_name = '$product';";
+                            $t1=strtotime($ddate1);
+                            $t2=strtotime($ddate2);
+                            $sum=0;
+                            $profit=0;
 
+                            $sql="select sales_date,item_name,quantity,SalesDetails.sell_price,profit,sales_person from SalesDetails join Sales on SalesDetails.bill_id=Sales.bill_id join Inventory on SalesDetails.product_id=Inventory.id where sales_date between '$t1' and '$t2' order by sales_date ASC";
+
+                            $result = mysqli_query($connection,$sql);
+                            if(mysqli_num_rows($result)){
+                                echo '<h2>Sales report since <u>';
+                                echo $ddate1; 
+                                echo ' to '; 
+                                echo $ddate2; 
+                                echo'</u></h2><table>
+                                <tr  style="background:#42A5F5;color:white" >
+                                    <th>Date & Time</th>
+                                    <th>Product</th>
+                                    <th>Quantity</th>
+                                    <th>Sold For</th>
+                                    <th>Profit</th>
+                                    <th>Sales Person</th>
+                                
+                                </tr>';
+                                    while($row = $result->fetch_assoc()){
+                                    $time=$row["sales_date"];
+                                    $time1= date("d-m-Y h:i a ", substr("$time", 0, 10));
+
+                                    echo "<tr><td>".$time1."</td><td>".$row["item_name"]."</td><td>".$row["quantity"]."</td><td>".$row["sell_price"]."</td><td>".$row["profit"]."</td><td>".$row["sales_person"]."</td></tr>";
+                                    $sum=$sum+($row["sell_price"]*$row["quantity"]);
+                                    $profit=$profit+($row["profit"]);
+                        			}
+                                echo "</table>";
+                                echo "<h2>Total Sale is <strong>".$sum."</strong> BD</h2>";
+                                echo "<h2>Total Profit is <strong>".$profit."</strong> BD</h2>";
+                            }
+                            else
+                                echo "<br><br><h1>No results Found</h1>";
+                            $connection->close();
+                        }
                         function display_product(string $product){
                             $connection=connect_db();
                             $sql="select sales_date,item_name,quantity,SalesDetails.sell_price,profit,sales_person from SalesDetails join Sales on SalesDetails.bill_id=Sales.bill_id join Inventory on SalesDetails.product_id=Inventory.id where item_name='$product' order by sales_date DESC";
